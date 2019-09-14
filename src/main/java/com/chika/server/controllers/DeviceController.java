@@ -60,7 +60,7 @@ public class DeviceController {
                              @PathVariable(value = "state") int state) {
         Audio audio = audioService.findAudioById(id + state);
         System.out.println(audio.getPath());
-//        httpService.put(currentUser.getHouseIp(), new DeviceResponse(id, state, audio.getPath()));
+        httpService.put(currentUser.getHouseIp(), new DeviceResponse(id, state, audio.getPath()));
 
         DeviceHistory deviceHistory = new DeviceHistory(id, state, new Timestamp(System.currentTimeMillis()));
         deviceHistoryService.saveDevice(deviceHistory);
