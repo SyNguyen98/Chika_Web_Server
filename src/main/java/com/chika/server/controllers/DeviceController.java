@@ -50,9 +50,9 @@ public class DeviceController {
 
     @PutMapping("/{id}/{state}")
     public void updateDevice(@CurrentUser UserPrincipal currentUser, @PathVariable(value = "id") String id, @PathVariable(value = "state") int state) {
-        System.out.println(currentUser.getHouseIp());
+//        System.out.println(currentUser.getHouseIp());
 
-//        httpService.put(currentUser.getHouseIp(), id, state);
+        httpService.put(currentUser.getHouseIp(), id, state);
 
         DeviceHistory deviceHistory = new DeviceHistory(id, state, new Timestamp(System.currentTimeMillis()));
         deviceHistoryService.saveDevice(deviceHistory);

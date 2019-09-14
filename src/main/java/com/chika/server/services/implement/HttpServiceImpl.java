@@ -28,7 +28,7 @@ public class HttpServiceImpl implements HttpService {
 
     @Override
     public void put(String houseIp, String id, int state) {
-        String url = "http://" + houseIp + ":8080/device/" + id + "/" + state;
+        String url = "http://172,29.43.12:8080/device/" + id + "/" + state;
 
         HttpHeaders headers = new HttpHeaders();
 //        headers.set("Authorization", token);
