@@ -1,9 +1,12 @@
 package com.chika.server.controllers;
 
+import com.chika.server.models.house.Audio;
 import com.chika.server.models.house.Device;
 import com.chika.server.models.house.DeviceHistory;
+import com.chika.server.payload.DeviceResponse;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
+import com.chika.server.services.AudioService;
 import com.chika.server.services.DeviceHistoryService;
 import com.chika.server.services.DeviceService;
 import com.chika.server.services.HttpService;
@@ -31,6 +34,9 @@ public class DeviceController {
     private DeviceHistoryService deviceHistoryService;
 
     @Autowired
+    private AudioService audioService;
+
+    @Autowired
     private HttpService httpService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -49,10 +55,12 @@ public class DeviceController {
     }
 
     @PutMapping("/{id}/{state}")
-    public void updateDevice(@CurrentUser UserPrincipal currentUser, @PathVariable(value = "id") String id, @PathVariable(value = "state") int state) {
-//        System.out.println(currentUser.getHouseIp());
-
-        httpService.put(currentUser.getHouseIp(), id, state);
+    public void updateDevice(@CurrentUser UserPrincipal currentUser,
+                             @PathVariable(value = "id") String id,
+                             @PathVariable(value = "state") int state) {
+        Audio audio = audioService.findAudioById(id + state);
+        System.out.println(audio.getPath());
+//        httpService.put(currentUser.getHouseIp(), new DeviceResponse(id, state, audio.getPath()));
 
         DeviceHistory deviceHistory = new DeviceHistory(id, state, new Timestamp(System.currentTimeMillis()));
         deviceHistoryService.saveDevice(deviceHistory);

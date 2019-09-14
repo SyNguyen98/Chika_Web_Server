@@ -1,5 +1,6 @@
 package com.chika.server.services.implement;
 
+import com.chika.server.payload.DeviceResponse;
 import com.chika.server.services.HttpService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -27,13 +28,13 @@ public class HttpServiceImpl implements HttpService {
     }
 
     @Override
-    public void put(String houseIp, String id, int state) {
-        String url = "http://172,29.43.12:8080/device/" + id + "/" + state;
+    public void put(String houseIp, DeviceResponse deviceResponse) {
+        String url = "http://" + houseIp + ":8080/device";
 
         HttpHeaders headers = new HttpHeaders();
 //        headers.set("Authorization", token);
 
-        HttpEntity<String> entity = new HttpEntity<>(headers);
+        HttpEntity<DeviceResponse> entity = new HttpEntity<>(deviceResponse, headers);
 
         RestTemplate restTemplate = new RestTemplate();
 
