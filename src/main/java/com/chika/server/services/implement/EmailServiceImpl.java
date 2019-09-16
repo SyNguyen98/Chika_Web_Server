@@ -43,13 +43,13 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public String sendHtmlMail(String mailReceiver, String token) {
 
-        String form = "<form action=\"http://localhost:8080/user/reset-password\" method=\"post\">\n"
-                + "Token: <input name=\"token\" type=\"text\"/> <br/> <br/>\n"
-                + "New password: <input name=\"password\" type=\"text\"/> <br/> <br/>\n"
+        String form = "<form action=\"http://chika-server.herokuapp.com/user/reset-password\" method=\"post\">\n"
+                + "Token: <input name=\"token\" type=\"text\" style=\"width:600px;font-size:12pt;\"/> <br/> <br/>\n"
+                + "New password: <input name=\"password\" type=\"text\" style=\"width:200px;font-size:12pt;\"/> <br/> <br/>\n"
                 + "<button type=\"submit\">CONFIRM</button>\n"
                 + "</form>";
 
-        String htmlMsg = "<h3>Auth Token: " + token + "</h3>" + form;
+        String htmlMsg = "<p>Auth Token: " + token + "</p>" + form;
 
         MimeMessage message = emailSender.createMimeMessage();
 
@@ -59,7 +59,7 @@ public class EmailServiceImpl implements EmailService {
             message.setContent(htmlMsg, "text/html");
 
             helper.setTo(mailReceiver);
-            helper.setSubject("Changing Password");
+            helper.setSubject("Chika Smarthome: Reset Password");
         } catch (MessagingException e) {
             e.printStackTrace();
         }

@@ -18,8 +18,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/reset-password",
-                consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-                produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+                consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String resetPassword(@RequestParam(name = "token") String token,
                               @RequestParam(name = "password") String password) {
         return userService.resetPassword(token, password);
