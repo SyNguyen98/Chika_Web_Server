@@ -8,4 +8,6 @@ public interface EmailService {
     String sendSimpleEmail(String mailReceiver, String token);
 
     String sendAttachmentEmail();
+
+    String sendHtmlMail(String mailReceiver, String token);
 }

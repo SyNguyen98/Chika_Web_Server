@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserService {
 
-    void resetPassword();
+    String resetPassword(String token, String newPassword);
 
-    void forgetPassword(String username);
+    String forgetPassword(String email);
 }

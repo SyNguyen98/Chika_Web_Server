@@ -93,6 +93,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                 .antMatchers(HttpMethod.GET, "/login")
                     .permitAll()
+                .antMatchers("/user/**")
+                    .permitAll()
                 .antMatchers("/auth/**")
                     .permitAll()
                 // Need authentication.
