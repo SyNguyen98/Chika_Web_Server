@@ -1,5 +1,7 @@
 package com.chika.server.controllers;
 
+import com.chika.server.models.account.User;
+import com.chika.server.payload.responses.UserResponse;
 import com.chika.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,6 +18,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/{username}")
+    public UserResponse getUser(@PathVariable String username) {
+        User user = userService.getUserByUsername(username);
+        return new UserResponse(user);
+    }
 
     @PutMapping("/forget-password")
     public String forgetPassword(@RequestParam String email) {
