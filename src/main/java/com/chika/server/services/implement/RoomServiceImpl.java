@@ -1,11 +1,13 @@
 package com.chika.server.services.implement;
 
+import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.house.Room;
 import com.chika.server.repositories.RoomRepository;
 import com.chika.server.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -21,16 +23,9 @@ public class RoomServiceImpl implements RoomService {
     private RoomRepository roomRepository;
 
     @Override
-    public Room findRoomById(Integer id) {
-        if (roomRepository.findById(id).isPresent()) {
-            return roomRepository.findById(id).get();
-        }
-        return null;
-    }
-
-    @Override
-    public List<Room> findAllRooms() {
-        return roomRepository.findAll();
+    @Transactional
+    public List<Room> getAllRoomsByUserId(Long userId) {
+        return roomRepository.findAllByUserId(userId);
     }
 
     @Override
@@ -39,22 +34,15 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room updateRoom(Integer id, String name) {
-        if (roomRepository.findById(id).isPresent()) {
-            Room room = roomRepository.findById(id).get();
-            room.setName(name);
-            return roomRepository.save(room);
-        }
-        return null;
+    public Room updateRoom(String id, String name) {
+        Room room = roomRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Room", "id", id));
+        room.setName(name);
+        return roomRepository.save(room);
     }
 
     @Override
-    public String deleteRoom(Integer id) {
-        if (roomRepository.findById(id).isPresent()) {
-            Room room = roomRepository.findById(id).get();
-            roomRepository.delete(room);
-            return "deleted";
-        }
-        return null;
+    public void deleteRoom(String id) {
+        roomRepository.deleteById(id);
     }
 }

@@ -1,4 +1,4 @@
-package com.chika.server.payload;
+package com.chika.server.payload.requests;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
  * @since 16-8-2019
  */
 @Data
-public class LoginRequest {
+public class SignInRequest {
 
     @NotBlank
     private String usernameOrEmail;

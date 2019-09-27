@@ -1,6 +1,8 @@
 package com.chika.server.services.implement;
 
 import com.chika.server.models.house.Device;
+import com.chika.server.models.house.DeviceHistory;
+import com.chika.server.repositories.DeviceHistoryRepository;
 import com.chika.server.repositories.DeviceRepository;
 import com.chika.server.services.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +21,17 @@ public class DeviceServiceImpl implements DeviceService {
     @Autowired
     private DeviceRepository deviceRepository;
 
+    @Autowired
+    private DeviceHistoryRepository deviceHistoryRepository;
+
     @Override
-    public Device findDeviceById(String id) {
-        if (deviceRepository.findById(id).isPresent()) {
-            return deviceRepository.findById(id).get();
-        }
-        return null;
+    public List<Device> getDevicesByRoomId(String roomId) {
+        return deviceRepository.findAllByRoomId(roomId);
     }
 
     @Override
-    public List<Device> findAllDevices() {
-        return deviceRepository.findAll();
+    public List<Device> getDevicesBySwitchId(String switchId) {
+        return deviceRepository.findAllBySwitchId(switchId);
     }
 
     @Override
@@ -55,6 +57,26 @@ public class DeviceServiceImpl implements DeviceService {
             deviceRepository.delete(device);
             return "deleted";
         }
+        return null;
+    }
+
+    @Override
+    public List<DeviceHistory> findDeviceHistoriesById(String id) {
+        return deviceHistoryRepository.findDeviceHistoriesById(id);
+    }
+
+    @Override
+    public List<DeviceHistory> findAllDeviceHistories() {
+        return deviceHistoryRepository.findAll();
+    }
+
+    @Override
+    public DeviceHistory saveDeviceHistory(DeviceHistory device) {
+        return deviceHistoryRepository.save(device);
+    }
+
+    @Override
+    public Boolean deleteDeviceHistory(String id) {
         return null;
     }
 }

@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 27-09-2019
+ */
 @RestController
 @RequestMapping("/room")
 public class RoomController {
@@ -14,14 +19,9 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
 
-    @GetMapping
-    public List<Room> getAllRooms() {
-        return roomService.findAllRooms();
-    }
-
-    @GetMapping("/{id}")
-    public Room getRoomById(@PathVariable Integer id) {
-        return roomService.findRoomById(id);
+    @GetMapping("/{userId}")
+    public List<Room> getRoomsByUserId(@PathVariable Long userId) {
+        return roomService.getAllRoomsByUserId(userId);
     }
 
     @PostMapping
@@ -30,12 +30,12 @@ public class RoomController {
     }
 
     @PutMapping("/{id}/{name}")
-    public Room updateRoom(@PathVariable(value = "id") Integer id, @PathVariable(value = "name") String name) {
+    public Room updateRoom(@PathVariable(value = "id") String id, @PathVariable(value = "name") String name) {
         return roomService.updateRoom(id, name);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteRoom(@PathVariable Integer id) {
-        return roomService.deleteRoom(id);
+    public void deleteRoom(@PathVariable String id) {
+        roomService.deleteRoom(id);
     }
 }

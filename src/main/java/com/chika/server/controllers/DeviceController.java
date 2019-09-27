@@ -1,27 +1,16 @@
 package com.chika.server.controllers;
 
-import com.chika.server.models.house.Audio;
 import com.chika.server.models.house.Device;
-import com.chika.server.models.house.DeviceHistory;
-import com.chika.server.payload.DeviceResponse;
-import com.chika.server.security.CurrentUser;
-import com.chika.server.security.UserPrincipal;
-import com.chika.server.services.AudioService;
-import com.chika.server.services.DeviceHistoryService;
 import com.chika.server.services.DeviceService;
-import com.chika.server.services.HttpService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * Control all devices in house
  * @author Sy Nguyen
  * @version 1.0
- * @since 13-08-2019
+ * @since 27-09-2019
  */
 @RestController
 @RequestMapping("/device")
@@ -30,23 +19,14 @@ public class DeviceController {
     @Autowired
     private DeviceService deviceService;
 
-    @Autowired
-    private DeviceHistoryService deviceHistoryService;
-
-    @Autowired
-    private AudioService audioService;
-
-    @Autowired
-    private HttpService httpService;
-
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Device> getAllDevices() {
-        return deviceService.findAllDevices();
+    @GetMapping("/room/{roomId}")
+    public List<Device> getDevicesByRoomId(@PathVariable String roomId) {
+        return deviceService.getDevicesByRoomId(roomId);
     }
 
-    @GetMapping("/{id}")
-    public Device getDeviceById(@PathVariable String id) {
-        return deviceService.findDeviceById(id);
+    @GetMapping("/switch/{switchId}")
+    public List<Device> getDevicesBySwitchId(@PathVariable String switchId) {
+        return deviceService.getDevicesBySwitchId(switchId);
     }
 
     @PostMapping
@@ -55,16 +35,7 @@ public class DeviceController {
     }
 
     @PutMapping("/{id}/{state}")
-    public void updateDevice(@CurrentUser UserPrincipal currentUser,
-                             @PathVariable(value = "id") String id,
-                             @PathVariable(value = "state") int state) {
-        Audio audio = audioService.findAudioById(id + state);
-        System.out.println(audio.getPath());
-        httpService.put(currentUser.getHouseIp(), new DeviceResponse(id, state, audio.getPath()));
-
-        DeviceHistory deviceHistory = new DeviceHistory(id, state, new Timestamp(System.currentTimeMillis()));
-        deviceHistoryService.saveDevice(deviceHistory);
-
+    public void updateDevice(@PathVariable(value = "id") String id, @PathVariable(value = "state") int state) {
         System.out.println(deviceService.updateDevice(id, state));
     }
 

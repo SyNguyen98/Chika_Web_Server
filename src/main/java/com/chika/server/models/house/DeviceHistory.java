@@ -1,9 +1,11 @@
 package com.chika.server.models.house;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
 /**
@@ -15,6 +17,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "device_history")
 @Data
+@NoArgsConstructor
 public class DeviceHistory {
 
     @Id
@@ -22,13 +25,13 @@ public class DeviceHistory {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @Column(name = "device_id")
+    @NotBlank
     private String deviceId;
 
-    @Column(name = "state")
+    @NotBlank
     private int state;
 
-    @Column(name = "time")
+    @NotBlank
     private Timestamp time;
 
     public DeviceHistory(String deviceId, int state, Timestamp time) {

@@ -1,5 +1,6 @@
-package com.chika.server.models;
+package com.chika.server.models.account;
 
+import com.chika.server.models.account.Role;
 import com.chika.server.models.audit.DateAudit;
 import org.hibernate.annotations.NaturalId;
 
@@ -51,18 +52,13 @@ public class User extends DateAudit {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @NotBlank
-    @Size(max = 15)
-    private String houseIp;
-
     public User() {}
 
-    public User(String name, String username, String email, String password, String houseIp) {
+    public User(String name, String username, String email, String password) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.houseIp = houseIp;
     }
 
     public Long getId() {
@@ -111,13 +107,5 @@ public class User extends DateAudit {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public String getHouseIp() {
-        return houseIp;
-    }
-
-    public void setHouseIp(String houseIp) {
-        this.houseIp = houseIp;
     }
 }

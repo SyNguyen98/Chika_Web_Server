@@ -1,16 +1,16 @@
 package com.chika.server.controllers;
 
 import com.chika.server.exception.AppException;
-import com.chika.server.models.Role;
-import com.chika.server.models.RoleName;
-import com.chika.server.models.User;
-import com.chika.server.payload.ApiResponse;
-import com.chika.server.payload.JwtAuthenticationResponse;
-import com.chika.server.payload.LoginRequest;
-import com.chika.server.payload.SignUpRequest;
+import com.chika.server.models.account.Role;
+import com.chika.server.models.account.RoleName;
+import com.chika.server.models.account.User;
+import com.chika.server.payload.responses.ApiResponse;
+import com.chika.server.payload.responses.AuthenticationResponse;
+import com.chika.server.payload.requests.SignInRequest;
+import com.chika.server.payload.requests.SignUpRequest;
 import com.chika.server.repositories.RoleRepository;
-import com.chika.server.repositories.UserRepository;
 import com.chika.server.security.JwtTokenProvider;
+import com.chika.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,68 +34,66 @@ import java.util.Collections;
  */
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://192.168.100.4:3000")
 public class AuthController {
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    RoleRepository roleRepository;
+    private JwtTokenProvider tokenProvider;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private UserService userService;
 
     @Autowired
-    JwtTokenProvider tokenProvider;
+    private RoleRepository roleRepository;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInRequest signInRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsernameOrEmail(),
-                        loginRequest.getPassword()
+                        signInRequest.getUsernameOrEmail(),
+                        signInRequest.getPassword()
                 )
         );
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        User user = userService.getUserByUsername(signInRequest.getUsernameOrEmail());
         String token = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+
+        return ResponseEntity.ok(new AuthenticationResponse(token, user.getId()));
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
-        if(userRepository.existsByUsername(signUpRequest.getUsername())) {
+        if(userService.isExistByUsername(signUpRequest.getUsername())) {
             return new ResponseEntity<>(new ApiResponse(false, "Username is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
 
-        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return new ResponseEntity<>(new ApiResponse(false, "Email Address already in use!"),
+        if(userService.isExistByEmail(signUpRequest.getEmail())) {
+            return new ResponseEntity<>(new ApiResponse(false, "Email address already in use!"),
                     HttpStatus.BAD_REQUEST);
         }
 
         // Creating user's account
-        User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
-                signUpRequest.getEmail(), signUpRequest.getPassword(), signUpRequest.getHouseIp());
+        User user = new User(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getEmail(),
+                            passwordEncoder.encode(signUpRequest.getPassword()));
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+        Role userRole = roleRepository.findByName(RoleName.USER)
                 .orElseThrow(() -> new AppException("User Role not set."));
 
         user.setRoles(Collections.singleton(userRole));
 
-        User result = userRepository.save(user);
+        userService.saveUser(user);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/users/{username}")
-                .buildAndExpand(result.getUsername()).toUri();
+                .buildAndExpand(user.getUsername()).toUri();
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }

@@ -1,4 +1,4 @@
-package com.chika.server.payload;
+package com.chika.server.payload.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

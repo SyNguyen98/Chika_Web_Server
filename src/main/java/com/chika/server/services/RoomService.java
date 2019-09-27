@@ -8,13 +8,11 @@ import java.util.List;
 @Service
 public interface RoomService {
 
-    Room findRoomById(Integer id);
-
-    List<Room> findAllRooms();
+    List<Room> getAllRoomsByUserId(Long userId);
 
     Room saveRoom(Room room);
 
-    Room updateRoom(Integer id, String name);
+    Room updateRoom(String id, String name);
 
-    String deleteRoom(Integer id);
+    void deleteRoom(String id);
 }

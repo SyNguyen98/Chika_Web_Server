@@ -1,4 +1,4 @@
-package com.chika.server.models;
+package com.chika.server.models.account;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -23,10 +23,7 @@ public class Role {
     @Column(length = 60)
     private RoleName name;
 
-    public Role() {
-
-    }
-
+    public Role() {}
     public Role(RoleName name) {
         this.name = name;
     }

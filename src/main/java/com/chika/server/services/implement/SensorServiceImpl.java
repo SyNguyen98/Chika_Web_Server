@@ -1,6 +1,8 @@
 package com.chika.server.services.implement;
 
 import com.chika.server.models.house.Sensor;
+import com.chika.server.models.house.SensorHistory;
+import com.chika.server.repositories.SensorHistoryRepository;
 import com.chika.server.repositories.SensorRepository;
 import com.chika.server.services.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class SensorServiceImpl implements SensorService {
 
     @Autowired
     private SensorRepository sensorRepository;
+
+    @Autowired
+    private SensorHistoryRepository sensorHistoryRepository;
 
     @Override
     public Sensor findSensorById(String id) {
@@ -54,6 +59,26 @@ public class SensorServiceImpl implements SensorService {
             sensorRepository.delete(sensor);
             return "deleted";
         }
+        return null;
+    }
+
+    @Override
+    public List<SensorHistory> findSensorHistoryById(String id) {
+        return null;
+    }
+
+    @Override
+    public List<SensorHistory> findAllSensorHistories() {
+        return null;
+    }
+
+    @Override
+    public SensorHistory saveSensorHistory(SensorHistory sensor) {
+        return  sensorHistoryRepository.save(sensor);
+    }
+
+    @Override
+    public Boolean deleteSensorHistory(String id) {
         return null;
     }
 }

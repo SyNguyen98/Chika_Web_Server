@@ -1,7 +1,7 @@
 package com.chika.server.repositories;
 
-import com.chika.server.models.Role;
-import com.chika.server.models.RoleName;
+import com.chika.server.models.account.Role;
+import com.chika.server.models.account.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

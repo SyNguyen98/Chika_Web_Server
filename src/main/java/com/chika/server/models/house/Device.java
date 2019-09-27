@@ -1,11 +1,11 @@
 package com.chika.server.models.house;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * Connect to table Device in database
@@ -14,21 +14,24 @@ import javax.persistence.Table;
  * @since 08-09-2019
  */
 @Entity
-@Table(name = "device")
+@Table(name = "devices")
 @Data
 public class Device {
 
     @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @Column(name = "name")
+    @NotBlank
     private String name;
 
-    @Column(name = "state")
+    @NotNull
     private int state;
 
-    @Override
-    public String toString() {
-        return id + "\t" + name + "\t" + state;
-    }
+    @NotBlank
+    private String roomId;
+
+    @NotBlank
+    private String switchId;
 }

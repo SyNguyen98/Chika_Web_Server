@@ -46,7 +46,7 @@ public class AudioServiceImpl implements AudioService {
         });
 
         Audio audio = findAudioById(id);
-        String path = audio.getPath();
+        String path = audio.getUri();
         try {
             stopper.start();
             clip = AudioSystem.getClip();

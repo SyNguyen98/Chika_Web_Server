@@ -1,11 +1,9 @@
 package com.chika.server.models.house;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Connect to table Sensor in database
@@ -14,21 +12,20 @@ import javax.persistence.Table;
  * @since 08-09-2019
  */
 @Entity
-@Table(name = "Sensor")
+@Table(name = "sensors")
 @Data
 public class Sensor {
 
     @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @Column(name = "name")
+    @Column
     private String name;
 
-    @Column(name = "data")
+    @Column
     private double data;
 
-    @Override
-    public String toString() {
-        return id + "\t" + name + "\t" + data;
-    }
+    private Long userId;
 }

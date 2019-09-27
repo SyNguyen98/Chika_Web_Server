@@ -8,32 +8,28 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * Connect to table Room in database
+ * Connect to table Switch in database
  * @author Sy Nguyen
- * @version 1.2
+ * @version 1.0
  * @since 27-09-2019
  */
 @Entity
-@Table(name = "rooms")
-public class Room {
+@Table(name = "switches")
+public class Switch {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @NotBlank
-    private String name;
-
     @NotNull
     private Long userId;
 
-    @OneToMany(mappedBy = "roomId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "switchId")
     private List<Device> devices;
 
-    public Room() {}
-    public Room(String name, Long userId) {
-        this.name = name;
+    public Switch() {}
+    public Switch(Long userId) {
         this.userId = userId;
     }
 
@@ -43,14 +39,6 @@ public class Room {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Long getUserId() {
