@@ -19,13 +19,13 @@ public class SwitchController {
     @Autowired
     private SwitchService switchService;
 
-//    @GetMapping("/{userId}")
-//    public List<Switch> getSwitchesByUserId(@PathVariable Long userId) {
-//        return switchService.getAllSwitchesByUserId(userId);
-//    }
-
     @GetMapping("/{userId}")
-    public int getSwitchesByUserId(@PathVariable Long userId) {
+    public List<Switch> getSwitchesByUserId(@PathVariable Long userId) {
+        return switchService.getAllSwitchesByUserId(userId);
+    }
+
+    @GetMapping("/test")
+    public int test() {
         return 1;
     }
 
