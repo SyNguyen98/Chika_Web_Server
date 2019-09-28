@@ -30,13 +30,9 @@ public class SwitchController {
         return test;
     }
 
-    @PostMapping("/test")
-    public int testPost() {
-        if (test == 0) {
-            test = 1;
-        } else {
-            test = 0;
-        }
+    @PostMapping("/test/{i}")
+    public int testPost(@PathVariable int i) {
+        test = i;
         return test;
     }
 
