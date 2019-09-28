@@ -24,9 +24,20 @@ public class SwitchController {
         return switchService.getAllSwitchesByUserId(userId);
     }
 
+    int test = 0;
     @GetMapping("/test")
     public int test() {
-        return 1;
+        return test;
+    }
+
+    @PostMapping("/test")
+    public int testPost() {
+        if (test == 0) {
+            test = 1;
+        } else {
+            test = 0;
+        }
+        return test;
     }
 
     @PostMapping("/{userId}")
