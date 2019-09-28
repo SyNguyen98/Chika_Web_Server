@@ -30,9 +30,9 @@ public class SwitchController {
         return test;
     }
 
-    @PostMapping("/test/{i}")
-    public int testPost(@PathVariable int i) {
-        test = i;
+    @GetMapping("/test/{i}")
+    public int testPost(@PathVariable String i) {
+        test = Integer.parseInt(i);
         return test;
     }
 
