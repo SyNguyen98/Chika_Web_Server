@@ -1,6 +1,7 @@
 package com.chika.server.controllers;
 
 import com.chika.server.models.house.IR;
+import com.chika.server.payload.requests.IrRequest;
 import com.chika.server.services.IrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +20,14 @@ public class IrController {
         return irService.getIrByUserId(userId);
     }
 
-    @PostMapping("/{userId}/{quantity}")
-    public List<IR> saveAllIr(@PathVariable Long userId, @PathVariable int quantity) {
-        return irService.saveListIr(userId, quantity);
+    @PostMapping
+    public List<IR> saveAllIr(@RequestBody IrRequest irRequest) {
+        return irService.saveListIr(irRequest.getUserId(), irRequest.getQuantity());
     }
 
-    @PutMapping("/{id}/{value}")
-    public IR updateIr(@PathVariable String id, @PathVariable String value) {
-        return irService.updateIr(id, value);
+    @PutMapping
+    public IR updateIr(@RequestBody IR ir) {
+        return irService.updateIr(ir.getId(), ir.getValue());
     }
 
     @DeleteMapping("/{userId}")

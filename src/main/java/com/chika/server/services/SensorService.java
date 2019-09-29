@@ -15,9 +15,9 @@ public interface SensorService {
 
     Sensor saveSensor(Sensor sensor);
 
-    Sensor updateSensor(String id, double data);
+    Sensor updateSensor(String id, String name, double data);
 
-    String deleteSensor(String id);
+    void deleteSensor(String id);
 
     List<SensorHistory> findSensorHistoryById(String id);
 

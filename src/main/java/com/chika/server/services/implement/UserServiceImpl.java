@@ -38,6 +38,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User updateUser(Long id, String name, String email) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+        user.setName(name);
+        user.setEmail(email);
+        return userRepository.save(user);
+    }
+
+    @Override
     public String resetPassword(String token, String newPassword) {
         User user = userRepository.findByPassword(token)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "token", token));

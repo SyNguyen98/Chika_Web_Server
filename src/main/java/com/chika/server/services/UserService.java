@@ -10,6 +10,8 @@ public interface UserService {
 
     User saveUser(User user);
 
+    User updateUser(Long id, String name, String email);
+
     String resetPassword(String token, String newPassword);
 
     String forgetPassword(String email);

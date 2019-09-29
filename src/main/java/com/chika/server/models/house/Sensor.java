@@ -2,8 +2,11 @@ package com.chika.server.models.house;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * Connect to table Sensor in database
@@ -21,11 +24,12 @@ public class Sensor {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @Column
+    @NotBlank
     private String name;
 
-    @Column
+    @NotNull
     private double data;
 
-    private Long userId;
+    @NotBlank
+    private String roomId;
 }

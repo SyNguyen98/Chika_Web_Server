@@ -1,5 +1,6 @@
 package com.chika.server.services.implement;
 
+import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.house.Sensor;
 import com.chika.server.models.house.SensorHistory;
 import com.chika.server.repositories.SensorHistoryRepository;
@@ -26,10 +27,8 @@ public class SensorServiceImpl implements SensorService {
 
     @Override
     public Sensor findSensorById(String id) {
-        if (sensorRepository.findById(id).isPresent()) {
-            return sensorRepository.findById(id).get();
-        }
-        return null;
+        return sensorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Sensor", "id", id));
     }
 
     @Override
@@ -43,23 +42,17 @@ public class SensorServiceImpl implements SensorService {
     }
 
     @Override
-    public Sensor updateSensor(String id, double data) {
-        if (sensorRepository.findById(id).isPresent()) {
-            Sensor sensor = sensorRepository.findById(id).get();
-            sensor.setData(data);
-            return sensorRepository.save(sensor);
-        }
-        return null;
+    public Sensor updateSensor(String id, String name, double data) {
+        Sensor sensor = findSensorById(id);
+        sensor.setName(name);
+        sensor.setData(data);
+        return sensorRepository.save(sensor);
     }
 
     @Override
-    public String deleteSensor(String id) {
-        if (sensorRepository.findById(id).isPresent()) {
-            Sensor sensor = sensorRepository.findById(id).get();
-            sensorRepository.delete(sensor);
-            return "deleted";
-        }
-        return null;
+    public void deleteSensor(String id) {
+        Sensor sensor = findSensorById(id);
+        sensorRepository.delete(sensor);
     }
 
     @Override

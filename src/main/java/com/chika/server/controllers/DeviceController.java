@@ -34,9 +34,9 @@ public class DeviceController {
         return deviceService.saveDevice(device);
     }
 
-    @PutMapping("/{id}/{state}")
-    public void updateDevice(@PathVariable(value = "id") String id, @PathVariable(value = "state") int state) {
-        System.out.println(deviceService.updateDevice(id, state));
+    @PutMapping
+    public Device updateDevice(@RequestBody Device device) {
+        return deviceService.updateDevice(device.getId(), device.getName(), device.getState());
     }
 
     @DeleteMapping("/{id}")

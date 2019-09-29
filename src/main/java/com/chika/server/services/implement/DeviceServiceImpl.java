@@ -1,5 +1,6 @@
 package com.chika.server.services.implement;
 
+import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.house.Device;
 import com.chika.server.models.house.DeviceHistory;
 import com.chika.server.repositories.DeviceHistoryRepository;
@@ -40,14 +41,12 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public String updateDevice(String id, int state) {
-        if (deviceRepository.findById(id).isPresent()) {
-            Device device = deviceRepository.findById(id).get();
-            device.setState(state);
-            deviceRepository.save(device);
-            return "Update succeeded!!! Id: " + id + ", state: " + state;
-        }
-        return "Update failed";
+    public Device updateDevice(String id, String name, int state) {
+        Device device = deviceRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Device", "id", id));
+        device.setName(name);
+        device.setState(state);
+        return deviceRepository.save(device);
     }
 
     @Override

@@ -29,9 +29,9 @@ public class RoomController {
         return roomService.saveRoom(room);
     }
 
-    @PutMapping("/{id}/{name}")
-    public Room updateRoom(@PathVariable(value = "id") String id, @PathVariable(value = "name") String name) {
-        return roomService.updateRoom(id, name);
+    @PutMapping
+    public Room updateRoom(@RequestBody Room room) {
+        return roomService.updateRoom(room.getId(), room.getName());
     }
 
     @DeleteMapping("/{id}")

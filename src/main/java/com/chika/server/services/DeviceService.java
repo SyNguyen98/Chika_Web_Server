@@ -15,7 +15,7 @@ public interface DeviceService {
 
     Device saveDevice(Device device);
 
-    String updateDevice(String id, int name);
+    Device updateDevice(String id, String name, int state);
 
     String deleteDevice(String id);
 

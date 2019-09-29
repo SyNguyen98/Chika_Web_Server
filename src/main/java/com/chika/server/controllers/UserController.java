@@ -21,12 +21,16 @@ public class UserController {
 
     @GetMapping("/{username}")
     public UserResponse getUser(@PathVariable String username) {
-        User user = userService.getUserByUsername(username);
-        return new UserResponse(user);
+        return new UserResponse(userService.getUserByUsername(username));
     }
 
-    @PutMapping("/forget-password")
-    public String forgetPassword(@RequestParam String email) {
+    @PutMapping
+    public UserResponse updateUser(@RequestBody User user) {
+        return new UserResponse(userService.updateUser(user.getId(), user.getName(), user.getEmail()));
+    }
+
+    @PutMapping("/forget-password/{email}")
+    public String forgetPassword(@PathVariable String email) {
         return userService.forgetPassword(email);
     }
 

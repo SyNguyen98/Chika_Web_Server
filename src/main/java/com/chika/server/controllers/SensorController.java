@@ -1,12 +1,10 @@
 package com.chika.server.controllers;
 
 import com.chika.server.models.house.Sensor;
-import com.chika.server.models.house.SensorHistory;
 import com.chika.server.services.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -31,13 +29,13 @@ public class SensorController {
         return sensorService.saveSensor(sensor);
     }
 
-    @PutMapping("/{id}/{data}")
-    public Sensor updateSensor(@PathVariable(value = "id") String id, @PathVariable(value = "data") double data) {
-        return sensorService.updateSensor(id, data);
+    @PutMapping
+    public Sensor updateSensor(@RequestBody Sensor sensor) {
+        return sensorService.updateSensor(sensor.getId(), sensor.getName(), sensor.getData());
     }
 
     @DeleteMapping("/{id}")
-    public String deleteSensor(@PathVariable String id) {
-        return sensorService.deleteSensor(id);
+    public void deleteSensor(@PathVariable String id) {
+        sensorService.deleteSensor(id);
     }
 }
