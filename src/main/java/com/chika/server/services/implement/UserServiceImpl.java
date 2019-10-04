@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 /**
@@ -36,6 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @RolesAllowed("ADMIN")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
