@@ -3,10 +3,14 @@ package com.chika.server.services;
 import com.chika.server.models.account.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface UserService {
 
     User getUserByUsername(String username);
+
+    List<User> getAllUsers();
 
     User saveUser(User user);
 

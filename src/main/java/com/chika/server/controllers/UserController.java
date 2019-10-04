@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Sy Nguyen
@@ -23,14 +25,20 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/test")
-    public String test() {
-        return "Hello world";
+    @GetMapping("/{username}")
+    public UserResponse getUserByUsername(@PathVariable String username) {
+        return new UserResponse(userService.getUserByUsername(username));
     }
 
-    @GetMapping("/{username}")
-    public UserResponse getUser(@PathVariable String username) {
-        return new UserResponse(userService.getUserByUsername(username));
+    @RolesAllowed("ADMIN")
+    @GetMapping
+    public List<UserResponse> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        List<UserResponse> userResponses = new ArrayList<>();
+        for (User user : users) {
+            userResponses.add(new UserResponse(user));
+        }
+        return userResponses;
     }
 
     @PutMapping
