@@ -6,6 +6,6 @@ package com.chika.server.models.account;
  * @since 27-09-2019
  */
 public enum RoleName {
-    USER,
-    ADMIN
+    ROLE_NAME,
+    ROLE_ADMIN
 }
