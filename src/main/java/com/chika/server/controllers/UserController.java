@@ -3,6 +3,8 @@ package com.chika.server.controllers;
 import com.chika.server.models.account.User;
 import com.chika.server.payload.requests.PasswordRequest;
 import com.chika.server.payload.responses.UserResponse;
+import com.chika.server.security.CurrentUser;
+import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Role;
@@ -27,7 +29,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{username}")
-    public UserResponse getUserByUsername(@PathVariable String username) {
+    public UserResponse getUserByUsername(@CurrentUser UserPrincipal user, @PathVariable String username) {
+        System.out.println(user.getUsername());
         return new UserResponse(userService.getUserByUsername(username));
     }
 
