@@ -37,7 +37,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @RolesAllowed("ADMIN")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
