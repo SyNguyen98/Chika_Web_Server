@@ -6,6 +6,7 @@ import com.chika.server.repositories.UserRepository;
 import com.chika.server.services.EmailService;
 import com.chika.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,12 +39,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(Long id, String name, String email) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+    public User updateUser(String username, String name, String email) {
+        User user = getUserByUsername(username);
         user.setName(name);
         user.setEmail(email);
         return userRepository.save(user);
+    }
+
+    @Override
+    public Boolean changePassword(String username, String oldPassword, String newPassword) {
+        User user = getUserByUsername(username);
+        if (BCrypt.checkpw(oldPassword, user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(newPassword));
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -53,7 +63,6 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
-
         return "Reset password successfully";
     }
 
@@ -63,7 +72,6 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
 
         return emailService.sendHtmlMail(user.getEmail(), user.getPassword());
-
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.chika.server.controllers;
 
 import com.chika.server.models.account.User;
+import com.chika.server.payload.requests.PasswordRequest;
 import com.chika.server.payload.responses.UserResponse;
 import com.chika.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import javax.annotation.security.RolesAllowed;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 27-09-2019
+ * @since 04-10-2019
  */
 @RestController
 @RequestMapping("/user")
@@ -22,20 +23,24 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/test")
+    public String test() {
+        return "Hello world";
+    }
+
     @GetMapping("/{username}")
     public UserResponse getUser(@PathVariable String username) {
         return new UserResponse(userService.getUserByUsername(username));
     }
 
-    @RolesAllowed("ADMIN")
-    @PostMapping
-    public UserResponse saveUser(@RequestBody User user) {
-        return new UserResponse(userService.saveUser(user));
-    }
-
     @PutMapping
     public UserResponse updateUser(@RequestBody User user) {
-        return new UserResponse(userService.updateUser(user.getId(), user.getName(), user.getEmail()));
+        return new UserResponse(userService.updateUser(user.getUsername(), user.getName(), user.getEmail()));
+    }
+
+    @PutMapping("/{username}")
+    public Boolean changePassword(@PathVariable String username, @RequestBody PasswordRequest passwordRequest) {
+        return userService.changePassword(username, passwordRequest.getOldPassword(), passwordRequest.getNewPassword());
     }
 
     @PutMapping("/forget-password/{email}")
@@ -45,8 +50,7 @@ public class UserController {
 
     @PostMapping(value = "/reset-password",
                 consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String resetPassword(@RequestParam(name = "token") String token,
-                              @RequestParam(name = "password") String password) {
+    public String resetPassword(@RequestParam(name = "token") String token, @RequestParam(name = "password") String password) {
         return userService.resetPassword(token, password);
     }
 }

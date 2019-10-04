@@ -10,7 +10,9 @@ public interface UserService {
 
     User saveUser(User user);
 
-    User updateUser(Long id, String name, String email);
+    User updateUser(String username, String name, String email);
+
+    Boolean changePassword(String username, String oldPassword, String newPassword);
 
     String resetPassword(String token, String newPassword);
 
