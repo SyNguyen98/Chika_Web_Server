@@ -31,7 +31,7 @@ public class UserController {
         return new UserResponse(userService.getUserByUsername(username));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public List<UserResponse> getAllUsers() {
         List<User> users = userService.getAllUsers();
