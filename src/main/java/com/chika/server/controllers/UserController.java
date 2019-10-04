@@ -28,9 +28,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or #authUser.id == #userId")
     @GetMapping("/{username}")
     public UserResponse getUserByUsername(@CurrentUser UserPrincipal user, @PathVariable String username) {
-        System.out.println(user.getUsername());
         return new UserResponse(userService.getUserByUsername(username));
     }
 
