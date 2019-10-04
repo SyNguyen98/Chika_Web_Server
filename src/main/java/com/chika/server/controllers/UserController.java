@@ -4,8 +4,11 @@ import com.chika.server.models.account.User;
 import com.chika.server.payload.responses.UserResponse;
 import com.chika.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.security.RolesAllowed;
 
 /**
  * @author Sy Nguyen
@@ -22,6 +25,12 @@ public class UserController {
     @GetMapping("/{username}")
     public UserResponse getUser(@PathVariable String username) {
         return new UserResponse(userService.getUserByUsername(username));
+    }
+
+    @RolesAllowed("ADMIN")
+    @PostMapping
+    public UserResponse saveUser(@RequestBody User user) {
+        return new UserResponse(userService.saveUser(user));
     }
 
     @PutMapping
