@@ -36,6 +36,11 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
+    public List<Device> getDevicesByUserId(Long userId) {
+        return deviceRepository.findAllByUserId(userId);
+    }
+
+    @Override
     public Device saveDevice(Device device) {
         return deviceRepository.save(device);
     }

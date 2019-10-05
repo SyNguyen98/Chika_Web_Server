@@ -13,6 +13,8 @@ public interface DeviceService {
 
     List<Device> getDevicesBySwitchId(String switchId);
 
+    List<Device> getDevicesByUserId(Long userId);
+
     Device saveDevice(Device device);
 
     Device updateDevice(String id, String name, int state);
