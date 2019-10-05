@@ -1,8 +1,11 @@
 package com.chika.server.controllers;
 
 import com.chika.server.models.house.Switch;
+import com.chika.server.security.CurrentUser;
+import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.SwitchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +22,9 @@ public class SwitchController {
     @Autowired
     private SwitchService switchService;
 
+    @PreAuthorize("#userPrincipal.id == #userId")
     @GetMapping("/{userId}")
-    public List<Switch> getSwitchesByUserId(@PathVariable Long userId) {
+    public List<Switch> getSwitchesByUserId(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long userId) {
         return switchService.getAllSwitchesByUserId(userId);
     }
 
@@ -36,14 +40,16 @@ public class SwitchController {
         return test;
     }
 
+    @PreAuthorize("#userPrincipal.id == #userId")
     @PostMapping("/{userId}")
-    public Switch saveSwitch(@PathVariable Long userId) {
+    public Switch saveSwitch(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long userId) {
         Switch _switch = new Switch(userId);
         return switchService.saveSwitch(_switch);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteSwitch(@PathVariable String id) {
-        switchService.deleteSwitch(id);
+    @PreAuthorize("#userPrincipal.id == #_switch.userId")
+    @DeleteMapping
+    public void deleteSwitch(@CurrentUser UserPrincipal userPrincipal, @RequestBody Switch _switch) {
+        switchService.deleteSwitch(_switch.getId());
     }
 }
