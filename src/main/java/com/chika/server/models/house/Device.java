@@ -34,4 +34,7 @@ public class Device {
 
     @NotBlank
     private String switchId;
+
+    @NotNull
+    private Long userId;
 }

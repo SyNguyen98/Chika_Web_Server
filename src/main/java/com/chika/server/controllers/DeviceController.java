@@ -29,6 +29,11 @@ public class DeviceController {
         return deviceService.getDevicesBySwitchId(switchId);
     }
 
+    @GetMapping("/user/{userId}")
+    public List<Device> getDevicesByUserId(@PathVariable Long userId) {
+        return deviceService.getDevicesByUserId(userId);
+    }
+
     @PostMapping
     public Device saveDevice(@RequestBody Device device) {
         return deviceService.saveDevice(device);

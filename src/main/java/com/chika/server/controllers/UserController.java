@@ -7,12 +7,11 @@ import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class UserController {
 
     @Autowired
@@ -35,6 +33,7 @@ public class UserController {
         return new UserResponse(userService.getUserByUsername(username));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public List<UserResponse> getAllUsers() {
         List<User> users = userService.getAllUsers();
@@ -51,11 +50,11 @@ public class UserController {
         return new UserResponse(userService.updateUser(user.getUsername(), user.getName(), user.getEmail()));
     }
 
-    @PreAuthorize("#userPrincipal.username == #username")
-    @PutMapping("/{username}")
-    public Boolean changePassword(@CurrentUser UserPrincipal userPrincipal, @PathVariable String username,
-                                  @RequestBody PasswordRequest passwordRequest) {
-        return userService.changePassword(username, passwordRequest.getOldPassword(), passwordRequest.getNewPassword());
+    @PreAuthorize("#userPrincipal.username == #passwordRequest.username")
+    @PutMapping("/change-password")
+    public Boolean changePassword(@CurrentUser UserPrincipal userPrincipal, @Valid @RequestBody PasswordRequest passwordRequest) {
+        return userService.changePassword(passwordRequest.getUsername(),
+                passwordRequest.getOldPassword(), passwordRequest.getNewPassword());
     }
 
     @PutMapping("/forget-password/{email}")
