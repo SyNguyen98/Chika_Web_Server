@@ -1,6 +1,6 @@
 package com.chika.server.repositories;
 
-import com.chika.server.models.house.Audio;
+import com.chika.server.models.file.Audio;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

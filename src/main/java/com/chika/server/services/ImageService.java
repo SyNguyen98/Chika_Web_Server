@@ -1,6 +1,6 @@
 package com.chika.server.services;
 
-import com.chika.server.models.file.Audio;
+import com.chika.server.models.file.Image;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,11 +10,11 @@ import org.springframework.web.multipart.MultipartFile;
  * @since 11-10-2019
  */
 @Service
-public interface AudioService {
+public interface ImageService {
 
-    Audio storeAudio(MultipartFile audio);
+    Image storeImage(MultipartFile image);
 
-    Audio getAudio(String id);
+    Image getImage(String imageId);
 
-    void deleteAudio(String id);
+    void deleteImage(String imageId);
 }

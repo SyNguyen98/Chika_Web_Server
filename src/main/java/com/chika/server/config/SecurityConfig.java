@@ -91,9 +91,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             "/**/*.css",
                             "/**/*.js")
                         .permitAll()
-                .antMatchers("/user/forget-password")
+                .antMatchers("/user/forget-password", "/user/reset-password")
                     .permitAll()
                 .antMatchers("/auth/**")
+                    .permitAll()
+                .antMatchers("/image/**", "/audio/**")
                     .permitAll()
                 // Need authentication.
                 .anyRequest()

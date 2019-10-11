@@ -1,22 +1,21 @@
 package com.chika.server.services.implement;
 
-import com.chika.server.models.house.Audio;
+import com.chika.server.exception.FileStorageException;
+import com.chika.server.exception.ResourceNotFoundException;
+import com.chika.server.models.file.Audio;
 import com.chika.server.repositories.AudioRepository;
 import com.chika.server.services.AudioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.File;
 import java.io.IOException;
 
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 13-08-2019
+ * @since 11-10-2019
  */
 @Service
 public class AudioServiceImpl implements AudioService {
@@ -24,35 +23,28 @@ public class AudioServiceImpl implements AudioService {
     @Autowired
     private AudioRepository audioRepository;
 
-    private Clip clip;
-
     @Override
-    public Audio findAudioById(String id) {
-        if (audioRepository.findById(id).isPresent()) {
-            return audioRepository.findById(id).get();
+    public Audio storeAudio(MultipartFile audioFile) {
+        String audioName = StringUtils.cleanPath(audioFile.getOriginalFilename());
+        try {
+            if (audioName.contains("..")) {
+                throw new FileStorageException("Sorry! Filename contains invalid path sequence" + audioName);
+            }
+            Audio audio = new Audio(audioName, audioFile.getContentType(), audioFile.getBytes());
+            return audioRepository.save(audio);
+        } catch (IOException ex) {
+            throw new FileStorageException("Could not store file " + audioName + ". Please try again!", ex);
         }
-        return null;
     }
 
     @Override
-    public void playAudio(String id) {
-        Thread stopper = new Thread(() -> {
-            try {
-                Thread.sleep(2000);
-                clip.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
+    public Audio getAudio(String id) {
+        return audioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Audio", "id", id));
+    }
 
-        Audio audio = findAudioById(id);
-        String path = audio.getUri();
-        try {
-            stopper.start();
-            clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(new File(path)));
-            clip.start();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ignored) {
-        }
+    @Override
+    public void deleteAudio(String id) {
+        audioRepository.deleteById(id);
     }
 }
