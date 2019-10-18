@@ -1,6 +1,5 @@
 package com.chika.server.payload.responses;
 
-import com.chika.server.models.account.User;
 import lombok.Data;
 
 /**
@@ -13,10 +12,8 @@ public class AuthenticationResponse {
 
     private String tokenType = "Bearer";
     private String accessToken;
-    private Long userId;
 
-    public AuthenticationResponse(String accessToken, Long userId) {
+    public AuthenticationResponse(String accessToken) {
         this.accessToken = accessToken;
-        this.userId = userId;
     }
 }

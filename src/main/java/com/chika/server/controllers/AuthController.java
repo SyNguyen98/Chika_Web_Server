@@ -63,10 +63,9 @@ public class AuthController {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        User user = userService.getUserByUsername(signInRequest.getUsernameOrEmail());
         String token = tokenProvider.generateToken(authentication);
 
-        return ResponseEntity.ok(new AuthenticationResponse(token, user.getId()));
+        return ResponseEntity.ok(new AuthenticationResponse(token));
     }
 
     @PostMapping("/signup")

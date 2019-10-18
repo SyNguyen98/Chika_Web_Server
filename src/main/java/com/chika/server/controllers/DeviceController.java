@@ -1,7 +1,10 @@
 package com.chika.server.controllers;
 
 import com.chika.server.models.house.Device;
+import com.chika.server.security.CurrentUser;
+import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.DeviceService;
+import com.chika.server.services.MqttService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +20,9 @@ import java.util.List;
 public class DeviceController {
 
     @Autowired
+    private MqttService mqttService;
+
+    @Autowired
     private DeviceService deviceService;
 
     @GetMapping("/room/{roomId}")
@@ -29,13 +35,14 @@ public class DeviceController {
         return deviceService.getDevicesBySwitchId(switchId);
     }
 
-    @GetMapping("/user/{userId}")
-    public List<Device> getDevicesByUserId(@PathVariable Long userId) {
-        return deviceService.getDevicesByUserId(userId);
+    @GetMapping("/user")
+    public List<Device> getDevicesByUserId(@CurrentUser UserPrincipal currentUser) {
+        return deviceService.getDevicesByUserId(currentUser.getId());
     }
 
     @PostMapping
     public Device saveDevice(@RequestBody Device device) {
+        mqttService.subscribe("test");
         return deviceService.saveDevice(device);
     }
 

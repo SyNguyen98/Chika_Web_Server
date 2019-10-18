@@ -1,15 +1,14 @@
 package com.chika.server.services.implement;
 
 import com.chika.server.services.MqttService;
-import lombok.Data;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.springframework.stereotype.Service;
 
-@Data
+@Service
 public class MqttServiceImpl implements MqttService, MqttCallback {
 
-    private MqttClient client;
-    private String topicName;
+    private static MqttClient client;
     private int qos = 1;
 
     public MqttServiceImpl() {
@@ -29,14 +28,14 @@ public class MqttServiceImpl implements MqttService, MqttCallback {
     }
 
     @Override
-    public void publish(String message) {
+    public void publish(String topic, String message) {
         MqttMessage mqttMessage = new MqttMessage(message.getBytes());
         mqttMessage.setQos(qos);
         mqttMessage.setRetained(true);
 
-        MqttTopic topic = client.getTopic(topicName);
+        MqttTopic mqttTopic = client.getTopic(topic);
         try {
-            topic.publish(mqttMessage);
+            mqttTopic.publish(mqttMessage);
         } catch (MqttException e) {
             e.printStackTrace();
         }
