@@ -62,7 +62,6 @@
             <version>42.2.7</version>
         </dependency>
 
-
         <!-- Getter and Setter -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -81,6 +80,13 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
+        <!-- MQTT -->
+        <dependency>
+            <groupId>org.eclipse.paho</groupId>
+            <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+            <version>1.2.2</version>
         </dependency>
 
     </dependencies>

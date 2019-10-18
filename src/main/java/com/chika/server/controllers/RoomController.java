@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 27-09-2019
+ * @since 12-10-2019
  */
 @RestController
 @RequestMapping("/room")
@@ -22,27 +22,30 @@ public class RoomController {
     @Autowired
     private RoomService roomService;
 
-    @PreAuthorize("#userPrincipal.id == #userId")
-    @GetMapping("/{userId}")
-    public List<Room> getRoomsByUserId(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long userId) {
-        return roomService.getAllRoomsByUserId(userId);
+    @GetMapping
+    public List<Room> getRoomsByUserId(@CurrentUser UserPrincipal currentUser) {
+        return roomService.getAllRoomsByUserId(currentUser.getId());
     }
 
-    @PreAuthorize("#userPrincipal.id == #room.userId")
-    @PostMapping
-    public Room saveRoom(@CurrentUser UserPrincipal userPrincipal, @RequestBody Room room) {
-        return roomService.saveRoom(room);
+    @PostMapping("/{name}")
+    public Room saveRoom(@CurrentUser UserPrincipal currentUser, @PathVariable String name) {
+        return roomService.saveRoom(new Room(name, currentUser.getId()));
     }
 
-    @PreAuthorize("#userPrincipal.id == #room.userId")
     @PutMapping
-    public Room updateRoom(@CurrentUser UserPrincipal userPrincipal, @RequestBody Room room) {
-        return roomService.updateRoom(room.getId(), room.getName());
+    public Room updateRoom(@CurrentUser UserPrincipal currentUser, @RequestBody Room room) {
+        if (roomService.isRoomOwner(room.getId(), currentUser.getId())) {
+            return roomService.updateRoom(room.getId(), room.getName());
+        }
+        return null;
     }
 
-    @PreAuthorize("#userPrincipal.id == #room.userId")
-    @DeleteMapping
-    public void deleteRoom(@CurrentUser UserPrincipal userPrincipal, @RequestBody Room room) {
-        roomService.deleteRoom(room.getId());
+    @DeleteMapping("/{id}")
+    public Boolean deleteRoom(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
+        if (roomService.isRoomOwner(id, currentUser.getId())) {
+            roomService.deleteRoom(id);
+            return true;
+        }
+        return false;
     }
 }

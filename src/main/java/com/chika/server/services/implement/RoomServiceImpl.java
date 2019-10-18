@@ -29,14 +29,19 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
+    public Room getRoomById(String id) {
+        return roomRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Room", "id", id));
+    }
+
+    @Override
     public Room saveRoom(Room room) {
         return roomRepository.save(room);
     }
 
     @Override
     public Room updateRoom(String id, String name) {
-        Room room = roomRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Room", "id", id));
+        Room room = getRoomById(id);
         room.setName(name);
         return roomRepository.save(room);
     }
@@ -44,5 +49,10 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public void deleteRoom(String id) {
         roomRepository.deleteById(id);
+    }
+
+    @Override
+    public Boolean isRoomOwner(String id, Long userId) {
+        return getRoomById(id).getUserId().equals(userId);
     }
 }

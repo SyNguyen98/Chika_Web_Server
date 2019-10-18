@@ -21,6 +21,12 @@ public class IrServiceImpl implements IrService {
     }
 
     @Override
+    public IR getIrById(String id) {
+        return irRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("IR", "id", id));
+    }
+
+    @Override
     public List<IR> saveListIr(Long userId, int quantity) {
         for (int i = 0; i < quantity; i++) {
             IR ir = new IR(userId);
@@ -30,14 +36,8 @@ public class IrServiceImpl implements IrService {
     }
 
     @Override
-    public IR saveIr(Long userId, String value) {
-        return null;
-    }
-
-    @Override
     public IR updateIr(String id, String value) {
-        IR ir = irRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("IR", "id", id));
+        IR ir = getIrById(id);
         ir.setValue(value);
         return irRepository.save(ir);
     }
@@ -45,5 +45,10 @@ public class IrServiceImpl implements IrService {
     @Override
     public void deleteIrByUserId(Long userId) {
         irRepository.deleteAllByUserId(userId);
+    }
+
+    @Override
+    public Boolean isIrOwner(String id, Long userId) {
+        return getIrById(id).getUserId().equals(userId);
     }
 }

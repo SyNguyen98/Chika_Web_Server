@@ -10,11 +10,13 @@ public interface IrService {
 
     List<IR> getIrByUserId(Long userId);
 
-    List<IR> saveListIr(Long userId, int quantity);
+    IR getIrById(String id);
 
-    IR saveIr(Long userId, String value);
+    List<IR> saveListIr(Long userId, int quantity);
 
     IR updateIr(String id, String value);
 
     void deleteIrByUserId(Long userId);
+
+    Boolean isIrOwner(String id, Long userId);
 }

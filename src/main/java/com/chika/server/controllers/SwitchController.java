@@ -5,7 +5,6 @@ import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.SwitchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,34 +21,22 @@ public class SwitchController {
     @Autowired
     private SwitchService switchService;
 
-    @PreAuthorize("#userPrincipal.id == #userId")
-    @GetMapping("/{userId}")
-    public List<Switch> getSwitchesByUserId(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long userId) {
-        return switchService.getAllSwitchesByUserId(userId);
+    @GetMapping
+    public List<Switch> getSwitchesByUserId(@CurrentUser UserPrincipal currentUser) {
+        return switchService.getAllSwitchesByUserId(currentUser.getId());
     }
 
-    int test = 0;
-    @GetMapping("/test")
-    public int test() {
-        return test;
+    @PostMapping
+    public Switch saveSwitch(@CurrentUser UserPrincipal currentUser) {
+        return switchService.saveSwitch(new Switch(currentUser.getId()));
     }
 
-    @GetMapping("/test/{i}")
-    public int testPost(@PathVariable String i) {
-        test = Integer.parseInt(i);
-        return test;
-    }
-
-    @PreAuthorize("#userPrincipal.id == #userId")
-    @PostMapping("/{userId}")
-    public Switch saveSwitch(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long userId) {
-        Switch _switch = new Switch(userId);
-        return switchService.saveSwitch(_switch);
-    }
-
-    @PreAuthorize("#userPrincipal.id == #_switch.userId")
-    @DeleteMapping
-    public void deleteSwitch(@CurrentUser UserPrincipal userPrincipal, @RequestBody Switch _switch) {
-        switchService.deleteSwitch(_switch.getId());
+    @DeleteMapping("/{id}")
+    public Boolean deleteSwitch(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
+        if (switchService.isSwitchOwner(id, currentUser.getId())) {
+            switchService.deleteSwitch(id);
+            return true;
+        }
+        return false;
     }
 }

@@ -1,5 +1,6 @@
 package com.chika.server.services.implement;
 
+import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.house.Switch;
 import com.chika.server.repositories.SwitchRepository;
 import com.chika.server.services.SwitchService;
@@ -27,6 +28,12 @@ public class SwitchServiceImpl implements SwitchService {
     }
 
     @Override
+    public Switch getSwitchById(String id) {
+        return switchRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Switch", "id", id));
+    }
+
+    @Override
     public Switch saveSwitch(Switch _switch) {
         return switchRepository.save(_switch);
     }
@@ -34,5 +41,10 @@ public class SwitchServiceImpl implements SwitchService {
     @Override
     public void deleteSwitch(String id) {
         switchRepository.deleteById(id);
+    }
+
+    @Override
+    public Boolean isSwitchOwner(String id, Long userId) {
+        return getSwitchById(id).getUserId().equals(userId);
     }
 }
