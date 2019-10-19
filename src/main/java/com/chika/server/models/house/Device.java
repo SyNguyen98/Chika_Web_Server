@@ -10,8 +10,8 @@ import javax.validation.constraints.NotNull;
 /**
  * Connect to table Device in database
  * @author Sy Nguyen
- * @version 1.1
- * @since 08-09-2019
+ * @version 1.0
+ * @since 19-10-2019
  */
 @Entity
 @Table(name = "devices")
@@ -26,7 +26,7 @@ public class Device {
     @NotBlank
     private String name;
 
-    @NotNull
+    @NotBlank
     private int state;
 
     @NotBlank

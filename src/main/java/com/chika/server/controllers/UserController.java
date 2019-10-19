@@ -27,14 +27,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("#userPrincipal.username == #username")
-    @GetMapping("/{username}")
-    public UserResponse getUserByUsername(@CurrentUser UserPrincipal userPrincipal, @PathVariable String username) {
-        return new UserResponse(userService.getUserByUsername(username));
+    @GetMapping
+    public UserResponse getUserByUsername(@CurrentUser UserPrincipal currentUser) {
+        return new UserResponse(userService.getUserByUsername(currentUser.getUsername()));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping
+    @GetMapping("/all")
     public List<UserResponse> getAllUsers() {
         List<User> users = userService.getAllUsers();
         List<UserResponse> userResponses = new ArrayList<>();
@@ -44,16 +43,14 @@ public class UserController {
         return userResponses;
     }
 
-    @PreAuthorize("#userPrincipal.username == #user.username")
     @PutMapping
-    public UserResponse updateUser(@CurrentUser UserPrincipal userPrincipal, @RequestBody User user) {
+    public UserResponse updateUser(@CurrentUser UserPrincipal currentUser, @RequestBody User user) {
         return new UserResponse(userService.updateUser(user.getUsername(), user.getName(), user.getEmail()));
     }
 
-    @PreAuthorize("#userPrincipal.username == #passwordRequest.username")
     @PutMapping("/change-password")
-    public Boolean changePassword(@CurrentUser UserPrincipal userPrincipal, @Valid @RequestBody PasswordRequest passwordRequest) {
-        return userService.changePassword(passwordRequest.getUsername(),
+    public Boolean changePassword(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody PasswordRequest passwordRequest) {
+        return userService.changePassword(currentUser.getUsername(),
                 passwordRequest.getOldPassword(), passwordRequest.getNewPassword());
     }
 

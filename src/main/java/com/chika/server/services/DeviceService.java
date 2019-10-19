@@ -9,11 +9,11 @@ import java.util.List;
 @Service
 public interface DeviceService {
 
-    List<Device> getDevicesByRoomId(String roomId);
+    List<Device> getAllByRoomId(String roomId);
 
-    List<Device> getDevicesBySwitchId(String switchId);
+    List<Device> getAllBySwitchId(String switchId);
 
-    List<Device> getDevicesByUserId(Long userId);
+    List<Device> getAllByUserId(Long userId);
 
     Device saveDevice(Device device);
 
@@ -21,11 +21,11 @@ public interface DeviceService {
 
     String deleteDevice(String id);
 
-    List<DeviceHistory> findDeviceHistoriesById(String id);
+    List<DeviceHistory> getHistoriesByDeviceId(String id);
 
-    List<DeviceHistory> findAllDeviceHistories();
+    List<DeviceHistory> getAllHistories();
 
-    DeviceHistory saveDeviceHistory(DeviceHistory device);
+    DeviceHistory saveHistory(String deviceId, int state);
 
-    Boolean deleteDeviceHistory(String id);
+    Boolean deleteHistory(String id);
 }

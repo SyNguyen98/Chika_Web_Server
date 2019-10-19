@@ -8,13 +8,10 @@ import javax.validation.constraints.Size;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 05-10-2019
+ * @since 19-10-2019
  */
 @Data
 public class PasswordRequest {
-
-    @NotBlank
-    private String username;
 
     @NotBlank
     private String oldPassword;

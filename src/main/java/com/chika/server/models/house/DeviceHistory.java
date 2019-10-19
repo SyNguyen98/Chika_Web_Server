@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 /**
@@ -28,10 +29,9 @@ public class DeviceHistory {
     @NotBlank
     private String deviceId;
 
-    @NotBlank
+    @NotNull
     private int state;
 
-    @NotBlank
     private Timestamp time;
 
     public DeviceHistory(String deviceId, int state, Timestamp time) {

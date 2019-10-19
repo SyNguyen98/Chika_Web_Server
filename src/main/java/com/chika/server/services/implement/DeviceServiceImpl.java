@@ -9,6 +9,7 @@ import com.chika.server.services.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -26,17 +27,17 @@ public class DeviceServiceImpl implements DeviceService {
     private DeviceHistoryRepository deviceHistoryRepository;
 
     @Override
-    public List<Device> getDevicesByRoomId(String roomId) {
+    public List<Device> getAllByRoomId(String roomId) {
         return deviceRepository.findAllByRoomId(roomId);
     }
 
     @Override
-    public List<Device> getDevicesBySwitchId(String switchId) {
+    public List<Device> getAllBySwitchId(String switchId) {
         return deviceRepository.findAllBySwitchId(switchId);
     }
 
     @Override
-    public List<Device> getDevicesByUserId(Long userId) {
+    public List<Device> getAllByUserId(Long userId) {
         return deviceRepository.findAllByUserId(userId);
     }
 
@@ -65,22 +66,23 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public List<DeviceHistory> findDeviceHistoriesById(String id) {
+    public List<DeviceHistory> getHistoriesByDeviceId(String id) {
         return deviceHistoryRepository.findDeviceHistoriesById(id);
     }
 
     @Override
-    public List<DeviceHistory> findAllDeviceHistories() {
+    public List<DeviceHistory> getAllHistories() {
         return deviceHistoryRepository.findAll();
     }
 
     @Override
-    public DeviceHistory saveDeviceHistory(DeviceHistory device) {
-        return deviceHistoryRepository.save(device);
+    public DeviceHistory saveHistory(String deviceId, int state) {
+        DeviceHistory deviceHistory = new DeviceHistory(deviceId, state, new Timestamp(System.currentTimeMillis()));
+        return deviceHistoryRepository.save(deviceHistory);
     }
 
     @Override
-    public Boolean deleteDeviceHistory(String id) {
+    public Boolean deleteHistory(String id) {
         return null;
     }
 }
