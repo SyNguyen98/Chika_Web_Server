@@ -57,17 +57,13 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public String deleteDevice(String id) {
-        if (deviceRepository.findById(id).isPresent()) {
-            Device device = deviceRepository.findById(id).get();
-            deviceRepository.delete(device);
-            return "deleted";
-        }
+        deviceRepository.deleteById(id);
         return null;
     }
 
     @Override
     public List<DeviceHistory> getHistoriesByDeviceId(String id) {
-        return deviceHistoryRepository.findDeviceHistoriesById(id);
+        return deviceHistoryRepository.findAllByDeviceId(id);
     }
 
     @Override
