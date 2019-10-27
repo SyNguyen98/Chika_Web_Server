@@ -54,8 +54,8 @@ public class UserController {
                 passwordRequest.getOldPassword(), passwordRequest.getNewPassword());
     }
 
-    @PutMapping("/forget-password/{email}")
-    public String forgetPassword(@PathVariable String email) {
+    @PutMapping("/forget-password")
+    public String forgetPassword(@RequestParam("email") String email) {
         return userService.forgetPassword(email);
     }
 
