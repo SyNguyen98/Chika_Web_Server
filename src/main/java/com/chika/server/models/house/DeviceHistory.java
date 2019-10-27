@@ -16,7 +16,6 @@ import java.sql.Timestamp;
  * @since 09-08-2019
  */
 @Entity
-@Table(name = "device_history")
 @Data
 @NoArgsConstructor
 public class DeviceHistory {
@@ -32,6 +31,7 @@ public class DeviceHistory {
     @NotNull
     private int state;
 
+    @NotNull
     private Timestamp time;
 
     public DeviceHistory(String deviceId, int state, Timestamp time) {
