@@ -1,7 +1,6 @@
 package com.chika.server.payload.responses;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
 
 /**
  * @author Sy Nguyen
@@ -14,10 +13,8 @@ public class AuthenticationResponse {
     private String tokenType = "Bearer";
     private String accessToken;
 
-    @Value("${app.mqttUsername}")
-    private String mqttUsername;
-    @Value("${app.mqttPassword}")
-    private String mqttPassword;
+    private String mqttUsername = "chika";
+    private String mqttPassword = "2502";
 
     public AuthenticationResponse(String accessToken) {
         this.accessToken = accessToken;
