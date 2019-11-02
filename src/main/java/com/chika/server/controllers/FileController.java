@@ -61,9 +61,9 @@ public class FileController {
         return new UploadFileResponse(audio.getName(), imageUri, Objects.requireNonNull(audioFile).getContentType(), audioFile.getSize());
     }
 
-    @GetMapping("/audio/{audioId}")
-    public ResponseEntity<Resource> downloadAudio(@PathVariable String audioId) {
-        Audio audio = audioService.getAudio(audioId);
+    @GetMapping("/audio/{name}")
+    public ResponseEntity<Resource> downloadAudio(@PathVariable String name) {
+        Audio audio = audioService.getAudioByName(name);
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(audio.getType()))

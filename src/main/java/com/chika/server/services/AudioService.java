@@ -7,14 +7,14 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 11-10-2019
+ * @since 02-11-2019
  */
 @Service
 public interface AudioService {
 
     Audio storeAudio(MultipartFile audio);
 
-    Audio getAudio(String id);
+    Audio getAudioByName(String name);
 
     void deleteAudio(String id);
 }

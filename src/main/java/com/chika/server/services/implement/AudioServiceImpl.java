@@ -38,9 +38,9 @@ public class AudioServiceImpl implements AudioService {
     }
 
     @Override
-    public Audio getAudio(String id) {
-        return audioRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Audio", "id", id));
+    public Audio getAudioByName(String name) {
+        return audioRepository.findByName(name)
+                .orElseThrow(() -> new ResourceNotFoundException("Audio", "name", name));
     }
 
     @Override
