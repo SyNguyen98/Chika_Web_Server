@@ -54,8 +54,8 @@ public class FileController {
         Audio audio = audioService.storeAudio(audioFile);
 
         String imageUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/image/")
-                .path(audio.getId())
+                .path("/audio/")
+                .path(audio.getName())
                 .toUriString();
 
         return new UploadFileResponse(audio.getName(), imageUri, Objects.requireNonNull(audioFile).getContentType(), audioFile.getSize());
