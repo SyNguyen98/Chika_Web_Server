@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 11-10-2019
+ * @since 08-11-2019
  */
 @Service
 public class AudioServiceImpl implements AudioService {
@@ -26,6 +26,7 @@ public class AudioServiceImpl implements AudioService {
     @Override
     public Audio storeAudio(MultipartFile audioFile) {
         String audioName = StringUtils.cleanPath(audioFile.getOriginalFilename());
+        audioName = audioName.substring(audioName.indexOf("."));
         try {
             if (audioName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence" + audioName);
