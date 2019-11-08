@@ -26,7 +26,7 @@ public class AudioServiceImpl implements AudioService {
     @Override
     public Audio storeAudio(MultipartFile audioFile) {
         String audioName = StringUtils.cleanPath(audioFile.getOriginalFilename());
-        audioName = audioName.substring(audioName.indexOf("."));
+        audioName = audioName.substring(0, audioName.indexOf("."));
         try {
             if (audioName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence" + audioName);
