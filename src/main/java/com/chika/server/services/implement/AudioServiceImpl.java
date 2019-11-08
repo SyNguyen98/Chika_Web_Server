@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Sy Nguyen
@@ -23,14 +25,16 @@ public class AudioServiceImpl implements AudioService {
     @Autowired
     private AudioRepository audioRepository;
 
+    private static int random = -1;
+
     @Override
-    public Audio storeAudio(MultipartFile audioFile) {
+    public Audio storeAudio(MultipartFile audioFile, String audioLabel) {
         String audioName = StringUtils.cleanPath(audioFile.getOriginalFilename());
         try {
             if (audioName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence" + audioName);
             }
-            Audio audio = new Audio(audioName, audioFile.getContentType(), audioFile.getBytes());
+            Audio audio = new Audio(audioName, audioFile.getContentType(), audioLabel, audioFile.getBytes());
             return audioRepository.save(audio);
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + audioName + ". Please try again!", ex);
@@ -38,9 +42,23 @@ public class AudioServiceImpl implements AudioService {
     }
 
     @Override
+    @Transactional
     public Audio getAudioByName(String name) {
-        return audioRepository.findByName(name)
+        return audioRepository.findByNameContains(name)
                 .orElseThrow(() -> new ResourceNotFoundException("Audio", "name", name));
+    }
+
+    @Override
+    @Transactional
+    public Audio getAudioByLabel(String label) {
+        if (random++ == 2) {
+            random = 0;
+        }
+        List<Audio> audioList = audioRepository.findByLabel(label);
+        if (random >= audioList.size()) {
+            return audioList.get(audioList.size() - 1);
+        }
+        return audioList.get(random);
     }
 
     @Override

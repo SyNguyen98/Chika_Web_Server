@@ -24,13 +24,17 @@ public class Audio {
     @NotBlank
     private String type;
 
+    @NotBlank
+    private String label;
+
     @Lob
     @NotNull
     private byte[] data;
 
-    public Audio(String name, String type, byte[] data) {
+    public Audio(String name, String type, String label, byte[] data) {
         this.name = name;
         this.type = type;
+        this.label = label;
         this.data = data;
     }
 }

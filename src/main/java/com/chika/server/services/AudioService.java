@@ -12,9 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public interface AudioService {
 
-    Audio storeAudio(MultipartFile audio);
+    Audio storeAudio(MultipartFile audio, String audioLabel);
 
     Audio getAudioByName(String name);
+
+    Audio getAudioByLabel(String label);
 
     void deleteAudio(String id);
 }

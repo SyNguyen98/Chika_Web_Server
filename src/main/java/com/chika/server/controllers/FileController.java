@@ -50,8 +50,8 @@ public class FileController {
     }
 
     @PostMapping("/audio")
-    public UploadFileResponse uploadAudio(@RequestParam("file") MultipartFile audioFile) {
-        Audio audio = audioService.storeAudio(audioFile);
+    public UploadFileResponse uploadAudio(@RequestParam("file") MultipartFile audioFile, @RequestParam("label") String label) {
+        Audio audio = audioService.storeAudio(audioFile, label);
 
         String imageUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/audio/")
@@ -64,7 +64,15 @@ public class FileController {
     @GetMapping("/audio/{name}")
     public ResponseEntity<Resource> downloadAudio(@PathVariable String name) {
         Audio audio = audioService.getAudioByName(name);
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(audio.getType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + audio.getName() + "\"")
+                .body(new ByteArrayResource(audio.getData()));
+    }
 
+    @GetMapping("/audio/label={label}")
+    public ResponseEntity<Resource> downloadAudioByLabel(@PathVariable String label) {
+        Audio audio = audioService.getAudioByLabel(label);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(audio.getType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + audio.getName() + "\"")
