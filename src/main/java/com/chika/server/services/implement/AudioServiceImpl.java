@@ -55,6 +55,9 @@ public class AudioServiceImpl implements AudioService {
             random = 0;
         }
         List<Audio> audioList = audioRepository.findByLabel(label);
+        if (audioList.isEmpty()) {
+            audioList = audioRepository.findByLabel("Unknown");
+        }
         if (random >= audioList.size()) {
             return audioList.get(audioList.size() - 1);
         }
