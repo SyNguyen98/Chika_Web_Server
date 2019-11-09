@@ -17,5 +17,5 @@ public interface AudioRepository extends JpaRepository<Audio, String> {
 
     Optional<Audio> findByNameContains(String name);
 
-    List<Audio> findByLabel(String label);
+    List<Audio> findAllByLabel(String label);
 }
