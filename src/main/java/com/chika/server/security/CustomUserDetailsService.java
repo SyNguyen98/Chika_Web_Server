@@ -2,7 +2,7 @@ package com.chika.server.security;
 
 import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.account.User;
-import com.chika.server.repositories.UserRepository;
+import com.chika.server.repositories.account.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

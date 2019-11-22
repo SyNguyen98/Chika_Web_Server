@@ -8,15 +8,15 @@ import java.util.List;
 @Service
 public interface RoomService {
 
-    List<Room> getAllRoomsByUserId(Long userId);
+    List<Room> getAllByUserId(Long userId);
 
-    Room getRoomById(String id);
+    Room getById(String id);
 
-    Room saveRoom(Room room);
+    Room save(Room room);
 
-    Room updateRoom(String id, String name);
+    Room updateName(String id, String name);
 
-    void deleteRoom(String id);
+    void delete(String id);
 
-    Boolean isRoomOwner(String id, Long userId);
+    Boolean isOwner(String id, Long userId);
 }

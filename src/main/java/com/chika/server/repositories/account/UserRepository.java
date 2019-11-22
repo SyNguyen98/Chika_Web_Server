@@ -1,4 +1,4 @@
-package com.chika.server.repositories;
+package com.chika.server.repositories.account;
 
 import com.chika.server.models.account.User;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package com.chika.server.repositories;
+package com.chika.server.repositories.account;
 
 import com.chika.server.models.account.Role;
 import com.chika.server.models.account.RoleName;

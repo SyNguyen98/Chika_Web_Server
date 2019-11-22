@@ -1,20 +1,14 @@
 package com.chika.server.services;
 
-import com.chika.server.models.house.Switch;
+import com.chika.server.models.device.Switch;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public interface SwitchService {
 
-    List<Switch> getAllSwitchesByUserId(Long userId);
+    Switch getById(String id);
 
-    Switch getSwitchById(String id);
+    Switch save(Switch _switch);
 
-    Switch saveSwitch(Switch _switch);
-
-    void deleteSwitch(String id);
-
-    Boolean isSwitchOwner(String id, Long userId);
+    void delete(String id);
 }

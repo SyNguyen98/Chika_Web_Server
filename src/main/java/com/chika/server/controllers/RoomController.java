@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 12-10-2019
+ * @since 20-11-2019
  */
 @RestController
 @RequestMapping("/room")
@@ -23,27 +23,27 @@ public class RoomController {
     private RoomService roomService;
 
     @GetMapping
-    public List<Room> getRoomsByUserId(@CurrentUser UserPrincipal currentUser) {
-        return roomService.getAllRoomsByUserId(currentUser.getId());
+    public List<Room> getByUserId(@CurrentUser UserPrincipal currentUser) {
+        return roomService.getAllByUserId(currentUser.getId());
     }
 
     @PostMapping("/{name}")
-    public Room saveRoom(@CurrentUser UserPrincipal currentUser, @PathVariable String name) {
-        return roomService.saveRoom(new Room(name, currentUser.getId()));
+    public Room save(@CurrentUser UserPrincipal currentUser, @PathVariable String name) {
+        return roomService.save(new Room(name, currentUser.getId()));
     }
 
     @PutMapping
-    public Room updateRoom(@CurrentUser UserPrincipal currentUser, @RequestBody Room room) {
-        if (roomService.isRoomOwner(room.getId(), currentUser.getId())) {
-            return roomService.updateRoom(room.getId(), room.getName());
+    public Room update(@CurrentUser UserPrincipal currentUser, @RequestBody Room room) {
+        if (roomService.isOwner(room.getId(), currentUser.getId())) {
+            return roomService.updateName(room.getId(), room.getName());
         }
         return null;
     }
 
     @DeleteMapping("/{id}")
-    public Boolean deleteRoom(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
-        if (roomService.isRoomOwner(id, currentUser.getId())) {
-            roomService.deleteRoom(id);
+    public Boolean delete(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
+        if (roomService.isOwner(id, currentUser.getId())) {
+            roomService.delete(id);
             return true;
         }
         return false;

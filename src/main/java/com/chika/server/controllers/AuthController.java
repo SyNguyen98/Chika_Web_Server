@@ -8,7 +8,7 @@ import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.AuthenticationResponse;
 import com.chika.server.payload.requests.SignInRequest;
 import com.chika.server.payload.requests.SignUpRequest;
-import com.chika.server.repositories.RoleRepository;
+import com.chika.server.repositories.account.RoleRepository;
 import com.chika.server.security.JwtTokenProvider;
 import com.chika.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collections;

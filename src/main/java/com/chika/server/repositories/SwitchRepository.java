@@ -1,6 +1,6 @@
 package com.chika.server.repositories;
 
-import com.chika.server.models.house.Switch;
+import com.chika.server.models.device.Switch;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

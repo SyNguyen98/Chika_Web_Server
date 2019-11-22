@@ -1,10 +1,9 @@
 package com.chika.server.controllers;
 
-import com.chika.server.models.house.IR;
-import com.chika.server.payload.requests.IrRequest;
+import com.chika.server.models.house.IrValue;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
-import com.chika.server.services.IrService;
+import com.chika.server.services.IrValueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,28 +14,20 @@ import java.util.List;
 public class IrController {
 
     @Autowired
-    private IrService irService;
+    private IrValueService irValueService;
 
-    @GetMapping
-    public List<IR> getAllIrByUserId(@CurrentUser UserPrincipal currentUser) {
-        return irService.getIrByUserId(currentUser.getId());
+    @GetMapping("/{remoteId}")
+    public List<IrValue> getAllByRemoteIrId(@PathVariable String remoteId) {
+        return irValueService.getAllByRemoteIrId(remoteId);
     }
 
-    @PostMapping
-    public List<IR> saveAllIr(@CurrentUser UserPrincipal currentUser, @RequestParam int quantity) {
-        return irService.saveListIr(currentUser.getId(), quantity);
+    @PostMapping("/{remoteId}")
+    public List<IrValue> saveAll(@PathVariable String remoteId, @RequestParam int quantity) {
+        return irValueService.saveList(remoteId, quantity);
     }
 
     @PutMapping
-    public IR updateIr(@CurrentUser UserPrincipal currentUser, @RequestBody IR ir) {
-        if (irService.isIrOwner(ir.getId(), currentUser.getId())) {
-            return irService.updateIr(ir.getId(), ir.getValue());
-        }
-        return null;
-    }
-
-    @DeleteMapping
-    public void deleteAllIrByUserId(@CurrentUser UserPrincipal currentUser) {
-        irService.deleteIrByUserId(currentUser.getId());
+    public IrValue updateValue(@RequestBody IrValue irValue) {
+        return irValueService.updateValue(irValue.getId(), irValue.getValue());
     }
 }

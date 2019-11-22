@@ -1,18 +1,17 @@
 package com.chika.server.controllers;
 
-import com.chika.server.models.house.Switch;
-import com.chika.server.security.CurrentUser;
-import com.chika.server.security.UserPrincipal;
+import com.chika.server.models.house.Device;
+import com.chika.server.models.device.Switch;
+import com.chika.server.services.DeviceService;
 import com.chika.server.services.SwitchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 27-09-2019
+ * @since 20-11-2019
  */
 @RestController
 @RequestMapping("/switch")
@@ -21,22 +20,31 @@ public class SwitchController {
     @Autowired
     private SwitchService switchService;
 
-    @GetMapping
-    public List<Switch> getSwitchesByUserId(@CurrentUser UserPrincipal currentUser) {
-        return switchService.getAllSwitchesByUserId(currentUser.getId());
+    @Autowired
+    private DeviceService deviceService;
+
+    @GetMapping("/{id}")
+    public Switch getById(@PathVariable String id) {
+        return switchService.getById(id);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public Switch saveSwitch(@CurrentUser UserPrincipal currentUser) {
-        return switchService.saveSwitch(new Switch(currentUser.getId()));
+    public Switch save(@RequestParam("deviceQuantity") int deviceQuantity) {
+        Switch newSwitch = switchService.save(new Switch());
+        for (int i = 0; i < deviceQuantity; i++) {
+            deviceService.save(new Device("", 0, "", newSwitch.getId(), (long) 0));
+        }
+        return newSwitch;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
-    public Boolean deleteSwitch(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
-        if (switchService.isSwitchOwner(id, currentUser.getId())) {
-            switchService.deleteSwitch(id);
-            return true;
+    public Boolean deleteById(@PathVariable String id) {
+        for (Device device : switchService.getById(id).getDevices()) {
+            deviceService.delete(device.getId());
         }
-        return false;
+        switchService.delete(id);
+        return true;
     }
 }

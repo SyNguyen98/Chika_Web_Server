@@ -7,25 +7,29 @@ import org.springframework.lang.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
-public class IR {
+public class IrValue {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @NotNull
-    private Long userId;
+    private String name;
 
-    @Nullable
     private String value;
 
-    public IR() {}
-    public IR(Long userId) {
-        this.userId = userId;
+    @NotBlank
+    private String remoteIrId;
+
+    public IrValue() {}
+    public IrValue(String name, String value, String remoteIrId) {
+        this.name = name;
+        this.value = value;
+        this.remoteIrId = remoteIrId;
     }
 }

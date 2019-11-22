@@ -1,6 +1,6 @@
-package com.chika.server.repositories;
+package com.chika.server.repositories.house;
 
-import com.chika.server.models.house.SensorHistory;
+import com.chika.server.models.house.Sensor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  * @since 22-07-2019
  */
 @Repository
-public interface SensorHistoryRepository extends JpaRepository<SensorHistory, String> {
+public interface SensorRepository extends JpaRepository<Sensor, String> {
 
 }

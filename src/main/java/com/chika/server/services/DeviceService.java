@@ -15,15 +15,21 @@ public interface DeviceService {
 
     List<Device> getAllByUserId(Long userId);
 
-    Device saveDevice(Device device);
+    Device getById(String id);
 
-    Device updateDevice(String id, String name, int state);
+    Device save(Device device);
 
-    String deleteDevice(String id);
+    Device updateInfo(String id, String name, String roomId, Long userId);
 
-    List<DeviceHistory> getHistoriesByDeviceId(String id);
+    Device updateState(String id, int state);
 
-    List<DeviceHistory> getAllHistories();
+    void delete(String id);
+
+    Boolean isOwner(String id, Long userId);
+
+    // HISTORY
+
+    List<DeviceHistory> getAllHistoriesByDeviceId(String id);
 
     DeviceHistory saveHistory(String deviceId, int state);
 

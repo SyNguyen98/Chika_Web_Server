@@ -23,18 +23,22 @@ public class Device {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @NotBlank
     private String name;
 
-    @NotBlank
     private int state;
 
-    @NotBlank
     private String roomId;
 
     @NotBlank
     private String switchId;
 
-    @NotNull
     private Long userId;
+
+    public Device(String name, int state, String roomId, String switchId, Long userId) {
+        this.name = name;
+        this.state = state;
+        this.roomId = roomId;
+        this.switchId = switchId;
+        this.userId = userId;
+    }
 }

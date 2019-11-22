@@ -3,20 +3,20 @@ package com.chika.server.services.implement;
 import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.house.Device;
 import com.chika.server.models.house.DeviceHistory;
-import com.chika.server.repositories.DeviceHistoryRepository;
-import com.chika.server.repositories.DeviceRepository;
+import com.chika.server.repositories.house.DeviceHistoryRepository;
+import com.chika.server.repositories.house.DeviceRepository;
 import com.chika.server.services.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.List;
 
 /**
+ * Manipulating data in the Device table
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-07-2019
+ * @since 20-11-2019
  */
 @Service
 public class DeviceServiceImpl implements DeviceService {
@@ -43,34 +43,45 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    @Transactional
-    public Device saveDevice(Device device) {
+    public Device getById(String id) {
+        return deviceRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Device", "id", id));
+    }
+
+    @Override
+    public Device save(Device device) {
         return deviceRepository.save(device);
     }
 
     @Override
-    public Device updateDevice(String id, String name, int state) {
-        Device device = deviceRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Device", "id", id));
+    public Device updateInfo(String id, String name, String roomId, Long userId) {
+        Device device = getById(id);
         device.setName(name);
+        device.setRoomId(roomId);
+        device.setUserId(userId);
+        return deviceRepository.save(device);
+    }
+
+    @Override
+    public Device updateState(String id, int state) {
+        Device device = getById(id);
         device.setState(state);
         return deviceRepository.save(device);
     }
 
     @Override
-    public String deleteDevice(String id) {
+    public void delete(String id) {
         deviceRepository.deleteById(id);
-        return null;
     }
 
     @Override
-    public List<DeviceHistory> getHistoriesByDeviceId(String id) {
+    public Boolean isOwner(String id, Long userId) {
+        return getById(id).getUserId().equals(userId);
+    }
+
+    @Override
+    public List<DeviceHistory> getAllHistoriesByDeviceId(String id) {
         return deviceHistoryRepository.findAllByDeviceId(id);
-    }
-
-    @Override
-    public List<DeviceHistory> getAllHistories() {
-        return deviceHistoryRepository.findAll();
     }
 
     @Override
