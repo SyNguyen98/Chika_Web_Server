@@ -28,6 +28,6 @@ public class RemoteIr {
     @NotBlank
     private String roomId;
 
-    @OneToMany(mappedBy = "irId")
+    @OneToMany(mappedBy = "remoteIrId")
     private List<IrValue> irValues;
 }

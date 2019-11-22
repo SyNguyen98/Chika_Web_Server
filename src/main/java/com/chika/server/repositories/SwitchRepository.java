@@ -9,10 +9,9 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 27-09-2019
+ * @since 23-11-2019
  */
 @Repository
 public interface SwitchRepository extends JpaRepository<Switch, String> {
 
-    List<Switch> findAllByUserId(Long userId);
 }
