@@ -28,9 +28,6 @@ public class Room {
     @NotNull
     private Long userId;
 
-    @OneToMany(mappedBy = "roomId", fetch = FetchType.LAZY)
-    private List<Device> devices;
-
     public Room() {}
     public Room(String name, Long userId) {
         this.name = name;
@@ -59,13 +56,5 @@ public class Room {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public List<Device> getDevices() {
-        return devices;
-    }
-
-    public void setDevices(List<Device> devices) {
-        this.devices = devices;
     }
 }

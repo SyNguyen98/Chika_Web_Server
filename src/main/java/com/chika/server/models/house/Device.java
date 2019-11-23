@@ -33,6 +33,7 @@ public class Device {
 
     private Long userId;
 
+    public Device() {}
     public Device(String name, int state, String roomId, String switchId, Long userId) {
         this.name = name;
         this.state = state;

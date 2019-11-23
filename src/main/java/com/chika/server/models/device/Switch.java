@@ -10,7 +10,7 @@ import java.util.List;
  * Connect to table Switch in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-11-2019
+ * @since 23-11-2019
  */
 @Entity
 @Table(name = "switches")
@@ -21,7 +21,7 @@ public class Switch {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @OneToMany(mappedBy = "switchId")
+    @OneToMany(mappedBy = "switchId", fetch = FetchType.LAZY)
     private List<Device> devices;
 
     public Switch() {}
