@@ -30,9 +30,9 @@ public class SwitchController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public Switch save(@RequestParam("deviceQuantity") int deviceQuantity) {
+    public Switch save(@RequestParam("numOfDevice") int numOfDevice) {
         Switch newSwitch = switchService.save(new Switch());
-        for (int i = 0; i < deviceQuantity; i++) {
+        for (int i = 0; i < numOfDevice; i++) {
             deviceService.save(new Device("", 0, "", newSwitch.getId(), (long) 0));
         }
         return newSwitch;

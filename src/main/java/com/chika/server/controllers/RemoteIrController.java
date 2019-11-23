@@ -24,9 +24,9 @@ public class RemoteIrController {
     }
 
     @PostMapping
-    public RemoteIr saveRemote(@RequestBody RemoteIr remoteIr, @RequestParam("numberOfButton") int numberOfButton) {
+    public RemoteIr saveRemote(@RequestBody RemoteIr remoteIr, @RequestParam("numOfButton") int numOfButton) {
         RemoteIr remote = remoteIrService.save(remoteIr);
-        irValueService.saveList(remote.getId(), numberOfButton);
+        irValueService.saveList(remote.getId(), numOfButton);
         return remote;
     }
 
