@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
 /**
  * Connect to table Sensor in database
  * @author Sy Nguyen
- * @version 1.1
- * @since 08-09-2019
+ * @version 1.0
+ * @since 23-11-2019
  */
 @Entity
 @Table(name = "sensors")
@@ -32,4 +32,6 @@ public class Sensor {
 
     @NotBlank
     private String roomId;
+
+    private Long userId;
 }

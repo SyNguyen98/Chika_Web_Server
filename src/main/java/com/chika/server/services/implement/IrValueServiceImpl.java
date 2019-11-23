@@ -14,7 +14,7 @@ import java.util.List;
  * Manipulating data in the Ir table
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-11-2019
+ * @since 23-11-2019
  */
 @Service
 public class IrValueServiceImpl implements IrValueService {
@@ -25,7 +25,7 @@ public class IrValueServiceImpl implements IrValueService {
     @Override
     @Transactional
     public List<IrValue> getAllByRemoteIrId(String remoteIrId) {
-        return irValueRepository.findAllByRemoteIrId(remoteIrId);
+        return irValueRepository.findAllByRemoteId(remoteIrId);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class IrValueServiceImpl implements IrValueService {
     @Transactional
     public List<IrValue> saveList(String remoteIrId, int quantity) {
         for (int i = 0; i < quantity; i++) {
-            IrValue irValue = new IrValue(String.valueOf(i), "",remoteIrId);
+            IrValue irValue = new IrValue(String.valueOf(i), "", remoteIrId);
             irValueRepository.save(irValue);
         }
         return getAllByRemoteIrId(remoteIrId);
@@ -54,6 +54,6 @@ public class IrValueServiceImpl implements IrValueService {
     @Override
     @Transactional
     public void deleteAllByRemoteIrId(String remoteIrId) {
-        irValueRepository.deleteAllByRemoteIrId(remoteIrId);
+        irValueRepository.deleteAllByRemoteId(remoteIrId);
     }
 }

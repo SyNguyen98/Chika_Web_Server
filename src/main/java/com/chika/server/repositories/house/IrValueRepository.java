@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface IrValueRepository extends JpaRepository<IrValue, String> {
 
-    List<IrValue> findAllByRemoteIrId(String remoteIrId);
+    List<IrValue> findAllByRemoteId(String remoteIrId);
 
-    void deleteAllByRemoteIrId(String remoteIrId);
+    void deleteAllByRemoteId(String remoteIrId);
 }

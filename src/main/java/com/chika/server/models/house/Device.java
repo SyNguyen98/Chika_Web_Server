@@ -28,8 +28,7 @@ public class Device {
     private int state;
 
     private String roomId;
-
-    @NotBlank
+    
     private String switchId;
 
     private Long userId;

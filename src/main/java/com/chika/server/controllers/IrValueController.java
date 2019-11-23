@@ -5,25 +5,22 @@ import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.IrValueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/ir")
-public class IrController {
+public class IrValueController {
 
     @Autowired
     private IrValueService irValueService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{remoteId}")
     public List<IrValue> getAllByRemoteIrId(@PathVariable String remoteId) {
         return irValueService.getAllByRemoteIrId(remoteId);
-    }
-
-    @PostMapping("/{remoteId}")
-    public List<IrValue> saveAll(@PathVariable String remoteId, @RequestParam int quantity) {
-        return irValueService.saveList(remoteId, quantity);
     }
 
     @PutMapping

@@ -19,15 +19,15 @@ public class RemoteIr {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @NotBlank
     private String name;
 
     @NotBlank
-    private String moduleIrId;
+    private String moduleId;
 
-    @NotBlank
     private String roomId;
 
-    @OneToMany(mappedBy = "remoteIrId")
+    private Long userId;
+
+    @OneToMany(mappedBy = "remoteId")
     private List<IrValue> irValues;
 }

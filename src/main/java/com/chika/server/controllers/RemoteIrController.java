@@ -29,4 +29,16 @@ public class RemoteIrController {
         irValueService.saveList(remote.getId(), numberOfButton);
         return remote;
     }
+
+    @PutMapping
+    public RemoteIr updateName(@RequestBody RemoteIr remoteIr) {
+        return remoteIrService.updateName(remoteIr.getId(), remoteIr.getName());
+    }
+
+    @DeleteMapping("/{remoteId}")
+    public Boolean deleteRemote(@PathVariable String remoteId) {
+        irValueService.deleteAllByRemoteIrId(remoteId);
+        remoteIrService.deleteById(remoteId);
+        return true;
+    }
 }

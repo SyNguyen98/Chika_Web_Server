@@ -24,12 +24,12 @@ public class IrValue {
     private String value;
 
     @NotBlank
-    private String remoteIrId;
+    private String remoteId;
 
     public IrValue() {}
-    public IrValue(String name, String value, String remoteIrId) {
+    public IrValue(String name, String value, String remoteId) {
         this.name = name;
         this.value = value;
-        this.remoteIrId = remoteIrId;
+        this.remoteId = remoteId;
     }
 }
