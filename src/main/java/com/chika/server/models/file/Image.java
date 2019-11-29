@@ -27,13 +27,17 @@ public class Image {
     @NotBlank
     private String type;
 
+    @NotBlank
+    private String label;
+
     @Lob
     @NotNull
     private byte[] data;
 
-    public Image(String name, String type, byte[] data) {
+    public Image(String name, String type, String label, byte[] data) {
         this.name = name;
         this.type = type;
         this.data = data;
+        this.label = label;
     }
 }

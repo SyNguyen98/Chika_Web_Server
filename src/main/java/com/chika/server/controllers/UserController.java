@@ -44,8 +44,8 @@ public class UserController {
     }
 
     @PutMapping
-    public UserResponse updateUser(@CurrentUser UserPrincipal currentUser, @RequestBody User user) {
-        return new UserResponse(userService.updateUser(user.getUsername(), user.getName(), user.getEmail()));
+    public UserResponse updateInfo(@CurrentUser UserPrincipal currentUser, @RequestBody User user) {
+        return new UserResponse(userService.updateUser(currentUser.getUsername(), user.getName(), user.getEmail()));
     }
 
     @PutMapping("/change-password")

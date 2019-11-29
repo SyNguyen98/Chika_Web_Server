@@ -33,5 +33,5 @@ public interface DeviceService {
 
     DeviceHistory saveHistory(String deviceId, int state);
 
-    Boolean deleteHistory(String id);
+    void deleteAllHistoriesByDeviceId(String deviceId);
 }

@@ -4,6 +4,8 @@ import com.chika.server.models.file.Image;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 /**
  * @author Sy Nguyen
  * @version 1.0
@@ -12,9 +14,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public interface ImageService {
 
-    Image storeImage(MultipartFile image);
+    Image storeImage(MultipartFile image, String label);
 
     Image getImage(String imageId);
+
+    List<Image> getAllByLabel(String label);
 
     void deleteImage(String imageId);
 }

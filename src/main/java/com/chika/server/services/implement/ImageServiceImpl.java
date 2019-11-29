@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Sy Nguyen
@@ -24,13 +27,13 @@ public class ImageServiceImpl implements ImageService {
     private ImageRepository imageRepository;
 
     @Override
-    public Image storeImage(MultipartFile imageFile) {
-        String imageName = StringUtils.cleanPath(imageFile.getOriginalFilename());
+    public Image storeImage(MultipartFile imageFile, String label) {
+        String imageName = StringUtils.cleanPath(Objects.requireNonNull(imageFile.getOriginalFilename()));
         try {
             if (imageName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence" + imageName);
             }
-            Image image = new Image(imageName, imageFile.getContentType(), imageFile.getBytes());
+            Image image = new Image(imageName, imageFile.getContentType(), label, imageFile.getBytes());
             return imageRepository.save(image);
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + imageName + ". Please try again!", ex);
@@ -41,6 +44,12 @@ public class ImageServiceImpl implements ImageService {
     public Image getImage(String imageId) {
         return imageRepository.findById(imageId)
                 .orElseThrow(() -> new ResourceNotFoundException("Image", "id", imageId));
+    }
+
+    @Override
+    @Transactional
+    public List<Image> getAllByLabel(String label) {
+        return imageRepository.getAllByLabel(label);
     }
 
     @Override

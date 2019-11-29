@@ -8,8 +8,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 29-11-2019
+ */
 @RestController
-@RequestMapping("/remoteIr")
+@RequestMapping("/remote-ir")
 public class RemoteIrController {
 
     @Autowired
@@ -35,10 +40,10 @@ public class RemoteIrController {
         return remoteIrService.updateName(remoteIr.getId(), remoteIr.getName());
     }
 
-    @DeleteMapping("/{remoteId}")
-    public Boolean deleteRemote(@PathVariable String remoteId) {
-        irValueService.deleteAllByRemoteIrId(remoteId);
-        remoteIrService.deleteById(remoteId);
+    @DeleteMapping("/{id}")
+    public Boolean deleteRemote(@PathVariable String id) {
+        irValueService.deleteAllByRemoteIrId(id);
+        remoteIrService.deleteById(id);
         return true;
     }
 }

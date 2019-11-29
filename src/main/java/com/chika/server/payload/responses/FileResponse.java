@@ -5,13 +5,13 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class UploadFileResponse {
+public class FileResponse {
 
     private String fileName;
 
-    private String fileDownloadUri;
+    private String fileUri;
 
     private String fileType;
 
-    private long size;
+    private String label;
 }

@@ -23,7 +23,7 @@ public class RoomController {
     private RoomService roomService;
 
     @GetMapping
-    public List<Room> getByUserId(@CurrentUser UserPrincipal currentUser) {
+    public List<Room> getAllByUserId(@CurrentUser UserPrincipal currentUser) {
         return roomService.getAllByUserId(currentUser.getId());
     }
 
@@ -33,7 +33,7 @@ public class RoomController {
     }
 
     @PutMapping
-    public Room update(@CurrentUser UserPrincipal currentUser, @RequestBody Room room) {
+    public Room updateName(@CurrentUser UserPrincipal currentUser, @RequestBody Room room) {
         if (roomService.isOwner(room.getId(), currentUser.getId())) {
             return roomService.updateName(room.getId(), room.getName());
         }

@@ -9,10 +9,12 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 19-10-2019
+ * @since 29-11-2019
  */
 @Repository
 public interface DeviceHistoryRepository extends JpaRepository<DeviceHistory, String> {
 
     List<DeviceHistory> findAllByDeviceId(String deviceId);
+
+    void deleteAllByDeviceId(String deviceId);
 }

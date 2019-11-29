@@ -17,7 +17,6 @@ public class IrValueController {
     @Autowired
     private IrValueService irValueService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{remoteId}")
     public List<IrValue> getAllByRemoteIrId(@PathVariable String remoteId) {
         return irValueService.getAllByRemoteIrId(remoteId);

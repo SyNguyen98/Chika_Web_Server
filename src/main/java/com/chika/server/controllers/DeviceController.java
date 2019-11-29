@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-11-2019
+ * @since 29-11-2019
  */
 @RestController
 @RequestMapping("/device")
@@ -40,9 +40,9 @@ public class DeviceController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping
-    public Device save(@RequestBody Device device) {
-        return deviceService.save(new Device("", 0, "", device.getSwitchId(), (long) 0));
+    @PostMapping("/{switchId}")
+    public Device save(@PathVariable String switchId) {
+        return deviceService.save(new Device("", 0, "", switchId, (long) 0));
     }
 
     @PutMapping("/name")
@@ -59,12 +59,21 @@ public class DeviceController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public Boolean deleteDevice(@PathVariable String id) {
+        deviceService.deleteAllHistoriesByDeviceId(id);
         deviceService.delete(id);
         return true;
     }
 
-    @GetMapping("/history")
-    public List<DeviceHistory> getAllHistoriesByDeviceId(@RequestParam("deviceId") String deviceId) {
+    // HISTORY
+
+    @GetMapping("/history/{deviceId}")
+    public List<DeviceHistory> getAllHistoriesByDeviceId(@PathVariable String deviceId) {
         return deviceService.getAllHistoriesByDeviceId(deviceId);
+    }
+
+    @DeleteMapping("/history/{deviceId}")
+    public Boolean deleteAllHistoriesByDeviceId(@PathVariable String deviceId) {
+        deviceService.deleteAllHistoriesByDeviceId(deviceId);
+        return true;
     }
 }

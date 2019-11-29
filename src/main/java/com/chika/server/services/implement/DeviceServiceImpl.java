@@ -91,7 +91,7 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public Boolean deleteHistory(String id) {
-        return null;
+    public void deleteAllHistoriesByDeviceId(String deviceId) {
+        deviceHistoryRepository.deleteAllByDeviceId(deviceId);
     }
 }

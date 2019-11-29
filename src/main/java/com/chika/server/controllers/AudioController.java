@@ -1,10 +1,8 @@
 package com.chika.server.controllers;
 
 import com.chika.server.models.file.Audio;
-import com.chika.server.models.file.Image;
-import com.chika.server.payload.responses.UploadFileResponse;
+import com.chika.server.payload.responses.FileResponse;
 import com.chika.server.services.AudioService;
-import com.chika.server.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -19,46 +17,21 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping
-public class FileController {
-
-    @Autowired
-    private ImageService imageService;
+public class AudioController {
 
     @Autowired
     private AudioService audioService;
 
-    @PostMapping("/image")
-    public UploadFileResponse uploadImage(@RequestParam("file") MultipartFile imageFile) {
-        Image image = imageService.storeImage(imageFile);
-
-        String imageUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/image/")
-                .path(image.getId())
-                .toUriString();
-
-        return new UploadFileResponse(image.getName(), imageUri, Objects.requireNonNull(imageFile).getContentType(), imageFile.getSize());
-    }
-
-    @GetMapping("/image/{imageId}")
-    public ResponseEntity<Resource> downloadImage(@PathVariable String imageId) {
-        Image image = imageService.getImage(imageId);
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(image.getType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getName() + "\"")
-                .body(new ByteArrayResource(image.getData()));
-    }
-
     @PostMapping("/audio")
-    public UploadFileResponse uploadAudio(@RequestParam("file") MultipartFile audioFile, @RequestParam("label") String label) {
+    public FileResponse uploadAudio(@RequestParam("audio") MultipartFile audioFile, @RequestParam("label") String label) {
         Audio audio = audioService.storeAudio(audioFile, label);
 
-        String imageUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+        String audioUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/audio/")
                 .path(audio.getName())
                 .toUriString();
 
-        return new UploadFileResponse(audio.getName(), imageUri, Objects.requireNonNull(audioFile).getContentType(), audioFile.getSize());
+        return new FileResponse(audio.getName(), audioUri, audio.getType(), audio.getLabel());
     }
 
     @GetMapping("/audio/{name}")
@@ -70,8 +43,8 @@ public class FileController {
                 .body(new ByteArrayResource(audio.getData()));
     }
 
-    @GetMapping("/audio/label={label}")
-    public ResponseEntity<Resource> downloadAudioByLabel(@PathVariable String label) {
+    @GetMapping("/audio")
+    public ResponseEntity<Resource> downloadAudioByLabel(@RequestParam("label") String label) {
         Audio audio = audioService.getAudioByLabel(label);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(audio.getType()))
