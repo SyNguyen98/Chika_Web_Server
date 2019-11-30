@@ -3,7 +3,6 @@ package com.chika.server.controllers;
 import com.chika.server.models.file.Image;
 import com.chika.server.payload.responses.FileResponse;
 import com.chika.server.services.ImageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -21,8 +20,11 @@ import java.util.List;
 @RequestMapping("/image")
 public class ImageController {
 
-    @Autowired
-    private ImageService imageService;
+    private final ImageService imageService;
+
+    public ImageController(ImageService imageService) {
+        this.imageService = imageService;
+    }
 
     @PostMapping
     public FileResponse uploadImage(@RequestParam("image") MultipartFile imageFile, @RequestParam("label") String label) {

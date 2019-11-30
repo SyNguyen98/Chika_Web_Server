@@ -1,9 +1,10 @@
 package com.chika.server.controllers;
 
 import com.chika.server.models.house.RemoteIr;
+import com.chika.server.security.CurrentUser;
+import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.IrValueService;
 import com.chika.server.services.RemoteIrService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,17 +12,20 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 29-11-2019
+ * @since 30-11-2019
  */
 @RestController
 @RequestMapping("/remote-ir")
 public class RemoteIrController {
 
-    @Autowired
-    private RemoteIrService remoteIrService;
+    private final RemoteIrService remoteIrService;
 
-    @Autowired
-    private IrValueService irValueService;
+    private final IrValueService irValueService;
+
+    public RemoteIrController(RemoteIrService remoteIrService, IrValueService irValueService) {
+        this.remoteIrService = remoteIrService;
+        this.irValueService = irValueService;
+    }
 
     @GetMapping("/{roomId}")
     public List<RemoteIr> getAllRemotesByRoomId(@PathVariable String roomId) {
@@ -29,9 +33,12 @@ public class RemoteIrController {
     }
 
     @PostMapping
-    public RemoteIr saveRemote(@RequestBody RemoteIr remoteIr, @RequestParam("numOfButton") int numOfButton) {
-        RemoteIr remote = remoteIrService.save(remoteIr);
-        irValueService.saveList(remote.getId(), numOfButton);
+    public RemoteIr saveRemote(@CurrentUser UserPrincipal currentUser,
+                               @RequestBody RemoteIr remoteIr,
+                               @RequestParam("numOfButton") int numOfButton) {
+        RemoteIr remote = remoteIrService.save(new RemoteIr(remoteIr.getName(), remoteIr.getModuleId(),
+                remoteIr.getRoomId(), currentUser.getId()));
+        remote.setIrValues(irValueService.saveList(remote.getId(), numOfButton));
         return remote;
     }
 

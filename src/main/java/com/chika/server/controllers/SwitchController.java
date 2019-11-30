@@ -4,24 +4,26 @@ import com.chika.server.models.house.Device;
 import com.chika.server.models.device.Switch;
 import com.chika.server.services.DeviceService;
 import com.chika.server.services.SwitchService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-11-2019
+ * @since 30-11-2019
  */
 @RestController
 @RequestMapping("/switch")
 public class SwitchController {
 
-    @Autowired
-    private SwitchService switchService;
+    private final SwitchService switchService;
 
-    @Autowired
-    private DeviceService deviceService;
+    private final DeviceService deviceService;
+
+    public SwitchController(SwitchService switchService, DeviceService deviceService) {
+        this.switchService = switchService;
+        this.deviceService = deviceService;
+    }
 
     @GetMapping("/{id}")
     public Switch getById(@PathVariable String id) {

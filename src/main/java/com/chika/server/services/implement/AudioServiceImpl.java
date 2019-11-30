@@ -3,7 +3,7 @@ package com.chika.server.services.implement;
 import com.chika.server.exception.FileStorageException;
 import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.file.Audio;
-import com.chika.server.repositories.AudioRepository;
+import com.chika.server.repositories.file.AudioRepository;
 import com.chika.server.services.AudioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

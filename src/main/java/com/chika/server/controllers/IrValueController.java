@@ -1,11 +1,7 @@
 package com.chika.server.controllers;
 
 import com.chika.server.models.house.IrValue;
-import com.chika.server.security.CurrentUser;
-import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.IrValueService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,8 +10,11 @@ import java.util.List;
 @RequestMapping("/ir")
 public class IrValueController {
 
-    @Autowired
-    private IrValueService irValueService;
+    private final IrValueService irValueService;
+
+    public IrValueController(IrValueService irValueService) {
+        this.irValueService = irValueService;
+    }
 
     @GetMapping("/{remoteId}")
     public List<IrValue> getAllByRemoteIrId(@PathVariable String remoteId) {

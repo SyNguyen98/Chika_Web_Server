@@ -5,7 +5,6 @@ import com.chika.server.models.account.User;
 import com.chika.server.repositories.account.UserRepository;
 import com.chika.server.services.EmailService;
 import com.chika.server.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,19 +14,22 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.1
- * @since 27-09-2019
+ * @since 30-11-2019
  */
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private EmailService emailService;
+    private final EmailService emailService;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository, EmailService emailService, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.emailService = emailService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public User getUserByUsername(String username) {

@@ -6,7 +6,6 @@ import com.chika.server.payload.responses.UserResponse;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +17,17 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 04-10-2019
+ * @since 30-11-2019
  */
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public UserResponse getUserByUsername(@CurrentUser UserPrincipal currentUser) {

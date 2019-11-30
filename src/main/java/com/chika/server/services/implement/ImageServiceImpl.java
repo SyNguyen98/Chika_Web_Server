@@ -3,9 +3,8 @@ package com.chika.server.services.implement;
 import com.chika.server.exception.FileStorageException;
 import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.file.Image;
-import com.chika.server.repositories.ImageRepository;
+import com.chika.server.repositories.file.ImageRepository;
 import com.chika.server.services.ImageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,8 +22,11 @@ import java.util.Objects;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-    @Autowired
-    private ImageRepository imageRepository;
+    private final ImageRepository imageRepository;
+
+    public ImageServiceImpl(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
 
     @Override
     public Image storeImage(MultipartFile imageFile, String label) {

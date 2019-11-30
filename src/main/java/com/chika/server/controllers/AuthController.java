@@ -30,26 +30,29 @@ import java.util.Collections;
  * To control authentication from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 16-08-2019
+ * @since 30-11-2019
  */
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private JwtTokenProvider tokenProvider;
+    private final JwtTokenProvider tokenProvider;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
+
+    public AuthController(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider, UserService userService, RoleRepository roleRepository) {
+        this.authenticationManager = authenticationManager;
+        this.passwordEncoder = passwordEncoder;
+        this.tokenProvider = tokenProvider;
+        this.userService = userService;
+        this.roleRepository = roleRepository;
+    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInRequest signInRequest) {

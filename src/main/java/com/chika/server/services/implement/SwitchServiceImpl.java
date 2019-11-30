@@ -2,21 +2,23 @@ package com.chika.server.services.implement;
 
 import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.device.Switch;
-import com.chika.server.repositories.SwitchRepository;
+import com.chika.server.repositories.device.SwitchRepository;
 import com.chika.server.services.SwitchService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-11-2019
+ * @since 30-11-2019
  */
 @Service
 public class SwitchServiceImpl implements SwitchService {
 
-    @Autowired
-    private SwitchRepository switchRepository;
+    private final SwitchRepository switchRepository;
+
+    public SwitchServiceImpl(SwitchRepository switchRepository) {
+        this.switchRepository = switchRepository;
+    }
 
     @Override
     public Switch getById(String id) {

@@ -30,4 +30,12 @@ public class RemoteIr {
 
     @OneToMany(mappedBy = "remoteId")
     private List<IrValue> irValues;
+
+    public RemoteIr() {}
+    public RemoteIr(String name, String moduleId, String roomId, Long userId) {
+        this.name = name;
+        this.moduleId = moduleId;
+        this.roomId = roomId;
+        this.userId = userId;
+    }
 }

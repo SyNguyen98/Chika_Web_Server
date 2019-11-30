@@ -4,17 +4,18 @@ import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.house.RemoteIr;
 import com.chika.server.repositories.house.RemoteIrRepository;
 import com.chika.server.services.RemoteIrService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RemoteIrServiceImpl implements RemoteIrService {
 
-    @Autowired
-    private RemoteIrRepository remoteIrRepository;
+    private final RemoteIrRepository remoteIrRepository;
+
+    public RemoteIrServiceImpl(RemoteIrRepository remoteIrRepository) {
+        this.remoteIrRepository = remoteIrRepository;
+    }
 
     @Override
     public List<RemoteIr> getAllByRoomId(String roomId) {

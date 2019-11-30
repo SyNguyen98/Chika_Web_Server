@@ -3,7 +3,6 @@ package com.chika.server.controllers;
 import com.chika.server.models.file.Audio;
 import com.chika.server.payload.responses.FileResponse;
 import com.chika.server.services.AudioService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -13,14 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.Objects;
-
 @RestController
 @RequestMapping
 public class AudioController {
 
-    @Autowired
-    private AudioService audioService;
+    private final AudioService audioService;
+
+    public AudioController(AudioService audioService) {
+        this.audioService = audioService;
+    }
 
     @PostMapping("/audio")
     public FileResponse uploadAudio(@RequestParam("audio") MultipartFile audioFile, @RequestParam("label") String label) {

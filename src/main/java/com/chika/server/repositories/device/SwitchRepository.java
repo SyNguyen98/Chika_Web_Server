@@ -1,4 +1,4 @@
-package com.chika.server.repositories;
+package com.chika.server.repositories.device;
 
 import com.chika.server.models.device.Switch;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -4,7 +4,6 @@ import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.house.IrValue;
 import com.chika.server.repositories.house.IrValueRepository;
 import com.chika.server.services.IrValueService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,13 +13,16 @@ import java.util.List;
  * Manipulating data in the Ir table
  * @author Sy Nguyen
  * @version 1.0
- * @since 23-11-2019
+ * @since 30-11-2019
  */
 @Service
 public class IrValueServiceImpl implements IrValueService {
 
-    @Autowired
-    private IrValueRepository irValueRepository;
+    private final IrValueRepository irValueRepository;
+
+    public IrValueServiceImpl(IrValueRepository irValueRepository) {
+        this.irValueRepository = irValueRepository;
+    }
 
     @Override
     @Transactional

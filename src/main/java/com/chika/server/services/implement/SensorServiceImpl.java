@@ -6,7 +6,6 @@ import com.chika.server.models.house.SensorHistory;
 import com.chika.server.repositories.house.SensorHistoryRepository;
 import com.chika.server.repositories.house.SensorRepository;
 import com.chika.server.services.SensorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +18,14 @@ import java.util.List;
 @Service
 public class SensorServiceImpl implements SensorService {
 
-    @Autowired
-    private SensorRepository sensorRepository;
+    private final SensorRepository sensorRepository;
 
-    @Autowired
-    private SensorHistoryRepository sensorHistoryRepository;
+    private final SensorHistoryRepository sensorHistoryRepository;
+
+    public SensorServiceImpl(SensorRepository sensorRepository, SensorHistoryRepository sensorHistoryRepository) {
+        this.sensorRepository = sensorRepository;
+        this.sensorHistoryRepository = sensorHistoryRepository;
+    }
 
     @Override
     public Sensor findSensorById(String id) {

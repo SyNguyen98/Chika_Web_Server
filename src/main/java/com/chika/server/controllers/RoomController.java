@@ -4,8 +4,6 @@ import com.chika.server.models.house.Room;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.RoomService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,14 +11,17 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-11-2019
+ * @since 30-11-2019
  */
 @RestController
 @RequestMapping("/room")
 public class RoomController {
 
-    @Autowired
-    private RoomService roomService;
+    private final RoomService roomService;
+
+    public RoomController(RoomService roomService) {
+        this.roomService = roomService;
+    }
 
     @GetMapping
     public List<Room> getAllByUserId(@CurrentUser UserPrincipal currentUser) {

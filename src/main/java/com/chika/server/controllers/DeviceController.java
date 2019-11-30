@@ -21,8 +21,11 @@ import java.util.List;
 @RequestMapping("/device")
 public class DeviceController {
 
-    @Autowired
-    private DeviceService deviceService;
+    private final DeviceService deviceService;
+
+    public DeviceController(DeviceService deviceService) {
+        this.deviceService = deviceService;
+    }
 
     @GetMapping("/room/{roomId}")
     public List<Device> getDevicesByRoomId(@PathVariable String roomId) {

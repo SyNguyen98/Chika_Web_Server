@@ -4,7 +4,6 @@ import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.house.Room;
 import com.chika.server.repositories.house.RoomRepository;
 import com.chika.server.services.RoomService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,13 +13,16 @@ import java.util.List;
  * Manipulating data in the Room table
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-11-2019
+ * @since 30-11-2019
  */
 @Service
 public class RoomServiceImpl implements RoomService {
 
-    @Autowired
-    private RoomRepository roomRepository;
+    private final RoomRepository roomRepository;
+
+    public RoomServiceImpl(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
+    }
 
     @Override
     @Transactional
