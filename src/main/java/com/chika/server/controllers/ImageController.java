@@ -49,17 +49,17 @@ public class ImageController {
     }
 
     @GetMapping
-    public List<FileResponse> getAllImageByLabel(@RequestParam("label") String label) {
+    public List<String> getAllImageByLabel(@RequestParam("label") String label) {
         List<Image> images = imageService.getAllByLabel(label);
-        List<FileResponse> fileResponses = new ArrayList<>();
+        images.sort(Comparator.comparing(Image::getName));
+        List<String> imageUrls = new ArrayList<>();
         for (Image image : images) {
             String imageUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                     .path("/image/")
                     .path(image.getId())
                     .toUriString();
-            fileResponses.add(new FileResponse(image.getName(), imageUri, image.getType(), image.getLabel()));
+            imageUrls.add(imageUri);
         }
-        fileResponses.sort(Comparator.comparing(FileResponse::getFileName));
-        return fileResponses;
+        return imageUrls;
     }
 }

@@ -20,19 +20,8 @@ public class ChikaWebServerApplication {
     public static final DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
                                                                         .withLocale( Locale.UK )
                                                                         .withZone( ZoneId.systemDefault() );
-    private static ModuleIrService moduleIrService;
-
-    public ChikaWebServerApplication(ModuleIrService moduleIrService) {
-        ChikaWebServerApplication.moduleIrService = moduleIrService;
-    }
-
-    public static MqttService mqttService = new MqttServiceImpl();
 
     public static void main(String[] args) {
         SpringApplication.run(ChikaWebServerApplication.class, args);
-
-        for (ModuleIr moduleIr : moduleIrService.getAll()) {
-            mqttService.subscribe(moduleIr.getId() + "/control");
-        }
     }
 }

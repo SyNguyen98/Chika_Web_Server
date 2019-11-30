@@ -22,7 +22,6 @@ public class ModuleIrController {
     @PostMapping
     public ModuleIr saveModuleIr() {
         ModuleIr moduleIr = moduleIrService.save(new ModuleIr());
-        ChikaWebServerApplication.mqttService.subscribe(moduleIr.getId() + "/control");
         return moduleIr;
     }
 }

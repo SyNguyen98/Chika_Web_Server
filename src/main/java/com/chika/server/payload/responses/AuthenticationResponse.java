@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 02-11-2019
+ * @since 30-11-2019
  */
 @Data
 public class AuthenticationResponse {
