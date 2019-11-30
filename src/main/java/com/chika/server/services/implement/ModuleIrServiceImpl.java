@@ -6,6 +6,8 @@ import com.chika.server.repositories.device.ModuleIrRepository;
 import com.chika.server.services.ModuleIrService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ModuleIrServiceImpl implements ModuleIrService {
 
@@ -13,6 +15,11 @@ public class ModuleIrServiceImpl implements ModuleIrService {
 
     public ModuleIrServiceImpl(ModuleIrRepository moduleIrRepository) {
         this.moduleIrRepository = moduleIrRepository;
+    }
+
+    @Override
+    public List<ModuleIr> getAll() {
+        return moduleIrRepository.findAll();
     }
 
     @Override

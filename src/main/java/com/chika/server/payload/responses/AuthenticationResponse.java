@@ -13,9 +13,6 @@ public class AuthenticationResponse {
     private String tokenType = "Bearer";
     private String accessToken;
 
-    private String mqttUsername = "chika";
-    private String mqttPassword = "2502";
-
     public AuthenticationResponse(String accessToken) {
         this.accessToken = accessToken;
     }
