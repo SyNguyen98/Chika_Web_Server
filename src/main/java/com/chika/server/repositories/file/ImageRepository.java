@@ -1,4 +1,4 @@
-package com.chika.server.repositories;
+package com.chika.server.repositories.file;
 
 import com.chika.server.models.file.Image;
 import org.springframework.data.jpa.repository.JpaRepository;

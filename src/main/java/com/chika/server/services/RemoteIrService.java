@@ -17,4 +17,6 @@ public interface RemoteIrService {
     RemoteIr updateName(String id, String name);
 
     void deleteById(String id);
+
+    Boolean isOwner(String id, Long userId);
 }

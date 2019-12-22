@@ -8,7 +8,6 @@ import lombok.Data;
 @Data
 public class UserResponse {
 
-    private Long id;
     private String name;
     private String username;
     private String email;
@@ -16,7 +15,6 @@ public class UserResponse {
     private RoleName role;
 
     public UserResponse(User user) {
-        this.id = user.getId();
         this.name = user.getName();
         this.username = user.getUsername();
         this.email = user.getEmail();

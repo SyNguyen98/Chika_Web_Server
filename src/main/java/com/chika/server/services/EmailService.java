@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 @Service
 public interface EmailService {
 
-    String sendSimpleEmail(String mailReceiver, String token);
+    void sendSimpleEmail(String mailReceiver, String token);
 
-    String sendAttachmentEmail();
+    void sendAttachmentEmail();
 
-    String sendHtmlMail(String mailReceiver, String token);
+    void sendHtmlMail(String mailReceiver, String token);
 }

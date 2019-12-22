@@ -9,8 +9,8 @@ import java.util.Optional;
 
 /**
  * @author Sy Nguyen
- * @version 1.1
- * @since 16-8-2019
+ * @version 1.0
+ * @since 22-12-2019
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -23,7 +23,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByPassword(String password);
 
-    List<User> findByIdIn(List<Long> userIds);
+    void deleteByUsername(String username);
 
     Boolean existsByUsername(String username);
 

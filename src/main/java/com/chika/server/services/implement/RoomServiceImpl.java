@@ -11,16 +11,19 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * Manipulating data in the Room table
+ * CRUD functions for Room
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-11-2019
+ * @since 22-12-2019
  */
 @Service
 public class RoomServiceImpl implements RoomService {
 
-    @Autowired
-    private RoomRepository roomRepository;
+    private final RoomRepository roomRepository;
+
+    public RoomServiceImpl(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
+    }
 
     @Override
     @Transactional

@@ -9,21 +9,19 @@ import java.util.List;
 @Service
 public interface SensorService {
 
-    Sensor findSensorById(String id);
+    List<Sensor> getAll();
 
-    List<Sensor> findAllSensors();
+    Sensor getById(String id);
 
-    Sensor saveSensor(Sensor sensor);
+    Sensor save(Sensor sensor);
 
-    Sensor updateSensor(String id, String name, double data);
+    Sensor updateInfo(String id, String name, double data);
 
-    void deleteSensor(String id);
+    void deleteById(String id);
 
-    List<SensorHistory> findSensorHistoryById(String id);
+    List<SensorHistory> getAllHistoriesBySensorId(String id);
 
-    List<SensorHistory> findAllSensorHistories();
+    SensorHistory saveHistory(SensorHistory sensor);
 
-    SensorHistory saveSensorHistory(SensorHistory sensor);
-
-    Boolean deleteSensorHistory(String id);
+    void deleteHistory(String id);
 }

@@ -1,17 +1,22 @@
 package com.chika.server.models.house;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
+/**
+ * Connect to table Remote Ir in database
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 20-12-2019
+ */
 @Entity
 @Data
+@NoArgsConstructor
 public class RemoteIr {
 
     @Id
@@ -26,8 +31,12 @@ public class RemoteIr {
 
     private String roomId;
 
-    private Long userId;
-
-    @OneToMany(mappedBy = "remoteId")
+    @OneToMany(mappedBy = "remoteId", fetch = FetchType.LAZY)
     private List<IrValue> irValues;
+
+    public RemoteIr(String name, String moduleId, String roomId) {
+        this.name = name;
+        this.moduleId = moduleId;
+        this.roomId = roomId;
+    }
 }

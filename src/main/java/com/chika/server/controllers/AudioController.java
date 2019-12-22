@@ -13,30 +13,25 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.Objects;
-
+/**
+ * To receive Audio requests from client
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 22-12-2019
+ */
 @RestController
 @RequestMapping
 public class AudioController {
 
-    @Autowired
-    private AudioService audioService;
+    private final AudioService audioService;
 
-    @PostMapping("/audio")
-    public FileResponse uploadAudio(@RequestParam("audio") MultipartFile audioFile, @RequestParam("label") String label) {
-        Audio audio = audioService.storeAudio(audioFile, label);
-
-        String audioUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/audio/")
-                .path(audio.getName())
-                .toUriString();
-
-        return new FileResponse(audio.getName(), audioUri, audio.getType(), audio.getLabel());
+    public AudioController(AudioService audioService) {
+        this.audioService = audioService;
     }
 
     @GetMapping("/audio/{name}")
     public ResponseEntity<Resource> downloadAudio(@PathVariable String name) {
-        Audio audio = audioService.getAudioByName(name);
+        Audio audio = audioService.getByName(name);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(audio.getType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + audio.getName() + "\"")
@@ -45,10 +40,22 @@ public class AudioController {
 
     @GetMapping("/audio")
     public ResponseEntity<Resource> downloadAudioByLabel(@RequestParam("label") String label) {
-        Audio audio = audioService.getAudioByLabel(label);
+        Audio audio = audioService.getByLabel(label);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(audio.getType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + audio.getName() + "\"")
                 .body(new ByteArrayResource(audio.getData()));
+    }
+
+    @PostMapping("/audio")
+    public FileResponse uploadAudio(@RequestParam("audio") MultipartFile audioFile, @RequestParam("label") String label) {
+        Audio audio = audioService.save(audioFile, label);
+
+        String audioUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/audio/")
+                .path(audio.getName())
+                .toUriString();
+
+        return new FileResponse(audio.getName(), audioUri, audio.getType(), audio.getLabel());
     }
 }

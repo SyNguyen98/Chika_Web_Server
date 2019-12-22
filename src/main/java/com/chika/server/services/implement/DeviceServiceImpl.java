@@ -5,7 +5,9 @@ import com.chika.server.models.house.Device;
 import com.chika.server.models.house.DeviceHistory;
 import com.chika.server.repositories.house.DeviceHistoryRepository;
 import com.chika.server.repositories.house.DeviceRepository;
+import com.chika.server.repositories.house.RoomRepository;
 import com.chika.server.services.DeviceService;
+import com.chika.server.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +15,25 @@ import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * Manipulating data in the Device table
+ * CRUD functions for Device
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-11-2019
+ * @since 22-12-2019
  */
 @Service
 public class DeviceServiceImpl implements DeviceService {
 
-    @Autowired
-    private DeviceRepository deviceRepository;
+    private final DeviceRepository deviceRepository;
 
-    @Autowired
-    private DeviceHistoryRepository deviceHistoryRepository;
+    private final DeviceHistoryRepository deviceHistoryRepository;
+
+    private final RoomService roomService;
+
+    public DeviceServiceImpl(DeviceRepository deviceRepository, DeviceHistoryRepository deviceHistoryRepository, RoomService roomService) {
+        this.deviceRepository = deviceRepository;
+        this.deviceHistoryRepository = deviceHistoryRepository;
+        this.roomService = roomService;
+    }
 
     @Override
     public List<Device> getAllByRoomId(String roomId) {
@@ -35,11 +43,6 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public List<Device> getAllBySwitchId(String switchId) {
         return deviceRepository.findAllBySwitchId(switchId);
-    }
-
-    @Override
-    public List<Device> getAllByUserId(Long userId) {
-        return deviceRepository.findAllByUserId(userId);
     }
 
     @Override
@@ -54,11 +57,10 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public Device updateInfo(String id, String name, String roomId, Long userId) {
+    public Device updateInfo(String id, String name, String roomId) {
         Device device = getById(id);
         device.setName(name);
         device.setRoomId(roomId);
-        device.setUserId(userId);
         return deviceRepository.save(device);
     }
 
@@ -76,7 +78,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public Boolean isOwner(String id, Long userId) {
-        return getById(id).getUserId().equals(userId);
+        return roomService.isOwner(getById(id).getRoomId(), userId);
     }
 
     @Override
@@ -85,8 +87,7 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public DeviceHistory saveHistory(String deviceId, int state) {
-        DeviceHistory deviceHistory = new DeviceHistory(deviceId, state, new Timestamp(System.currentTimeMillis()));
+    public DeviceHistory saveHistory(DeviceHistory deviceHistory) {
         return deviceHistoryRepository.save(deviceHistory);
     }
 

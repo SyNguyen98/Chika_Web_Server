@@ -11,16 +11,19 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * Manipulating data in the Ir table
+ * CRUD functions for Ir Value
  * @author Sy Nguyen
  * @version 1.0
- * @since 23-11-2019
+ * @since 22-12-2019
  */
 @Service
 public class IrValueServiceImpl implements IrValueService {
 
-    @Autowired
-    private IrValueRepository irValueRepository;
+    private final IrValueRepository irValueRepository;
+
+    public IrValueServiceImpl(IrValueRepository irValueRepository) {
+        this.irValueRepository = irValueRepository;
+    }
 
     @Override
     @Transactional

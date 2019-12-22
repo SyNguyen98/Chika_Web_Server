@@ -17,33 +17,20 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * To receive Image requests from client
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 22-12-2019
+ */
 @RestController
 @RequestMapping("/image")
 public class ImageController {
 
-    @Autowired
-    private ImageService imageService;
+    private final ImageService imageService;
 
-    @PostMapping
-    public FileResponse uploadImage(@RequestParam("image") MultipartFile imageFile, @RequestParam("label") String label) {
-        Image image = imageService.storeImage(imageFile, label);
-
-        String imageUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/image/")
-                .path(image.getId())
-                .toUriString();
-
-        return new FileResponse(image.getName(), imageUri, image.getType(), image.getLabel());
-    }
-
-    @GetMapping("/{imageId}")
-    public ResponseEntity<Resource> downloadImage(@PathVariable String imageId) {
-        Image image = imageService.getImage(imageId);
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(image.getType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getName() + "\"")
-                .body(new ByteArrayResource(image.getData()));
+    public ImageController(ImageService imageService) {
+        this.imageService = imageService;
     }
 
     @GetMapping
@@ -59,5 +46,27 @@ public class ImageController {
         }
         fileResponses.sort(Comparator.comparing(FileResponse::getFileName));
         return fileResponses;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Resource> downloadImage(@PathVariable String id) {
+        Image image = imageService.getById(id);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(image.getType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getName() + "\"")
+                .body(new ByteArrayResource(image.getData()));
+    }
+
+    @PostMapping
+    public FileResponse save(@RequestParam("image") MultipartFile imageFile, @RequestParam("label") String label) {
+        Image image = imageService.save(imageFile, label);
+
+        String imageUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/image/")
+                .path(image.getId())
+                .toUriString();
+
+        return new FileResponse(image.getName(), imageUri, image.getType(), image.getLabel());
     }
 }

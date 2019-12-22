@@ -10,12 +10,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * To receive Ir Value requests from client
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 22-12-2019
+ */
 @RestController
-@RequestMapping("/ir")
+@RequestMapping("/irvalue")
 public class IrValueController {
 
-    @Autowired
-    private IrValueService irValueService;
+    private final IrValueService irValueService;
+
+    public IrValueController(IrValueService irValueService) {
+        this.irValueService = irValueService;
+    }
 
     @GetMapping("/{remoteId}")
     public List<IrValue> getAllByRemoteIrId(@PathVariable String remoteId) {

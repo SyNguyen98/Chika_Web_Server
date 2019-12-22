@@ -1,24 +1,26 @@
 package com.chika.server.models.house;
 
+import com.chika.server.models.audit.DateAudit;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 
 /**
- * Connect to table device with time in database
+ * Connect to table Device in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 09-08-2019
+ * @since 20-12-2019
  */
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
-public class DeviceHistory {
+public class DeviceHistory extends DateAudit {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -31,12 +33,8 @@ public class DeviceHistory {
     @NotNull
     private int state;
 
-    @NotNull
-    private Timestamp time;
-
-    public DeviceHistory(String deviceId, int state, Timestamp time) {
+    public DeviceHistory(String deviceId, int state) {
         this.deviceId = deviceId;
         this.state = state;
-        this.time = time;
     }
 }

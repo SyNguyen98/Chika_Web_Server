@@ -3,7 +3,7 @@ package com.chika.server.services.implement;
 import com.chika.server.exception.FileStorageException;
 import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.file.Image;
-import com.chika.server.repositories.ImageRepository;
+import com.chika.server.repositories.file.ImageRepository;
 import com.chika.server.services.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * CRUD functions for Image
  * @author Sy Nguyen
  * @version 1.0
  * @since 11-10-2019
@@ -23,11 +24,26 @@ import java.util.Objects;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-    @Autowired
-    private ImageRepository imageRepository;
+    private final ImageRepository imageRepository;
+
+    public ImageServiceImpl(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
 
     @Override
-    public Image storeImage(MultipartFile imageFile, String label) {
+    @Transactional
+    public List<Image> getAllByLabel(String label) {
+        return imageRepository.getAllByLabel(label);
+    }
+
+    @Override
+    public Image getById(String id) {
+        return imageRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Image", "id", id));
+    }
+
+    @Override
+    public Image save(MultipartFile imageFile, String label) {
         String imageName = StringUtils.cleanPath(Objects.requireNonNull(imageFile.getOriginalFilename()));
         try {
             if (imageName.contains("..")) {
@@ -41,19 +57,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Image getImage(String imageId) {
-        return imageRepository.findById(imageId)
-                .orElseThrow(() -> new ResourceNotFoundException("Image", "id", imageId));
-    }
-
-    @Override
-    @Transactional
-    public List<Image> getAllByLabel(String label) {
-        return imageRepository.getAllByLabel(label);
-    }
-
-    @Override
-    public void deleteImage(String imageId) {
-        imageRepository.deleteById(imageId);
+    public void deleteById(String id) {
+        imageRepository.deleteById(id);
     }
 }

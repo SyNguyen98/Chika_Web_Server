@@ -1,44 +1,42 @@
 package com.chika.server.models.device;
 
+import com.chika.server.models.audit.DateAudit;
 import com.chika.server.models.house.Device;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
  * Connect to table Switch in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 23-11-2019
+ * @since 20-12-2019
  */
+@EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "switches")
-public class Switch {
+@Data
+@NoArgsConstructor
+public class Switch extends DateAudit {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
+    @NotBlank
+    private String name;
+
+    private Long userId;
+
     @OneToMany(mappedBy = "switchId", fetch = FetchType.LAZY)
     private List<Device> devices;
 
-    public Switch() {}
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public List<Device> getDevices() {
-        return devices;
-    }
-
-    public void setDevices(List<Device> devices) {
-        this.devices = devices;
+    public Switch(String name) {
+        this.name = name;
     }
 }

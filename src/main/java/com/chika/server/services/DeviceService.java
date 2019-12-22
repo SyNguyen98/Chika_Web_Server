@@ -13,13 +13,11 @@ public interface DeviceService {
 
     List<Device> getAllBySwitchId(String switchId);
 
-    List<Device> getAllByUserId(Long userId);
-
     Device getById(String id);
 
     Device save(Device device);
 
-    Device updateInfo(String id, String name, String roomId, Long userId);
+    Device updateInfo(String id, String name, String roomId);
 
     Device updateState(String id, int state);
 
@@ -31,7 +29,7 @@ public interface DeviceService {
 
     List<DeviceHistory> getAllHistoriesByDeviceId(String id);
 
-    DeviceHistory saveHistory(String deviceId, int state);
+    DeviceHistory saveHistory(DeviceHistory deviceHistory);
 
     void deleteAllHistoriesByDeviceId(String deviceId);
 }

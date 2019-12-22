@@ -7,35 +7,44 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * To receive Sensor requests from client
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 22-12-2019
+ */
 @RestController
 @RequestMapping("/sensor")
 public class SensorController {
 
-    @Autowired
-    private SensorService sensorService;
+    private final SensorService sensorService;
+
+    public SensorController(SensorService sensorService) {
+        this.sensorService = sensorService;
+    }
 
     @GetMapping
-    public List<Sensor> getAllSensors() {
-        return sensorService.findAllSensors();
+    public List<Sensor> getAll() {
+        return sensorService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Sensor getSensorById(@PathVariable String id) {
-        return sensorService.findSensorById(id);
+    public Sensor getById(@PathVariable String id) {
+        return sensorService.getById(id);
     }
 
     @PostMapping
-    public Sensor saveSensor(@RequestBody Sensor sensor) {
-        return sensorService.saveSensor(sensor);
+    public Sensor save(@RequestBody Sensor sensor) {
+        return sensorService.save(sensor);
     }
 
     @PutMapping
-    public Sensor updateSensor(@RequestBody Sensor sensor) {
-        return sensorService.updateSensor(sensor.getId(), sensor.getName(), sensor.getData());
+    public Sensor updateInfo(@RequestBody Sensor sensor) {
+        return sensorService.updateInfo(sensor.getId(), sensor.getName(), sensor.getData());
     }
 
     @DeleteMapping("/{id}")
     public void deleteSensor(@PathVariable String id) {
-        sensorService.deleteSensor(id);
+        sensorService.deleteById(id);
     }
 }
