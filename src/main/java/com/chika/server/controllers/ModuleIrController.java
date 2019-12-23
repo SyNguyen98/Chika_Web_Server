@@ -16,7 +16,7 @@ import java.util.List;
  * @since 22-12-2019
  */
 @RestController
-@RequestMapping("/moduleIr")
+@RequestMapping("/moduleir")
 public class ModuleIrController {
 
     private final ModuleIrService moduleIrService;
@@ -38,8 +38,8 @@ public class ModuleIrController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public ModuleIr save(@RequestBody ModuleIr moduleIr) {
-        return moduleIrService.save(moduleIr);
+    public ModuleIr save() {
+        return moduleIrService.save(new ModuleIr("CA-IRX"));
     }
 
     @PutMapping("/name")
