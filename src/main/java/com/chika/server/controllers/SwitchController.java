@@ -49,6 +49,7 @@ public class SwitchController {
         for (int i = 0; i < numOfDevice; i++) {
             deviceService.save(new Device("", 0, "", newSwitch.getId()));
         }
+        newSwitch.setDevices(deviceService.getAllBySwitchId(newSwitch.getId()));
         return newSwitch;
     }
 
