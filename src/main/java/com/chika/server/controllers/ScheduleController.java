@@ -7,7 +7,14 @@ import com.chika.server.repositories.house.ScriptRepository;
 import com.chika.server.services.ScheduleService;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * To receive Schedule requests from client
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 22-12-2019
+ */
 @RestController
+@RequestMapping("/schedule")
 public class ScheduleController {
 
     private final ScriptRepository scriptRepository;
@@ -22,7 +29,7 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
-    @PostMapping("/schedule")
+    @PostMapping
     public void changeSchedule(@RequestBody Script script) {
         Script newScript = scriptRepository.save(new Script(script.getName(), script.getTime()));
         script.getDevices().forEach(scriptDevice ->

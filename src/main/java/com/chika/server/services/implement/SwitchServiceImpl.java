@@ -6,10 +6,13 @@ import com.chika.server.repositories.device.SwitchRepository;
 import com.chika.server.services.SwitchService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
+ * CRUD function for Switch
  * @author Sy Nguyen
  * @version 1.0
- * @since 30-11-2019
+ * @since 22-12-2019
  */
 @Service
 public class SwitchServiceImpl implements SwitchService {
@@ -18,6 +21,11 @@ public class SwitchServiceImpl implements SwitchService {
 
     public SwitchServiceImpl(SwitchRepository switchRepository) {
         this.switchRepository = switchRepository;
+    }
+
+    @Override
+    public List<Switch> getAll() {
+        return switchRepository.findAll();
     }
 
     @Override
@@ -32,7 +40,21 @@ public class SwitchServiceImpl implements SwitchService {
     }
 
     @Override
-    public void delete(String id) {
+    public Switch updateName(String id, String name) {
+        Switch _switch = getById(id);
+        _switch.setName(name);
+        return switchRepository.save(_switch);
+    }
+
+    @Override
+    public Switch updateUser(String id, Long userId) {
+        Switch _switch = getById(id);
+        _switch.setUserId(userId);
+        return switchRepository.save(_switch);
+    }
+
+    @Override
+    public void deleteById(String id) {
         switchRepository.deleteById(id);
     }
 }

@@ -14,6 +14,8 @@ public interface ModuleIrService {
 
     ModuleIr save(ModuleIr moduleIr);
 
+    ModuleIr updateName(String id, String name);
+
     ModuleIr updateUser(String id, Long userId);
 
     void deleteById(String id);

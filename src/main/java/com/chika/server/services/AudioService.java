@@ -4,19 +4,14 @@ import com.chika.server.models.file.Audio;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- * @author Sy Nguyen
- * @version 1.0
- * @since 02-11-2019
- */
 @Service
 public interface AudioService {
 
-    Audio storeAudio(MultipartFile audio, String audioLabel);
+    Audio getByName(String name);
 
-    Audio getAudioByName(String name);
+    Audio getByLabel(String label);
 
-    Audio getAudioByLabel(String label);
+    Audio save(MultipartFile audio, String audioLabel);
 
-    void deleteAudio(String id);
+    void deleteById(String id);
 }

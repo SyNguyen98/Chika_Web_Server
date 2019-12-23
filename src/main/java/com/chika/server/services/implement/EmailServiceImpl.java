@@ -13,16 +13,19 @@ import javax.mail.internet.MimeMessage;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 07-09-2019
+ * @since 22-12-2019
  */
 @Service
 public class EmailServiceImpl implements EmailService {
 
-    @Autowired
-    public JavaMailSender emailSender;
+    public final JavaMailSender emailSender;
+
+    public EmailServiceImpl(JavaMailSender emailSender) {
+        this.emailSender = emailSender;
+    }
 
     @Override
-    public String sendSimpleEmail(String mailReceiver, String token) {
+    public void sendSimpleEmail(String mailReceiver, String token) {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setTo(mailReceiver);
@@ -31,17 +34,14 @@ public class EmailServiceImpl implements EmailService {
                 "Here is your token: " + token);
 
         emailSender.send(message);
-
-        return "Email Sent!";
     }
 
     @Override
-    public String sendAttachmentEmail() {
-        return null;
+    public void sendAttachmentEmail() {
     }
 
     @Override
-    public String sendHtmlMail(String mailReceiver, String token) {
+    public void sendHtmlMail(String mailReceiver, String token) {
 
         String form = "<form action=\"http://chika-server.herokuapp.com/user/reset-password\" method=\"post\">\n"
                 + "Token: <input name=\"token\" type=\"text\" style=\"width:600px;font-size:12pt;\"/> <br/> <br/>\n"
@@ -65,7 +65,5 @@ public class EmailServiceImpl implements EmailService {
         }
 
         emailSender.send(message);
-
-        return "Email Sent!";
     }
 }

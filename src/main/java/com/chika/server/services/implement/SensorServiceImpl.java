@@ -6,6 +6,7 @@ import com.chika.server.models.house.SensorHistory;
 import com.chika.server.repositories.house.SensorHistoryRepository;
 import com.chika.server.repositories.house.SensorRepository;
 import com.chika.server.services.SensorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-07-2019
+ * @since 22-12-2019
  */
 @Service
 public class SensorServiceImpl implements SensorService {
@@ -28,52 +29,47 @@ public class SensorServiceImpl implements SensorService {
     }
 
     @Override
-    public Sensor findSensorById(String id) {
+    public List<Sensor> getAll() {
+        return sensorRepository.findAll();
+    }
+
+    @Override
+    public Sensor getById(String id) {
         return sensorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Sensor", "id", id));
     }
 
     @Override
-    public List<Sensor> findAllSensors() {
-        return sensorRepository.findAll();
-    }
-
-    @Override
-    public Sensor saveSensor(Sensor sensor) {
+    public Sensor save(Sensor sensor) {
         return sensorRepository.save(sensor);
     }
 
     @Override
-    public Sensor updateSensor(String id, String name, double data) {
-        Sensor sensor = findSensorById(id);
+    public Sensor updateInfo(String id, String name, double data) {
+        Sensor sensor = getById(id);
         sensor.setName(name);
         sensor.setData(data);
         return sensorRepository.save(sensor);
     }
 
     @Override
-    public void deleteSensor(String id) {
-        Sensor sensor = findSensorById(id);
+    public void deleteById(String id) {
+        Sensor sensor = getById(id);
         sensorRepository.delete(sensor);
     }
 
     @Override
-    public List<SensorHistory> findSensorHistoryById(String id) {
+    public List<SensorHistory> getAllHistoriesBySensorId(String id) {
         return null;
     }
 
     @Override
-    public List<SensorHistory> findAllSensorHistories() {
-        return null;
-    }
-
-    @Override
-    public SensorHistory saveSensorHistory(SensorHistory sensor) {
+    public SensorHistory saveHistory(SensorHistory sensor) {
         return  sensorHistoryRepository.save(sensor);
     }
 
     @Override
-    public Boolean deleteSensorHistory(String id) {
-        return null;
+    public void deleteHistory(String id) {
+
     }
 }

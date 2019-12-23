@@ -5,6 +5,7 @@ import com.chika.server.models.account.User;
 import com.chika.server.repositories.account.UserRepository;
 import com.chika.server.services.EmailService;
 import com.chika.server.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
+ * CRUD function for User
  * @author Sy Nguyen
- * @version 1.1
- * @since 30-11-2019
+ * @version 1.0
+ * @since 22-12-2019
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,14 +34,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public User getByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
     }
 
     @Override
@@ -49,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(String username, String name, String email) {
-        User user = getUserByUsername(username);
+        User user = getByUsername(username);
         user.setName(name);
         user.setEmail(email);
         return userRepository.save(user);
@@ -57,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean changePassword(String username, String oldPassword, String newPassword) {
-        User user = getUserByUsername(username);
+        User user = getByUsername(username);
         if (BCrypt.checkpw(oldPassword, user.getPassword())) {
             user.setPassword(passwordEncoder.encode(newPassword));
             return true;
@@ -66,21 +68,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String resetPassword(String token, String newPassword) {
+    public void resetPassword(String token, String newPassword) {
         User user = userRepository.findByPassword(token)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "token", token));
 
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
-        return "Reset password successfully";
     }
 
     @Override
-    public String forgetPassword(String email) {
+    public void forgetPassword(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
+        emailService.sendHtmlMail(user.getEmail(), user.getPassword());
+    }
 
-        return emailService.sendHtmlMail(user.getEmail(), user.getPassword());
+    @Override
+    public void deleteUser(String username) {
+        userRepository.deleteByUsername(username);
     }
 
     @Override

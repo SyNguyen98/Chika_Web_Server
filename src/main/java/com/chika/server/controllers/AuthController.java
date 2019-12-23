@@ -30,7 +30,7 @@ import java.util.Collections;
  * To control authentication from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 30-11-2019
+ * @since 22-18-2019
  */
 @RestController
 @RequestMapping("/auth")
@@ -91,7 +91,7 @@ public class AuthController {
 
         user.setRoles(Collections.singleton(userRole));
 
-        userService.saveUser(user);
+        user = userService.saveUser(user);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/users/{username}")

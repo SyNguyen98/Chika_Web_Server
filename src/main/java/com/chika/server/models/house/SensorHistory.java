@@ -1,24 +1,25 @@
 package com.chika.server.models.house;
 
+import com.chika.server.models.audit.DateAudit;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.sql.Timestamp;
 
 /**
- * Connect to table sensor history in database
+ * Connect to table Sensor History in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 09-08-2019
+ * @since 20-12-2019
  */
+@EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "sensor_history")
 @Data
 @NoArgsConstructor
-public class SensorHistory {
+public class SensorHistory extends DateAudit {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -31,12 +32,8 @@ public class SensorHistory {
     @NotBlank
     private double data;
 
-    @NotBlank
-    private Timestamp time;
-
-    public SensorHistory(String sensorId, double data, Timestamp time) {
+    public SensorHistory(String sensorId, double data) {
         this.sensorId = sensorId;
         this.data = data;
-        this.time = time;
     }
 }

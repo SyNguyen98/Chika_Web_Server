@@ -8,9 +8,9 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    User getUserByUsername(String username);
+    List<User> getAll();
 
-    List<User> getAllUsers();
+    User getByUsername(String username);
 
     User saveUser(User user);
 
@@ -18,9 +18,11 @@ public interface UserService {
 
     Boolean changePassword(String username, String oldPassword, String newPassword);
 
-    String resetPassword(String token, String newPassword);
+    void resetPassword(String token, String newPassword);
 
-    String forgetPassword(String email);
+    void forgetPassword(String email);
+
+    void deleteUser(String username);
 
     Boolean isExistByUsername(String username);
 

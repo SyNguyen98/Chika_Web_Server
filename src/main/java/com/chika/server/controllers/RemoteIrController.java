@@ -1,21 +1,26 @@
 package com.chika.server.controllers;
 
 import com.chika.server.models.house.RemoteIr;
+import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.IrValueService;
 import com.chika.server.services.RemoteIrService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
+ * To receive Remote Ir requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 30-11-2019
+ * @since 22-12-2019
  */
 @RestController
-@RequestMapping("/remote-ir")
+@RequestMapping("/remoteir")
 public class RemoteIrController {
 
     private final RemoteIrService remoteIrService;
@@ -33,24 +38,29 @@ public class RemoteIrController {
     }
 
     @PostMapping
-    public RemoteIr saveRemote(@CurrentUser UserPrincipal currentUser,
-                               @RequestBody RemoteIr remoteIr,
-                               @RequestParam("numOfButton") int numOfButton) {
-        RemoteIr remote = remoteIrService.save(new RemoteIr(remoteIr.getName(), remoteIr.getModuleId(),
-                remoteIr.getRoomId(), currentUser.getId()));
+    public RemoteIr saveRemote(@RequestBody RemoteIr remoteIr, @RequestParam("numOfButton") int numOfButton) {
+        RemoteIr remote = remoteIrService.save(remoteIr);
         remote.setIrValues(irValueService.saveList(remote.getId(), numOfButton));
         return remote;
     }
 
     @PutMapping
-    public RemoteIr updateName(@RequestBody RemoteIr remoteIr) {
-        return remoteIrService.updateName(remoteIr.getId(), remoteIr.getName());
+    public ResponseEntity<?> updateName(@CurrentUser UserPrincipal currentUser, @RequestBody RemoteIr remoteIr) {
+        if (remoteIrService.isOwner(remoteIr.getId(), currentUser.getId())) {
+            return ResponseEntity.ok(remoteIrService.updateName(remoteIr.getId(), remoteIr.getName()));
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "You are not remote owner"),
+                HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/{id}")
-    public Boolean deleteRemote(@PathVariable String id) {
-        irValueService.deleteAllByRemoteIrId(id);
-        remoteIrService.deleteById(id);
-        return true;
+    public ResponseEntity<?> deleteRemote(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
+        if (remoteIrService.isOwner(id, currentUser.getId())) {
+            irValueService.deleteAllByRemoteIrId(id);
+            remoteIrService.deleteById(id);
+            return ResponseEntity.ok(new ApiResponse(true, "Remote has been deleted"));
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "You are not remote owner"),
+                HttpStatus.BAD_REQUEST);
     }
 }

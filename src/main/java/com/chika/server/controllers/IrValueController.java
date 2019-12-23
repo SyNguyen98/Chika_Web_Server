@@ -6,8 +6,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * To receive Ir Value requests from client
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 22-12-2019
+ */
 @RestController
-@RequestMapping("/ir")
+@RequestMapping("/irvalue")
 public class IrValueController {
 
     private final IrValueService irValueService;

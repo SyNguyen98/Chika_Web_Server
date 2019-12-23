@@ -4,17 +4,29 @@ import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.house.RemoteIr;
 import com.chika.server.repositories.house.RemoteIrRepository;
 import com.chika.server.services.RemoteIrService;
+import com.chika.server.services.RoomService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+/**
+ * CRUD functions for Remote Ir
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 22-12-2019
+ */
 @Service
 public class RemoteIrServiceImpl implements RemoteIrService {
 
     private final RemoteIrRepository remoteIrRepository;
 
-    public RemoteIrServiceImpl(RemoteIrRepository remoteIrRepository) {
+    private final RoomService roomService;
+
+    public RemoteIrServiceImpl(RemoteIrRepository remoteIrRepository, RoomService roomService) {
         this.remoteIrRepository = remoteIrRepository;
+        this.roomService = roomService;
     }
 
     @Override
@@ -43,5 +55,10 @@ public class RemoteIrServiceImpl implements RemoteIrService {
     @Override
     public void deleteById(String id) {
         remoteIrRepository.deleteById(id);
+    }
+
+    @Override
+    public Boolean isOwner(String id, Long userId) {
+        return roomService.isOwner(getById(id).getRoomId(), userId);
     }
 }

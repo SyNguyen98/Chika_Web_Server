@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 30-11-2019
+ * @since 22-12-2019
  */
 @Repository
 public interface ModuleIrRepository extends JpaRepository<ModuleIr, String> {

@@ -1,8 +1,8 @@
 package com.chika.server.models.house;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,11 +12,11 @@ import javax.validation.constraints.NotNull;
  * Connect to table Sensor in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 23-11-2019
+ * @since 20-12-2019
  */
 @Entity
-@Table(name = "sensors")
 @Data
+@NoArgsConstructor
 public class Sensor {
 
     @Id
@@ -33,5 +33,9 @@ public class Sensor {
     @NotBlank
     private String roomId;
 
-    private Long userId;
+    public Sensor(String name, double data, String roomId) {
+        this.name = name;
+        this.data = data;
+        this.roomId = roomId;
+    }
 }
