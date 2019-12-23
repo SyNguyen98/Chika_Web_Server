@@ -11,6 +11,7 @@ import com.chika.server.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -36,11 +37,13 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
+    @Transactional
     public List<Device> getAllByRoomId(String roomId) {
         return deviceRepository.findAllByRoomId(roomId);
     }
 
     @Override
+    @Transactional
     public List<Device> getAllBySwitchId(String switchId) {
         return deviceRepository.findAllBySwitchId(switchId);
     }
