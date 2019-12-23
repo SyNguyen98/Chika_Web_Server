@@ -8,8 +8,8 @@ import com.chika.server.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * CRUD functions for Remote Ir
@@ -30,6 +30,7 @@ public class RemoteIrServiceImpl implements RemoteIrService {
     }
 
     @Override
+    @Transactional
     public List<RemoteIr> getAllByRoomId(String roomId) {
         return remoteIrRepository.findAllByRoomId(roomId);
     }
