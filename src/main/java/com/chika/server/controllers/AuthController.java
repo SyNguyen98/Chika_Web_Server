@@ -11,7 +11,6 @@ import com.chika.server.payload.requests.SignUpRequest;
 import com.chika.server.repositories.account.RoleRepository;
 import com.chika.server.security.JwtTokenProvider;
 import com.chika.server.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -86,7 +85,7 @@ public class AuthController {
         User user = new User(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getEmail(),
                             passwordEncoder.encode(signUpRequest.getPassword()));
 
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+        Role userRole = roleRepository.findByName(RoleName.ROLE_HOME_USER)
                 .orElseThrow(() -> new AppException("User Role not set."));
 
         user.setRoles(Collections.singleton(userRole));

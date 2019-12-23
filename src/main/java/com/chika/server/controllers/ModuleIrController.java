@@ -48,6 +48,7 @@ public class ModuleIrController {
         return moduleIrService.updateName(moduleIr.getId(), moduleIr.getName());
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/user")
     public ModuleIr updateUser(@RequestBody ModuleIr moduleIr) {
         return moduleIrService.updateUser(moduleIr.getId(), moduleIr.getUserId());

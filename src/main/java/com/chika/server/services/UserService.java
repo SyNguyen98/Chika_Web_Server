@@ -1,5 +1,6 @@
 package com.chika.server.services;
 
+import com.chika.server.models.account.RoleName;
 import com.chika.server.models.account.User;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,8 @@ public interface UserService {
     User saveUser(User user);
 
     User updateUser(String username, String name, String email);
+
+    User updateRole(String username);
 
     Boolean changePassword(String username, String oldPassword, String newPassword);
 

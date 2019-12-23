@@ -1,15 +1,19 @@
 package com.chika.server.services.implement;
 
+import com.chika.server.exception.AppException;
 import com.chika.server.exception.ResourceNotFoundException;
+import com.chika.server.models.account.Role;
+import com.chika.server.models.account.RoleName;
 import com.chika.server.models.account.User;
+import com.chika.server.repositories.account.RoleRepository;
 import com.chika.server.repositories.account.UserRepository;
 import com.chika.server.services.EmailService;
 import com.chika.server.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,10 +31,13 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, EmailService emailService, PasswordEncoder passwordEncoder) {
+    private final RoleRepository roleRepository;
+
+    public UserServiceImpl(UserRepository userRepository, EmailService emailService, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -55,6 +62,16 @@ public class UserServiceImpl implements UserService {
         user.setName(name);
         user.setEmail(email);
         return userRepository.save(user);
+    }
+
+    @Override
+    public User updateRole(String username) {
+        User user = getByUsername(username);
+        Role userRole = roleRepository.findByName(RoleName.ROLE_HOME_MASTER)
+                .orElseThrow(() -> new AppException("User Role not set."));
+
+        user.setRoles(Collections.singleton(userRole));
+        return user;
     }
 
     @Override
