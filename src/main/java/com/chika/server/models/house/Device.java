@@ -23,7 +23,6 @@ public class Device {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @NotBlank
     private String name;
 
     private int state;
