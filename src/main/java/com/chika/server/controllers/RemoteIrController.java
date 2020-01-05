@@ -17,10 +17,10 @@ import java.util.List;
  * To receive Remote Ir requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-12-2019
+ * @since 05-01-2020
  */
 @RestController
-@RequestMapping("/remoteir")
+@RequestMapping("/remote_ir")
 public class RemoteIrController {
 
     private final RemoteIrService remoteIrService;
@@ -32,13 +32,13 @@ public class RemoteIrController {
         this.irValueService = irValueService;
     }
 
-    @GetMapping("/{roomId}")
+    @GetMapping("/room/{roomId}")
     public List<RemoteIr> getAllRemotesByRoomId(@PathVariable String roomId) {
         return remoteIrService.getAllByRoomId(roomId);
     }
 
-    @PostMapping
-    public RemoteIr saveRemote(@RequestBody RemoteIr remoteIr, @RequestParam("numOfButton") int numOfButton) {
+    @PostMapping("/num_of_button/{numOfButton}")
+    public RemoteIr saveRemote(@RequestBody RemoteIr remoteIr, @PathVariable int numOfButton) {
         RemoteIr remote = remoteIrService.save(remoteIr);
         remote.setIrValues(irValueService.saveList(remote.getId(), numOfButton));
         return remote;

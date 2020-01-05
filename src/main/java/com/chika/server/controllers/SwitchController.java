@@ -44,8 +44,8 @@ public class SwitchController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping
-    public SwitchResponse save(@RequestParam("numOfDevice") int numOfDevice) {
+    @PostMapping("/num_of_device/{numOfDevice}")
+    public SwitchResponse save(@PathVariable int numOfDevice) {
         Switch newSwitch = switchService.save(new Switch("CA-SW" + numOfDevice));
         for (int i = 0; i < numOfDevice; i++) {
             deviceService.save(new Device("", 0, "", newSwitch.getId()));

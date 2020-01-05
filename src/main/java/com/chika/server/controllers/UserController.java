@@ -56,12 +56,12 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/role")
-    public UserResponse updateRole(@RequestParam("username") String username) {
+    @PutMapping("/{username}/role")
+    public UserResponse updateRole(@PathVariable String username) {
         return new UserResponse(userService.updateRole(username));
     }
 
-    @PutMapping("/change-password")
+    @PutMapping("/password")
     public ResponseEntity<?> changePassword(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody PasswordRequest passwordRequest) {
         if (userService.changePassword(currentUser.getUsername(),
                 passwordRequest.getOldPassword(), passwordRequest.getNewPassword()))  {
@@ -71,8 +71,8 @@ public class UserController {
                 HttpStatus.BAD_REQUEST);
     }
 
-    @PutMapping("/forget-password")
-    public ResponseEntity<?> forgetPassword(@RequestParam("email") String email) {
+    @PutMapping("/email/{email}")
+    public ResponseEntity<?> forgetPassword(@PathVariable String email) {
         userService.forgetPassword(email);
         return ResponseEntity.ok(new ApiResponse(true, "Email has been sent"));
     }

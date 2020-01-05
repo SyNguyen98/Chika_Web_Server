@@ -18,7 +18,7 @@ import java.util.List;
  * To receive Device requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-12-2019
+ * @since 01-05-2019
  */
 @RestController
 @RequestMapping("/device")
@@ -51,7 +51,7 @@ public class DeviceController {
         return deviceService.save(new Device("", 0, "", switchId));
     }
 
-    @PutMapping("/name")
+    @PutMapping("/info")
     public Device updateInfo(@RequestBody Device device) {
         return deviceService.updateInfo(device.getId(), device.getName(), device.getRoomId());
     }
@@ -71,12 +71,12 @@ public class DeviceController {
     }
 
     // HISTORY
-    @GetMapping("/history/{deviceId}")
+    @GetMapping("/{deviceId}/history")
     public List<DeviceHistory> getAllHistoriesByDeviceId(@PathVariable String deviceId) {
         return deviceService.getAllHistoriesByDeviceId(deviceId);
     }
 
-    @DeleteMapping("/history/{deviceId}")
+    @DeleteMapping("/{deviceId}/history")
     public ResponseEntity<?> deleteAllHistoriesByDeviceId(@PathVariable String deviceId) {
         deviceService.deleteAllHistoriesByDeviceId(deviceId);
         return ResponseEntity.ok(new ApiResponse(true, "All device's histories have been deleted"));

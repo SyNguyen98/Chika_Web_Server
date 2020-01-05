@@ -24,13 +24,16 @@ public class Room {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
+    private Long logo;
+
     @NotBlank
     private String name;
 
     @NotNull
     private Long userId;
 
-    public Room(String name, Long userId) {
+    public Room(Long logo, String name, Long userId) {
+        this.logo = logo;
         this.name = name;
         this.userId = userId;
     }

@@ -14,10 +14,10 @@ import java.util.List;
  * To receive Module Ir requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 23-12-2019
+ * @since 01-05-2020
  */
 @RestController
-@RequestMapping("/moduleir")
+@RequestMapping("/module_ir")
 public class ModuleIrController {
 
     private final ModuleIrService moduleIrService;

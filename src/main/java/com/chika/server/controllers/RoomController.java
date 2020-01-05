@@ -17,7 +17,7 @@ import java.util.List;
  * To receive Switch requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-12-2019
+ * @since 05-01-2020
  */
 @RestController
 @RequestMapping("/room")
@@ -35,8 +35,8 @@ public class RoomController {
     }
 
     @PostMapping
-    public Room save(@CurrentUser UserPrincipal currentUser, @RequestParam("name") String name) {
-        return roomService.save(new Room(name, currentUser.getId()));
+    public Room save(@CurrentUser UserPrincipal currentUser, @RequestBody Room room) {
+        return roomService.save(new Room(room.getLogo(), room.getName(), currentUser.getId()));
     }
 
     @PutMapping
