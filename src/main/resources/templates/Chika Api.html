@@ -104,10 +104,209 @@
     </div>
 
     <div class="main">
-      <h2>Sidebar Dropdown</h2>
-      <p>Click on the dropdown button to open the dropdown menu inside the side navigation.</p>
-      <p>This sidebar is of full height (100%) and always shown.</p>
-      <p>Some random text..</p>
+      <div id="sign_in" class="content">
+        <h2>Sign In</h2>
+        <p>POST http://chika-server.herokuapp.com/auth/signin</p>
+        <p>Example request:</p>
+        <p>POST http://chika-server.herokuapp.com/auth/signin</p>
+        <p>Body: {"usernameOrEmail": "chika123", <br/>"password": "123456"}</p>
+        <p>Example response:</p>
+        <p>{"tokenType: "Bearer", "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"}</p>
+      </div>
+
+      <div id="sign_up" class="content">
+        <h2>Sign Up</h2>
+        <p>POST http://chika-server.herokuapp.com/auth/signup</p>
+        <p>Example request:</p>
+        <p>POST http://chika-server.herokuapp.com/auth/signup</p>
+        <p>Body: {"name": "Chika Smarthome", <br/>"username": "chika123", "email": "chika@gmail.com", "password": "123456"}</p>
+        <p>Example response:</p>
+        <p>{"success: true, "message": "Register successfully"}</p>
+      </div>
+
+      <div id="get_users" class="content">
+        <h2>Get all users (admin only)</h2>
+        <p>GET http://chika-server.herokuapp.com/user/all</p>
+        <p>Example request:</p>
+        <p>GET http://chika-server.herokuapp.com/user/all</p>
+        <p>Header: "Authorization": "Bearer {token}"</p>
+        <p>Example response:</p>
+        <p>[{"name": "Chika Smarthome",
+          "username": "chika123",
+          "email": "chika@gmail.com",
+          "createAt": "20:00 27/09/2019",
+          "role": "ROLE_ADMIN"},
+          {"name": "Chika User",
+          "username": "user123",
+          "email": "user@gmail.com",
+          "createAt": "06:00 28/09/2019",
+          "role": "ROLE_HOME_MASTER"}</p>
+      </div>
+
+      <div id="get_user_username" class="content">
+        <h2>Get user by username</h2>
+        <p>GET http://chika-server.herokuapp.com/user</p>
+        <p>Example request:</p>
+        <p>GET http://chika-server.herokuapp.com/user</p>
+        <p>Header: "Authorization": "Bearer {token}"</p>
+        <p>Example response:</p>
+        <p>{"name": "Chika Smarthome",
+          "username": "chika123",
+          "email": "chika@gmail.com",
+          "createAt": "20:00 27/09/2019",
+          "role": "ROLE_ADMIN"}</p>
+      </div>
+
+      <div id="put_user" class="content">
+        <h2>Update user's information</h2>
+        <p>PUT http://chika-server.herokuapp.com/user</p>
+        <p>Example request:</p>
+        <p>PUT http://chika-server.herokuapp.com/user</p>
+        <p>Header: "Authorization": "Bearer {token}"</p>
+        <p>Body: {"name": "chika456", <br/>"email": "chika456@gmail.com"}</p>
+        <p>Example response:</p>
+        <p>{"name": "Chika Smarthome",
+          "username": "chika456",
+          "email": "chika456@gmail.com",
+          "createAt": "20:00 27/09/2019",
+          "role": "ROLE_ADMIN"}</p>
+      </div>
+
+      <div id="put_user_username_role" class="content">
+        <h2>Update user from ROLE_HOME_USER to ROLE_HOME_MASTER</h2>
+        <p>PUT http://chika-server.herokuapp.com/user/{username}/role</p>
+        <p>Example request:</p>
+        <p>PUT http://chika-server.herokuapp.com/user/chika123/role</p>
+        <p>Header: "Authorization": "Bearer {token}"</p>
+        <p>Example response:</p>
+        <p>{"name": "Chika Smarthome",
+          "username": "chika123",
+          "email": "chika@gmail.com",
+          "createAt": "20:00 27/09/2019",
+          "role": "ROLE_HOME_MASTER"}</p>
+      </div>
+
+      <div id="put_user_password" class="content">
+        <h2>Update user's password</h2>
+        <p>PUT http://chika-server.herokuapp.com/user/password</p>
+        <p>Example request:</p>
+        <p>PUT http://chika-server.herokuapp.com/user/password</p>
+        <p>Header: "Authorization": "Bearer {token}"</p>
+        <p>Example response:</p>
+        <p>{"name": "Chika Smarthome",
+          "username": "chika123",
+          "email": "chika@gmail.com",
+          "createAt": "20:00 27/09/2019",
+          "role": "ROLE_ADMIN"}</p>
+      </div>
+
+      <div id="put_user_email" class="content">
+        <h2>Send mail to reset password</h2>
+        <p>PUT http://chika-server.herokuapp.com/user/email/{email}</p>
+        <p>Example request:</p>
+        <p>PUT http://chika-server.herokuapp.com/user/email/chika123@gmail.com</p>
+        <p>Header: "Authorization": "Bearer {token}"</p>
+        <p>Example response:</p>
+        <p>{"success": true,
+          "message": "Email has sent"}</p>
+      </div>
+
+      <div id="delete_user_username" class="content">
+        <h2>Delete user by username</h2>
+        <p>DELETE http://chika-server.herokuapp.com/user/{username}</p>
+        <p>Example request:</p>
+        <p>DELETE http://chika-server.herokuapp.com/user/chika123</p>
+        <p>Header: "Authorization": "Bearer {token}"</p>
+        <p>Example response:</p>
+        <p>{"success": true,
+          "message": "User has been deleted"}</p>
+      </div>
+
+      <div id="get_switches" class="content">
+        <h2>Get all switches</h2>
+        <p>GET http://chika-server.herokuapp.com/switch</p>
+        <p>Example request:</p>
+        <p>GET http://chika-server.herokuapp.com/switch</p>
+        <p>Header: "Authorization": "Bearer {token}"</p>
+        <p>Example response:</p>
+        <p>[<br/>{<br/>"createdAt": 15:30 07/01/2020,
+          <br/>"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+          <br/>"name": "CA-SW2",
+          <br/>"userId": null,
+          <br/>"devices": [
+          <br/>{
+          <br/>"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
+          <br/>"name": "",
+          <br/>"state": 0,
+          <br/>"roomId": "",
+          <br/>"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+          <br/>},<br/>{
+          <br/>"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
+          <br/>"name": "",
+          <br/>"state": 0,
+          <br/>"roomId": "",
+          <br/>"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+          <br/>}<br/>]
+          <br/>}<br/>]</p>
+      </div>
+
+      <div id="get_switch" class="content">
+        <h2>Get switch by id</h2>
+        <p>GET http://chika-server.herokuapp.com/switch/{switch-id}</p>
+        <p>Example request:</p>
+        <p>GET http://chika-server.herokuapp.com/switch/003b645a-5921-453f-b97c-bb3d36965163</p>
+        <p>Header: "Authorization": "Bearer {token}"</p>
+        <p>Example response:</p>
+        <p>[<br/>{
+          <br/>"createdAt": 15:30 07/01/2020,
+          <br/>"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+          <br/>"name": "CA-SW2",
+          <br/>"userId": null,
+          <br/>"devices": [
+          <br/>{
+          <br/>"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
+          <br/>"name": "",
+          <br/>"state": 0,
+          <br/>"roomId": "",
+          <br/>"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+          <br/>},<br/>{
+          <br/>"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
+          <br/>"name": "",
+          <br/>"state": 0,
+          <br/>"roomId": "",
+          <br/>"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+          <br/>}<br/>]
+          <br/>}<br/>]</p>
+      </div>
+
+      <div id="post_switch" class="content">
+        <h2>Save a switch</h2>
+        <p>POST http://chika-server.herokuapp.com/switch/num_of_device/{num-of-device}</p>
+        <p>Example request:</p>
+        <p>POST http://chika-server.herokuapp.com/switch/num_of_device/2</p>
+        <p>Header: "Authorization": "Bearer {token}"</p>
+        <p>Example response:</p>
+        <p>[<br/>{
+          <br/>"createdAt": 15:30 07/01/2020,
+          <br/>"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+          <br/>"name": "CA-SW2",
+          <br/>"userId": null,
+          <br/>"devices": [
+          <br/>{
+          <br/>"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
+          <br/>"name": "",
+          <br/>"state": 0,
+          <br/>"roomId": "",
+          <br/>"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+          <br/>},<br/>{
+          <br/>"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
+          <br/>"name": "",
+          <br/>"state": 0,
+          <br/>"roomId": "",
+          <br/>"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+          <br/>}<br/>]
+          <br/>}<br/>]</p>
+      </div>
     </div>
 
     <script type="text/javascript" th:src="@{/js/ChikaApi.js}"></script>
