@@ -6,11 +6,11 @@ import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.SwitchResponse;
 import com.chika.server.services.DeviceService;
 import com.chika.server.services.SwitchService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,13 +34,16 @@ public class SwitchController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
-    public List<Switch> getAll() {
-        return switchService.getAll();
+    public List<SwitchResponse> getAll() {
+        List<Switch> switches = switchService.getAll();
+        List<SwitchResponse> switchResponses = new ArrayList<>();
+        switches.forEach(_switch -> switchResponses.add(new SwitchResponse(_switch)));
+        return switchResponses;
     }
 
     @GetMapping("/{id}")
-    public Switch getById(@PathVariable String id) {
-        return switchService.getById(id);
+    public SwitchResponse getById(@PathVariable String id) {
+        return new SwitchResponse(switchService.getById(id));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

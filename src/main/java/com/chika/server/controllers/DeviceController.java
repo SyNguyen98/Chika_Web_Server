@@ -18,7 +18,7 @@ import java.util.List;
  * To receive Device requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 01-05-2019
+ * @since 09-01-2020
  */
 @RestController
 @RequestMapping("/device")
@@ -45,12 +45,6 @@ public class DeviceController {
         return deviceService.getById(id);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/{switchId}")
-    public Device save(@PathVariable String switchId) {
-        return deviceService.save(new Device("", 0, "", switchId));
-    }
-
     @PutMapping("/info")
     public Device updateInfo(@RequestBody Device device) {
         return deviceService.updateInfo(device.getId(), device.getName(), device.getRoomId());
@@ -60,14 +54,6 @@ public class DeviceController {
     public Device updateState(@RequestBody Device device) {
         deviceService.saveHistory(new DeviceHistory(device.getId(), device.getState()));
         return deviceService.updateState(device.getId(), device.getState());
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteDevice(@PathVariable String id) {
-        deviceService.deleteAllHistoriesByDeviceId(id);
-        deviceService.delete(id);
-        return ResponseEntity.ok(new ApiResponse(true, "Device has been deleted"));
     }
 
     // HISTORY

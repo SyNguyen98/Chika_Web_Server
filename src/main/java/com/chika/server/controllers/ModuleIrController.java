@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,13 +29,16 @@ public class ModuleIrController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
-    public List<ModuleIr> getAll() {
-        return moduleIrService.getAll();
+    public List<ModuleIrResponse> getAll() {
+        List<ModuleIr> moduleIrs = moduleIrService.getAll();
+        List<ModuleIrResponse> moduleIrResponses = new ArrayList<>();
+        moduleIrs.forEach(moduleIr -> moduleIrResponses.add(new ModuleIrResponse(moduleIr)));
+        return moduleIrResponses;
     }
 
     @GetMapping("/{id}")
-    public ModuleIr getById(@PathVariable String id) {
-        return moduleIrService.getById(id);
+    public ModuleIrResponse getById(@PathVariable String id) {
+        return new ModuleIrResponse(moduleIrService.getById(id));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

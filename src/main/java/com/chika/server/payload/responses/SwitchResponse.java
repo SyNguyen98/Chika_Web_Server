@@ -22,6 +22,14 @@ public class SwitchResponse {
 
     private List<Device> devices;
 
+    public SwitchResponse(Switch _switch) {
+        this.id = _switch.getId();
+        this.name = _switch.getName();
+        this.time = Formatter.formatTime(_switch.getCreatedAt().getTime());
+        this.userId = _switch.getUserId();
+        this.devices = _switch.getDevices();
+    }
+
     public SwitchResponse(Switch _switch, List<Device> devices) {
         this.id = _switch.getId();
         this.name = _switch.getName();
