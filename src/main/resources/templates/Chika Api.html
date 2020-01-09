@@ -466,6 +466,209 @@
       </div>
       <br/>
     </div>
+
+    <div id="get_modules" class="content">
+      <h2>Get all module IR (admin only)</h2>
+      <p class="link">GET &emsp; http://chika-server.herokuapp.com/module_ir</p>
+      <p class="example">&bull; Example request:</p>
+      <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/module_ir</p>
+      <p class="header">Header: "Authorization": "Bearer {token}"</p>
+      <p class="example">&bull; Example response:</p>
+      <div class="json">[
+        <br/>&emsp;{
+        <br/>&emsp;&emsp;"createdAt": "15:30 07/01/2020",
+        <br/>&emsp;&emsp;"id": "335833a5-9cc8-4eb7-b6dd-468ff54d3129",
+        <br/>&emsp;&emsp;"name": "Living Room Module",
+        <br/>&emsp;&emsp;"userId": 5
+        <br/>&emsp;},<br/>&emsp;{
+        <br/>&emsp;&emsp;"createdAt": "14:30 08/01/2020",
+        <br/>&emsp;&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+        <br/>&emsp;&emsp;"name": "CA-IRX",
+        <br/>&emsp;&emsp;"userId": null
+        <br/>&emsp;}
+        <br/>]
+      </div>
+      <br/>
+    </div>
+
+    <div id="get_module" class="content">
+      <h2>Get module IR by id</h2>
+      <p class="link">GET &emsp; http://chika-server.herokuapp.com/module_ir/{module-ir-id}</p>
+      <p class="example">&bull; Example request:</p>
+      <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/module_ir/661e998a-3516-47c7-b961-ab0e5a33313b</p>
+      <p class="header">Header: "Authorization": "Bearer {token}"</p>
+      <p class="example">&bull; Example response:</p>
+      <div class="json">{
+        <br/>&emsp;"createdAt": "14:30 08/01/2020",
+        <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+        <br/>&emsp;"name": "CA-IRX",
+        <br/>&emsp;"userId": null
+        <br/>}
+      </div>
+      <br/>
+    </div>
+
+    <div id="post_module" class="content">
+      <h2>Save a module IR</h2>
+      <p class="link">POST &emsp; http://chika-server.herokuapp.com/module_ir</p>
+      <p class="example">&bull; Example request:</p>
+      <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/module_ir</p>
+      <p class="header">Header: "Authorization": "Bearer {token}"</p>
+      <p class="example">&bull; Example response:</p>
+      <div class="json">{
+        <br/>&emsp;"createdAt": "14:30 08/01/2020",
+        <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+        <br/>&emsp;"name": "CA-IRX",
+        <br/>&emsp;"userId": null
+        <br/>}
+      </div>
+      <br/>
+    </div>
+
+    <div id="put_module_name" class="content">
+      <h2>Update module IR's name by id</h2>
+      <p class="link">PUT &emsp; http://chika-server.herokuapp.com/module_ir/name</p>
+      <p class="example">&bull; Example request:</p>
+      <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/module_ir/name</p>
+      <p class="body">Body:</p>
+      <div class="json">{
+        <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+        <br/>&emsp;"name": "Living Room Module"
+        <br/>}
+      </div>
+      <p class="example">&bull; Example response:</p>
+      <div class="json">{
+        <br/>&emsp;"createdAt": "14:30 08/01/2020",
+        <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+        <br/>&emsp;"name": "Living Room Module",
+        <br/>&emsp;"userId": null
+        <br/>}
+      </div>
+      <br/>
+    </div>
+
+    <div id="put_module_user" class="content">
+      <h2>Update module IR's owner by id</h2>
+      <p class="link">PUT &emsp; http://chika-server.herokuapp.com/module_ir/name</p>
+      <p class="example">&bull; Example request:</p>
+      <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/module_ir/name</p>
+      <p class="body">Body:</p>
+      <div class="json">{
+        <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+        <br/>&emsp;"userId": 5
+        <br/>}
+      </div>
+      <p class="example">&bull; Example response:</p>
+      <div class="json">{
+        <br/>&emsp;"createdAt": "14:30 08/01/2020",
+        <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+        <br/>&emsp;"name": "Living Room Module",
+        <br/>&emsp;"userId": 5
+        <br/>}
+      </div>
+      <br/>
+    </div>
+
+    <div id="delete_module" class="content">
+      <h2>Delete module IR by id (admin only)</h2>
+      <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/module_ir/{module-ir-id}</p>
+      <p class="example">&bull; Example request:</p>
+      <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/module_ir/661e998a-3516-47c7-b961-ab0e5a33313b</p>
+      <p class="header">Header: "Authorization": "Bearer {token}"</p>
+      <p class="example">&bull; Example response:</p>
+      <div class="json">{
+        <br/>&emsp;"success: true,
+        <br/>&emsp;"message": "Module has been deleted"
+        <br/>}
+      </div>
+      <br/>
+    </div>
+
+    <div id="get_rooms" class="content">
+      <h2>Get all rooms by user's id</h2>
+      <p class="link">GET &emsp; http://chika-server.herokuapp.com/room</p>
+      <p class="example">&bull; Example request:</p>
+      <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/room</p>
+      <p class="header">Header: "Authorization": "Bearer {token}"</p>
+      <p class="example">&bull; Example response:</p>
+      <div class="json">[
+        <br/>&emsp;{
+        <br/>&emsp;&emsp;"id": "17e5432c-93be-4194-a76e-6e43717d2aa3",
+        <br/>&emsp;&emsp;"logo": 1,
+        <br/>&emsp;&emsp;"name": "Living Room",
+        <br/>&emsp;&emsp;"userId": 5
+        <br/>&emsp;},<br/>&emsp;{
+        <br/>&emsp;&emsp;"id": "54174664-d42b-4013-aa9f-125e90ae06a5",
+        <br/>&emsp;&emsp;"logo": 3,
+        <br/>&emsp;&emsp;"name": "Bed Room",
+        <br/>&emsp;&emsp;"userId": 5
+        <br/>&emsp;}
+        <br/>]
+      </div>
+      <br/>
+    </div>
+
+    <div id="post_room" class="content">
+      <h2>Save a room</h2>
+      <p class="link">POST &emsp; http://chika-server.herokuapp.com/room</p>
+      <p class="example">&bull; Example request:</p>
+      <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/room</p>
+      <p class="header">Header: "Authorization": "Bearer {token}"</p>
+      <p class="body">Body:
+      <div class="json">{
+        <br/>&emsp;"logo": 2,
+        <br/>&emsp;"name": "Kitchen"
+        <br/>}
+      </div>
+      <p class="example">&bull; Example response:</p>
+      <div class="json">{
+        <br/>&emsp;"id": "54174664-d42b-4013-aa9f-125e90ae06a5",
+        <br/>&emsp;"logo": 2,
+        <br/>&emsp;"name": "Kitchen",
+        <br/>&emsp;"userId": 5
+        <br/>}
+      </div>
+      <br/>
+    </div>
+
+    <div id="put_room" class="content">
+      <h2>Update room's information</h2>
+      <p class="link">PUT &emsp; http://chika-server.herokuapp.com/room</p>
+      <p class="example">&bull; Example request:</p>
+      <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/room</p>
+      <p class="header">Header: "Authorization": "Bearer {token}"</p>
+      <p class="body">Body:
+      <div class="json">{
+        <br/>&emsp;"id": "54174664-d42b-4013-aa9f-125e90ae06a5",
+        <br/>&emsp;"logo": 5,
+        <br/>&emsp;"name": "Garage"
+        <br/>}
+      </div>
+      <p class="example">&bull; Example response:</p>
+      <div class="json">{
+        <br/>&emsp;"id": "54174664-d42b-4013-aa9f-125e90ae06a5",
+        <br/>&emsp;"logo": 5,
+        <br/>&emsp;"name": "Garage",
+        <br/>&emsp;"userId": 5
+        <br/>}
+      </div>
+      <br/>
+    </div>
+
+    <div id="delete_module" class="content">
+      <h2>Delete room by id</h2>
+      <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/room/{room-id}</p>
+      <p class="example">&bull; Example request:</p>
+      <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/room/54174664-d42b-4013-aa9f-125e90ae06a5</p>
+      <p class="header">Header: "Authorization": "Bearer {token}"</p>
+      <p class="example">&bull; Example response:</p>
+      <div class="json">{
+        <br/>&emsp;"success: true,
+        <br/>&emsp;"message": "Room has been deleted"
+        <br/>}
+      </div>
+      <br/>
+    </div>
   </div>
 
   <script type="text/javascript" th:src="@{/js/ChikaApi.js}"></script>

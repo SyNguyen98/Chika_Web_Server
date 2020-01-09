@@ -35,7 +35,7 @@ public class DeviceController {
         return deviceService.getAllByRoomId(roomId);
     }
 
-    @GetMapping("/room/{switchId}")
+    @GetMapping("/switch/{switchId}")
     public List<Device> getAllBySwitchId(@PathVariable String switchId) {
         return deviceService.getAllBySwitchId(switchId);
     }
