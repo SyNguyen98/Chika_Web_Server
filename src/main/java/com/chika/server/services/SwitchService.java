@@ -19,4 +19,6 @@ public interface SwitchService {
     Switch updateUser(String id, Long userId);
 
     void deleteById(String id);
+
+    Boolean isOwner(String id, Long userId);
 }

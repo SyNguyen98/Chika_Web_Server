@@ -17,7 +17,7 @@ import java.util.List;
  * To receive Switch requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-12-2019
+ * @since 12-01-2019
  */
 @RestController
 @RequestMapping("/switch")
@@ -61,6 +61,7 @@ public class SwitchController {
         return switchService.updateName(_switch.getId(), _switch.getName());
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/user")
     public Switch updateUser(@RequestBody Switch _switch) {
         return switchService.updateUser(_switch.getId(), _switch.getUserId());

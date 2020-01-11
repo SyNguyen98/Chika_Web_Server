@@ -8,7 +8,11 @@ import com.chika.server.repositories.house.DeviceRepository;
 import com.chika.server.repositories.house.RoomRepository;
 import com.chika.server.services.DeviceService;
 import com.chika.server.services.RoomService;
+import com.chika.server.services.SwitchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,12 +32,12 @@ public class DeviceServiceImpl implements DeviceService {
 
     private final DeviceHistoryRepository deviceHistoryRepository;
 
-    private final RoomService roomService;
+    private final SwitchService switchService;
 
-    public DeviceServiceImpl(DeviceRepository deviceRepository, DeviceHistoryRepository deviceHistoryRepository, RoomService roomService) {
+    public DeviceServiceImpl(DeviceRepository deviceRepository, DeviceHistoryRepository deviceHistoryRepository, SwitchService switchService) {
         this.deviceRepository = deviceRepository;
         this.deviceHistoryRepository = deviceHistoryRepository;
-        this.roomService = roomService;
+        this.switchService = switchService;
     }
 
     @Override
@@ -81,12 +85,13 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public Boolean isOwner(String id, Long userId) {
-        return roomService.isOwner(getById(id).getRoomId(), userId);
+        return switchService.isOwner(getById(id).getSwitchId(), userId);
     }
 
     @Override
-    public List<DeviceHistory> getAllHistoriesByDeviceId(String id) {
-        return deviceHistoryRepository.findAllByDeviceId(id);
+    public List<DeviceHistory> getAllHistoriesByDeviceId(String deviceId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
+        return deviceHistoryRepository.findAllByDeviceId(deviceId, pageable);
     }
 
     @Override
@@ -95,6 +100,7 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
+    @Transactional
     public void deleteAllHistoriesByDeviceId(String deviceId) {
         deviceHistoryRepository.deleteAllByDeviceId(deviceId);
     }

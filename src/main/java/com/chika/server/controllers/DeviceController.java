@@ -3,22 +3,22 @@ package com.chika.server.controllers;
 import com.chika.server.models.house.Device;
 import com.chika.server.models.house.DeviceHistory;
 import com.chika.server.payload.responses.ApiResponse;
+import com.chika.server.payload.responses.DeviceHistoryResponse;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.DeviceService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * To receive Device requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 09-01-2020
+ * @since 11-01-2020
  */
 @RestController
 @RequestMapping("/device")
@@ -41,30 +41,54 @@ public class DeviceController {
     }
 
     @GetMapping("/{id}")
-    public Device getById(@PathVariable String id) {
-        return deviceService.getById(id);
+    public ResponseEntity<?> getById(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
+        if (deviceService.isOwner(id, currentUser.getId())) {
+            return ResponseEntity.ok(deviceService.getById(id));
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "You are not device owner"),
+                HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/info")
-    public Device updateInfo(@RequestBody Device device) {
-        return deviceService.updateInfo(device.getId(), device.getName(), device.getRoomId());
+    public ResponseEntity<?> updateInfo(@CurrentUser UserPrincipal currentUser, @RequestBody Device device) {
+        if (deviceService.isOwner(device.getId(), currentUser.getId())) {
+            return ResponseEntity.ok(deviceService.updateInfo(device.getId(), device.getName(), device.getRoomId()));
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "You are not device owner"),
+                HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/state")
-    public Device updateState(@RequestBody Device device) {
-        deviceService.saveHistory(new DeviceHistory(device.getId(), device.getState()));
-        return deviceService.updateState(device.getId(), device.getState());
+    public ResponseEntity<?> updateState(@CurrentUser UserPrincipal currentUser, @RequestBody Device device) {
+        if (deviceService.isOwner(device.getId(), currentUser.getId())) {
+            deviceService.saveHistory(new DeviceHistory(device.getId(), device.getState()));
+            return ResponseEntity.ok(deviceService.updateState(device.getId(), device.getState()));
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "You are not device owner"),
+                HttpStatus.BAD_REQUEST);
     }
 
     // HISTORY
     @GetMapping("/{deviceId}/history")
-    public List<DeviceHistory> getAllHistoriesByDeviceId(@PathVariable String deviceId) {
-        return deviceService.getAllHistoriesByDeviceId(deviceId);
+    public ResponseEntity<?> getAllHistoriesByDeviceId(@CurrentUser UserPrincipal currentUser, @PathVariable String deviceId,
+                                            @RequestParam("page") int page, @RequestParam("size") int size) {
+        if (deviceService.isOwner(deviceId, currentUser.getId())) {
+            List<DeviceHistory> deviceHistories = deviceService.getAllHistoriesByDeviceId(deviceId, page, size);
+            List<DeviceHistoryResponse> deviceHistoryResponses = new ArrayList<>();
+            deviceHistories.forEach(deviceHistory -> deviceHistoryResponses.add(new DeviceHistoryResponse(deviceHistory)));
+            return ResponseEntity.ok(deviceHistoryResponses);
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "You are not device owner"),
+                HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/{deviceId}/history")
-    public ResponseEntity<?> deleteAllHistoriesByDeviceId(@PathVariable String deviceId) {
-        deviceService.deleteAllHistoriesByDeviceId(deviceId);
-        return ResponseEntity.ok(new ApiResponse(true, "All device's histories have been deleted"));
+    public ResponseEntity<?> deleteAllHistoriesByDeviceId(@CurrentUser UserPrincipal currentUser, @PathVariable String deviceId) {
+        if (deviceService.isOwner(deviceId, currentUser.getId())) {
+            deviceService.deleteAllHistoriesByDeviceId(deviceId);
+            return ResponseEntity.ok(new ApiResponse(true, "All device's histories have been deleted"));
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "You are not device owner"),
+                HttpStatus.BAD_REQUEST);
     }
 }

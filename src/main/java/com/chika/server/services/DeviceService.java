@@ -27,7 +27,7 @@ public interface DeviceService {
 
     // HISTORY
 
-    List<DeviceHistory> getAllHistoriesByDeviceId(String id);
+    List<DeviceHistory> getAllHistoriesByDeviceId(String deviceId, int page, int size);
 
     DeviceHistory saveHistory(DeviceHistory deviceHistory);
 

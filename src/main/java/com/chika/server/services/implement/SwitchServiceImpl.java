@@ -57,4 +57,9 @@ public class SwitchServiceImpl implements SwitchService {
     public void deleteById(String id) {
         switchRepository.deleteById(id);
     }
+
+    @Override
+    public Boolean isOwner(String id, Long userId) {
+        return getById(id).getUserId().equals(userId);
+    }
 }
