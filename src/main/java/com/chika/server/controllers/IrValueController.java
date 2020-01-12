@@ -10,10 +10,10 @@ import java.util.List;
  * To receive Ir Value requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-12-2019
+ * @since 12-01-2019
  */
 @RestController
-@RequestMapping("/irvalue")
+@RequestMapping("/ir_value")
 public class IrValueController {
 
     private final IrValueService irValueService;
@@ -22,7 +22,7 @@ public class IrValueController {
         this.irValueService = irValueService;
     }
 
-    @GetMapping("/{remoteId}")
+    @GetMapping("/remote/{remoteId}")
     public List<IrValue> getAllByRemoteIrId(@PathVariable String remoteId) {
         return irValueService.getAllByRemoteIrId(remoteId);
     }

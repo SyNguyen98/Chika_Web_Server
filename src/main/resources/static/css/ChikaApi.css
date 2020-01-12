@@ -6,14 +6,18 @@ body {
 /* Fixed sidenav, full height */
 .sidenav {
   height: 98%;
-  width: 13vw;
+  width: 15vw;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
   background-color: #111;
-  overflow-x: hidden;
-  padding-top: 5vh
+  padding-top: 5vh;
+  overflow: scroll;
+}
+
+.sidenav::-webkit-scrollbar {
+  display: none;
 }
 
 /* Style the sidenav links and the dropdown button */
@@ -25,10 +29,9 @@ body {
   display: block;
   border-bottom: 1px solid gray;
   background: none;
-  width: 100%;
+  width: 90%;
   text-align: left;
   cursor: pointer;
-  outline: none;
 }
 
 /* On mouse-over */

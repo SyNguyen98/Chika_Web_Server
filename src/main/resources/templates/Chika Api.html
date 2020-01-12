@@ -784,6 +784,213 @@
           </div>
           <br/>
       </div>
+
+      <div id="get_device_histories" class="content">
+          <h2>Get all device histories by device's id</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/device/{device-id}/history?page={page}&size={size}</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/device/0c38a97d-1564-4707-935c-18b4e9bcb0db/history?page=0&size=3</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">[
+              <br/>&emsp;{
+              <br/>&emsp;&emsp;"state": 1,
+              <br/>&emsp;&emsp;"time": "01:03 12/01/2020"
+              <br/>&emsp;},<br/>&emsp;{
+              <br/>&emsp;&emsp;"state": 0,
+              <br/>&emsp;&emsp;"time": "01:00 12/01/2020"
+              <br/>&emsp;},<br/>&emsp;{
+              <br/>&emsp;&emsp;"state": 1,
+              <br/>&emsp;&emsp;"time": "00:55 12/01/2020"
+              <br/>&emsp;}
+              <br/>]
+          </div>
+          <br/>
+      </div>
+
+      <div id="delete_device_histories" class="content">
+          <h2>Delete all device histories by device's id</h2>
+          <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/device/{device-id}/history</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/device/0c38a97d-1564-4707-935c-18b4e9bcb0db/history</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"success: true,
+              <br/>&emsp;"message": "All device's histories have been deleted"
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="get_remotes_room" class="content">
+          <h2>Get all remote IR by room's id</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/remote_ir/room/{room-id}</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/remote_ir/room/c869914a-c338-4e8a-b6ec-81aaadafca52</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">[
+              <br/>&emsp;{
+              <br/>&emsp;&emsp;"id": "5f013f6a-f57b-4819-b681-664181eabf85",
+              <br/>&emsp;&emsp;"name": "Remote Tivi",
+              <br/>&emsp;&emsp;"moduleId": "335833a5-9cc8-4eb7-b6dd-468ff54d3129",
+              <br/>&emsp;&emsp;"roomId": "c869914a-c338-4e8a-b6ec-81aaadafca52",
+              <br/>&emsp;&emsp;"irValues": [
+              <br/>&emsp;&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;&emsp;"id": "1c55f9b7-c755-4013-87bd-8d1ebd87bbcd",
+              <br/>&emsp;&emsp;&emsp;&emsp;"name": "On",
+              <br/>&emsp;&emsp;&emsp;&emsp;"value": "576317",
+              <br/>&emsp;&emsp;&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
+              <br/>&emsp;&emsp;&emsp;},<br/>&emsp;&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
+              <br/>&emsp;&emsp;&emsp;&emsp;"name": "Off",
+              <br/>&emsp;&emsp;&emsp;&emsp;"value": "176943",
+              <br/>&emsp;&emsp;&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
+              <br/>&emsp;&emsp;&emsp;}
+              <br/>&emsp;&emsp;]
+              <br/>&emsp;}<br/>]
+          </div>
+          <br/>
+      </div>
+
+      <div id="post_remote" class="content">
+          <h2>Save a remote IR</h2>
+          <p class="link">POST &emsp; http://chika-server.herokuapp.com/remote_ir</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/remote_ir</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="body">Body:
+          <div class="json">{
+              <br/>&emsp;"name": "Remote Tivi",
+              <br/>&emsp;"numOfButton": 2,
+              <br/>&emsp;"moduleId": "335833a5-9cc8-4eb7-b6dd-468ff54d3129",
+              <br/>&emsp;"roomId": "c869914a-c338-4e8a-b6ec-81aaadafca52"
+              <br/>}
+          </div>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">[
+              <br/>&emsp;{
+              <br/>&emsp;&emsp;"id": "5f013f6a-f57b-4819-b681-664181eabf85",
+              <br/>&emsp;&emsp;"name": "Remote Tivi",
+              <br/>&emsp;&emsp;"moduleId": "335833a5-9cc8-4eb7-b6dd-468ff54d3129",
+              <br/>&emsp;&emsp;"roomId": "c869914a-c338-4e8a-b6ec-81aaadafca52",
+              <br/>&emsp;&emsp;"irValues": [
+              <br/>&emsp;&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;&emsp;"id": "1c55f9b7-c755-4013-87bd-8d1ebd87bbcd",
+              <br/>&emsp;&emsp;&emsp;&emsp;"name": "0",
+              <br/>&emsp;&emsp;&emsp;&emsp;"value": "",
+              <br/>&emsp;&emsp;&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
+              <br/>&emsp;&emsp;&emsp;},<br/>&emsp;&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
+              <br/>&emsp;&emsp;&emsp;&emsp;"name": "1",
+              <br/>&emsp;&emsp;&emsp;&emsp;"value": "",
+              <br/>&emsp;&emsp;&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
+              <br/>&emsp;&emsp;&emsp;}
+              <br/>&emsp;&emsp;]
+              <br/>&emsp;}<br/>]
+          </div>
+          <br/>
+      </div>
+
+      <div id="put_remote" class="content">
+          <h2>Update remote IR's name</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/remote_ir</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/remote_ir</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="body">Body:
+          <div class="json">{
+              <br/>&emsp;"id": "5f013f6a-f57b-4819-b681-664181eabf85",
+              <br/>&emsp;"name": "Remote Air Conditioner"
+              <br/>}
+          </div>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">[
+              <br/>&emsp;{
+              <br/>&emsp;&emsp;"id": "5f013f6a-f57b-4819-b681-664181eabf85",
+              <br/>&emsp;&emsp;"name": "Remote Air Conditioner",
+              <br/>&emsp;&emsp;"moduleId": "335833a5-9cc8-4eb7-b6dd-468ff54d3129",
+              <br/>&emsp;&emsp;"roomId": "c869914a-c338-4e8a-b6ec-81aaadafca52",
+              <br/>&emsp;&emsp;"irValues": [
+              <br/>&emsp;&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;&emsp;"id": "1c55f9b7-c755-4013-87bd-8d1ebd87bbcd",
+              <br/>&emsp;&emsp;&emsp;&emsp;"name": "0",
+              <br/>&emsp;&emsp;&emsp;&emsp;"value": "",
+              <br/>&emsp;&emsp;&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
+              <br/>&emsp;&emsp;&emsp;},<br/>&emsp;&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
+              <br/>&emsp;&emsp;&emsp;&emsp;"name": "1",
+              <br/>&emsp;&emsp;&emsp;&emsp;"value": "",
+              <br/>&emsp;&emsp;&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
+              <br/>&emsp;&emsp;&emsp;}
+              <br/>&emsp;&emsp;]
+              <br/>&emsp;}<br/>]
+          </div>
+          <br/>
+      </div>
+
+      <div id="delete_remote" class="content">
+          <h2>Delete remote by id</h2>
+          <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/remote_ir/{remote-id}</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/remote_ir/5f013f6a-f57b-4819-b681-664181eabf85</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"success: true,
+              <br/>&emsp;"message": "Remote has been deleted"
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="get_irs" class="content">
+          <h2>Get all ir values by remote's id</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/ir_value/remote/{remote-id}</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/ir_value/remote/5f013f6a-f57b-4819-b681-664181eabf85</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">[
+              <br/>&emsp;{
+              <br/>&emsp;&emsp;"id": "1c55f9b7-c755-4013-87bd-8d1ebd87bbcd",
+              <br/>&emsp;&emsp;"name": "On",
+              <br/>&emsp;&emsp;"value": "576317",
+              <br/>&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
+              <br/>&emsp;},<br/>&emsp;{
+              <br/>&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
+              <br/>&emsp;&emsp;"name": "Off",
+              <br/>&emsp;&emsp;"value": "176943",
+              <br/>&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
+              <br/>&emsp;}
+              <br/>]
+          </div>
+          <br/>
+      </div>
+
+      <div id="put_ir" class="content">
+          <h2>Update ir value</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/ir_value</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/ir_value</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="body">Body:
+          <div class="json">{
+              <br/>&emsp;"id": "1c55f9b7-c755-4013-87bd-8d1ebd87bbcd" ,
+              <br/>&emsp;"value": "123456"
+              <br/>}
+          </div>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;&emsp;"id": "1c55f9b7-c755-4013-87bd-8d1ebd87bbcd",
+              <br/>&emsp;&emsp;"name": "On",
+              <br/>&emsp;&emsp;"value": "123456",
+              <br/>&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
+              <br/>}
+          </div>
+          <br/>
+      </div>
   </div>
 
   <script type="text/javascript" th:src="@{/js/ChikaApi.js}"></script>
