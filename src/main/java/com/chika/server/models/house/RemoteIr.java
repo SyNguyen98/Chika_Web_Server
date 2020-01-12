@@ -26,7 +26,6 @@ public class RemoteIr {
 
     private String name;
 
-    @NotBlank
     private String moduleId;
 
     private String roomId;

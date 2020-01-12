@@ -1,17 +1,16 @@
 package com.chika.server.controllers;
 
 import com.chika.server.models.house.RemoteIr;
+import com.chika.server.payload.requests.RemoteIrRequest;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.IrValueService;
 import com.chika.server.services.RemoteIrService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.chika.server.services.RoomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * To receive Remote Ir requests from client
@@ -27,21 +26,32 @@ public class RemoteIrController {
 
     private final IrValueService irValueService;
 
-    public RemoteIrController(RemoteIrService remoteIrService, IrValueService irValueService) {
+    private final RoomService roomService;
+
+    public RemoteIrController(RemoteIrService remoteIrService, IrValueService irValueService, RoomService roomService) {
         this.remoteIrService = remoteIrService;
         this.irValueService = irValueService;
+        this.roomService = roomService;
     }
 
     @GetMapping("/room/{roomId}")
-    public List<RemoteIr> getAllRemotesByRoomId(@PathVariable String roomId) {
-        return remoteIrService.getAllByRoomId(roomId);
+    public ResponseEntity<?> getAllRemotesByRoomId(@CurrentUser UserPrincipal currentUser, @PathVariable String roomId) {
+        if (roomService.isOwner(roomId, currentUser.getId())) {
+            return ResponseEntity.ok(remoteIrService.getAllByRoomId(roomId));
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "You are not room owner"),
+                HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping("/num_of_button/{numOfButton}")
-    public RemoteIr saveRemote(@RequestBody RemoteIr remoteIr, @PathVariable int numOfButton) {
-        RemoteIr remote = remoteIrService.save(remoteIr);
-        remote.setIrValues(irValueService.saveList(remote.getId(), numOfButton));
-        return remote;
+    @PostMapping()
+    public ResponseEntity<?> saveRemote(@CurrentUser UserPrincipal currentUser, @RequestBody RemoteIrRequest request) {
+        if (roomService.isOwner(request.getRoomId(), currentUser.getId())) {
+            RemoteIr remote = remoteIrService.save(new RemoteIr(request.getName(), request.getModuleId(), request.getRoomId()));
+            remote.setIrValues(irValueService.saveList(remote.getId(), request.getNumOfButton()));
+            return ResponseEntity.ok(remote);
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "You are not room owner"),
+                HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping
