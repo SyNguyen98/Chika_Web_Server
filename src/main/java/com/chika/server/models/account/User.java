@@ -1,6 +1,5 @@
 package com.chika.server.models.account;
 
-import com.chika.server.models.account.Role;
 import com.chika.server.models.audit.DateAudit;
 import org.hibernate.annotations.NaturalId;
 

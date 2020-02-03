@@ -12,8 +12,10 @@ public class AuthenticationResponse {
 
     private String tokenType = "Bearer";
     private String accessToken;
+    private String userRole;
 
-    public AuthenticationResponse(String accessToken) {
+    public AuthenticationResponse(String accessToken, String userRole) {
         this.accessToken = accessToken;
+        this.userRole = userRole;
     }
 }
