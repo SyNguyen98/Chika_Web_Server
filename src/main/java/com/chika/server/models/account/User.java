@@ -1,6 +1,5 @@
 package com.chika.server.models.account;
 
-import com.chika.server.models.audit.DateAudit;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -21,7 +20,7 @@ import java.util.Set;
         @UniqueConstraint(columnNames = {"username"}),
         @UniqueConstraint(columnNames = {"email"})
 })
-public class User extends DateAudit {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +29,8 @@ public class User extends DateAudit {
     @NotBlank
     @Size(max = 40)
     private String name;
+
+    private String avatar;
 
     @NotBlank
     @Size(max = 15)
@@ -81,6 +82,14 @@ public class User extends DateAudit {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getEmail() {

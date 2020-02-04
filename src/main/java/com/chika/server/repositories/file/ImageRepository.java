@@ -9,10 +9,9 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 08-11-2019
+ * @since 04-02-2019
  */
 @Repository
 public interface ImageRepository extends JpaRepository<Image, String> {
 
-    List<Image> getAllByLabel(String label);
 }

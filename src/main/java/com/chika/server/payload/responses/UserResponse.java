@@ -1,6 +1,5 @@
 package com.chika.server.payload.responses;
 
-import com.chika.server.Formatter;
 import com.chika.server.models.account.RoleName;
 import com.chika.server.models.account.User;
 import lombok.Data;
@@ -9,16 +8,16 @@ import lombok.Data;
 public class UserResponse {
 
     private String name;
+    private String avatar;
     private String username;
     private String email;
-    private String createAt;
     private RoleName role;
 
     public UserResponse(User user) {
         this.name = user.getName();
+        this.avatar = user.getAvatar();
         this.username = user.getUsername();
         this.email = user.getEmail();
-        this.createAt = Formatter.formatTime(user.getCreatedAt().getTime());
         this.role = user.getRoles().iterator().next().getName();
     }
 }
