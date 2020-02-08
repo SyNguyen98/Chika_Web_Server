@@ -2,6 +2,7 @@ package com.chika.server.controllers;
 
 import com.chika.server.models.account.User;
 import com.chika.server.payload.requests.PasswordRequest;
+import com.chika.server.payload.responses.AdminInfoResponse;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.UserResponse;
 import com.chika.server.security.CurrentUser;
@@ -36,6 +37,13 @@ public class UserController {
     @GetMapping
     public UserResponse getUserByUsername(@CurrentUser UserPrincipal currentUser) {
         return new UserResponse(userService.getByUsername(currentUser.getUsername()));
+    }
+
+    @GetMapping("/admin")
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+    public AdminInfoResponse getAdminInfoById(@CurrentUser UserPrincipal currentUser) {
+        return new AdminInfoResponse(userService.getByUsername(currentUser.getUsername()),
+                userService.getAdminInfo(currentUser.getId()));
     }
 
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")

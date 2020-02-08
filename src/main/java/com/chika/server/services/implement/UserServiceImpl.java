@@ -2,9 +2,11 @@ package com.chika.server.services.implement;
 
 import com.chika.server.exception.AppException;
 import com.chika.server.exception.ResourceNotFoundException;
+import com.chika.server.models.account.AdminInfo;
 import com.chika.server.models.account.Role;
 import com.chika.server.models.account.RoleName;
 import com.chika.server.models.account.User;
+import com.chika.server.repositories.account.AdminInfoRepository;
 import com.chika.server.repositories.account.RoleRepository;
 import com.chika.server.repositories.account.UserRepository;
 import com.chika.server.services.EmailService;
@@ -20,7 +22,7 @@ import java.util.List;
  * CRUD function for User
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-12-2019
+ * @since 08-02-2019
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -33,11 +35,14 @@ public class UserServiceImpl implements UserService {
 
     private final RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository, EmailService emailService, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    private final AdminInfoRepository adminInfoRepository;
+
+    public UserServiceImpl(UserRepository userRepository, EmailService emailService, PasswordEncoder passwordEncoder, RoleRepository roleRepository, AdminInfoRepository adminInfoRepository) {
         this.userRepository = userRepository;
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+        this.adminInfoRepository = adminInfoRepository;
     }
 
     @Override
@@ -49,6 +54,12 @@ public class UserServiceImpl implements UserService {
     public User getByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+    }
+
+    @Override
+    public AdminInfo getAdminInfo(Long userId) {
+        return adminInfoRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Info", "user's id", userId));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.chika.server.services;
 
+import com.chika.server.models.account.AdminInfo;
 import com.chika.server.models.account.User;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,8 @@ public interface UserService {
     List<User> getAll();
 
     User getByUsername(String username);
+
+    AdminInfo getAdminInfo(Long userId);
 
     User saveUser(User user);
 

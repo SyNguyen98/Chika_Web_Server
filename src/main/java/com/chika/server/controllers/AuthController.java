@@ -66,9 +66,7 @@ public class AuthController {
 
         String token = tokenProvider.generateToken(authentication);
 
-        String userRole = userService.getByUsername(signInRequest.getUsernameOrEmail()).getRoles().iterator().next().getName().toString();
-
-        return ResponseEntity.ok(new AuthenticationResponse(token, userRole));
+        return ResponseEntity.ok(new AuthenticationResponse(token));
     }
 
     @PostMapping("/signup")

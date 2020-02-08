@@ -14,8 +14,7 @@ public class AuthenticationResponse {
     private String accessToken;
     private String userRole;
 
-    public AuthenticationResponse(String accessToken, String userRole) {
+    public AuthenticationResponse(String accessToken) {
         this.accessToken = accessToken;
-        this.userRole = userRole;
     }
 }

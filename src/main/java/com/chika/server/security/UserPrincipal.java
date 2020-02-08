@@ -22,6 +22,8 @@ public class UserPrincipal implements UserDetails {
 
     private String name;
 
+    private String avatar;
+
     private String username;
 
     @JsonIgnore
@@ -32,9 +34,10 @@ public class UserPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    private UserPrincipal(Long id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    private UserPrincipal(Long id, String name, String avatar, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
+        this.avatar = avatar;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -46,14 +49,8 @@ public class UserPrincipal implements UserDetails {
                 new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
-        return new UserPrincipal(
-                user.getId(),
-                user.getName(),
-                user.getUsername(),
-                user.getEmail(),
-                user.getPassword(),
-                authorities
-        );
+        return new UserPrincipal(user.getId(), user.getName(), user.getAvatar(),
+                user.getUsername(), user.getEmail(), user.getPassword(), authorities);
     }
 
     public Long getId() {
@@ -62,6 +59,10 @@ public class UserPrincipal implements UserDetails {
 
     public String getName() {
         return name;
+    }
+
+    public String getAvatar() {
+        return avatar;
     }
 
     public String getEmail() {
@@ -113,7 +114,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id);
     }
 }
