@@ -12,8 +12,8 @@ import java.util.Set;
 /**
  * Connect to User table in Database
  * @author Sy Nguyen
- * @version 1.1
- * @since 16-8-2019
+ * @version 1.0
+ * @since 08-02-2020
  */
 @Entity
 @Table(name = "users", uniqueConstraints = {

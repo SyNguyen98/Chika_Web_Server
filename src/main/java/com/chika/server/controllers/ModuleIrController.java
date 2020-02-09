@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * To receive Module Ir requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 01-05-2020
+ * @since 09-02-2020
  */
 @RestController
 @RequestMapping("/module_ir")
@@ -30,10 +31,9 @@ public class ModuleIrController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public List<ModuleIrResponse> getAll() {
-        List<ModuleIr> moduleIrs = moduleIrService.getAll();
-        List<ModuleIrResponse> moduleIrResponses = new ArrayList<>();
-        moduleIrs.forEach(moduleIr -> moduleIrResponses.add(new ModuleIrResponse(moduleIr)));
-        return moduleIrResponses;
+        return moduleIrService.getAll().stream()
+                .map(ModuleIrResponse::new)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")

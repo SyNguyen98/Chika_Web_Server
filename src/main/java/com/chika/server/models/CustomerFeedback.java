@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-public class CustomerReview extends DateAudit {
+public class CustomerFeedback extends DateAudit {
 
     @Id
     @GeneratedValue(generator = "uuid")

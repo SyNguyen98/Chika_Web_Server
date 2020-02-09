@@ -10,14 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * To receive Switch requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 12-01-2019
+ * @since 09-02-2020
  */
 @RestController
 @RequestMapping("/switch")
@@ -35,10 +35,9 @@ public class SwitchController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public List<SwitchResponse> getAll() {
-        List<Switch> switches = switchService.getAll();
-        List<SwitchResponse> switchResponses = new ArrayList<>();
-        switches.forEach(_switch -> switchResponses.add(new SwitchResponse(_switch)));
-        return switchResponses;
+        return switchService.getAll().stream()
+                .map(SwitchResponse::new)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
@@ -70,9 +69,8 @@ public class SwitchController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable String id) {
-        for (Device device : switchService.getById(id).getDevices()) {
-            deviceService.delete(device.getId());
-        }
+        switchService.getById(id).getDevices()
+                .forEach(device -> deviceService.delete(device.getId()));
         switchService.deleteById(id);
         return ResponseEntity.ok(new ApiResponse(true, "Switch has been deleted"));
     }

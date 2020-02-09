@@ -11,14 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * To receive Device requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 11-01-2020
+ * @since 09-02-2020
  */
 @RestController
 @RequestMapping("/device")
@@ -73,10 +73,10 @@ public class DeviceController {
     public ResponseEntity<?> getAllHistoriesByDeviceId(@CurrentUser UserPrincipal currentUser, @PathVariable String deviceId,
                                             @RequestParam("page") int page, @RequestParam("size") int size) {
         if (deviceService.isOwner(deviceId, currentUser.getId())) {
-            List<DeviceHistory> deviceHistories = deviceService.getAllHistoriesByDeviceId(deviceId, page, size);
-            List<DeviceHistoryResponse> deviceHistoryResponses = new ArrayList<>();
-            deviceHistories.forEach(deviceHistory -> deviceHistoryResponses.add(new DeviceHistoryResponse(deviceHistory)));
-            return ResponseEntity.ok(deviceHistoryResponses);
+            return ResponseEntity.ok(deviceService.getAllHistoriesByDeviceId(deviceId, page, size)
+                    .stream()
+                    .map(DeviceHistoryResponse::new)
+                    .collect(Collectors.toList()));
         }
         return new ResponseEntity<>(new ApiResponse(false, "You are not device owner"),
                 HttpStatus.BAD_REQUEST);

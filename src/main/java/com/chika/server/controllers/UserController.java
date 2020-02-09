@@ -15,14 +15,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * To receive User requests from the client
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-12-2019
+ * @since 09-02-2020
  */
 @RestController
 @RequestMapping("/user")
@@ -49,12 +49,9 @@ public class UserController {
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping("/all")
     public List<UserResponse> getAllUsers() {
-        List<User> users = userService.getAll();
-        List<UserResponse> userResponses = new ArrayList<>();
-        for (User user : users) {
-            userResponses.add(new UserResponse(user));
-        }
-        return userResponses;
+        return userService.getAll().stream()
+                .map(UserResponse::new)
+                .collect(Collectors.toList());
     }
 
     @PutMapping

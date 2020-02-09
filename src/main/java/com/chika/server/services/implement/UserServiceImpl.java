@@ -22,7 +22,7 @@ import java.util.List;
  * CRUD function for User
  * @author Sy Nguyen
  * @version 1.0
- * @since 08-02-2019
+ * @since 08-02-2020
  */
 @Service
 public class UserServiceImpl implements UserService {
