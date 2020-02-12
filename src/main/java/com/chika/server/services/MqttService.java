@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class MqttService implements MqttCallback {
 
-    private static final String MQTT_URL = "tcp://14.186.18.140:2502";
+    private static final String MQTT_URL = "tcp://chika.gq:2502";
     private static final String USERNAME = "chika";
     private static final String PASSWORD = "2502";
     private static final String CLIENT_ID = MqttAsyncClient.generateClientId();

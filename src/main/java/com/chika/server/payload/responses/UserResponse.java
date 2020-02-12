@@ -8,14 +8,12 @@ import lombok.Data;
 public class UserResponse {
 
     private String name;
-    private String avatar;
     private String username;
     private String email;
     private RoleName role;
 
     public UserResponse(User user) {
         this.name = user.getName();
-        this.avatar = user.getAvatar();
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.role = user.getRoles().iterator().next().getName();

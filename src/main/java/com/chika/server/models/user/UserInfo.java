@@ -1,4 +1,4 @@
-package com.chika.server.models.account;
+package com.chika.server.models.user;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class AdminInfo {
+public class UserInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,15 +17,9 @@ public class AdminInfo {
 
     private Long userId;
 
-    private String birthday;
-
-    private String address;
+    private String avatar;
 
     private String phone;
 
-    private String employeeId;
-
-    private String function;
-
-    private String department;
+    private String address;
 }

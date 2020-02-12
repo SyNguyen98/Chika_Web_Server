@@ -1,6 +1,6 @@
 package com.chika.server.payload.responses;
 
-import com.chika.server.models.account.AdminInfo;
+import com.chika.server.models.user.AdminInfo;
 import com.chika.server.models.account.User;
 import lombok.Data;
 
@@ -19,7 +19,7 @@ public class AdminInfoResponse {
     private String department;
 
     public AdminInfoResponse(User user, AdminInfo adminInfo) {
-        this.avatar = user.getAvatar();
+        this.avatar = adminInfo.getAvatar();
         this.name = user.getName();
         this.username = user.getUsername();
         this.birthday = adminInfo.getBirthday();

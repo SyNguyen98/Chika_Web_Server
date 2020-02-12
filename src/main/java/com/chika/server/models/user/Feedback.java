@@ -1,4 +1,4 @@
-package com.chika.server.models;
+package com.chika.server.models.user;
 
 import com.chika.server.models.audit.DateAudit;
 import lombok.Data;
@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-public class CustomerFeedback extends DateAudit {
+public class Feedback extends DateAudit {
 
     @Id
     @GeneratedValue(generator = "uuid")

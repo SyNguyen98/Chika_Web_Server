@@ -1,6 +1,6 @@
 package com.chika.server.services;
 
-import com.chika.server.models.account.AdminInfo;
+import com.chika.server.models.user.AdminInfo;
 import com.chika.server.models.account.User;
 import org.springframework.stereotype.Service;
 

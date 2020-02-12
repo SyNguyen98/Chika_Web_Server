@@ -1,9 +1,9 @@
 package com.chika.server.controllers;
 
-import com.chika.server.models.CustomerFeedback;
+import com.chika.server.models.user.Feedback;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.FeedbackResponse;
-import com.chika.server.services.CustomerFeedbackService;
+import com.chika.server.services.FeedbackService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -19,30 +19,30 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/review")
-public class CustomerFeedbackController {
+public class FeedbackController {
 
-    private final CustomerFeedbackService customerFeedbackService;
+    private final FeedbackService feedbackService;
 
-    public CustomerFeedbackController(CustomerFeedbackService customerFeedbackService) {
-        this.customerFeedbackService = customerFeedbackService;
+    public FeedbackController(FeedbackService feedbackService) {
+        this.feedbackService = feedbackService;
     }
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<FeedbackResponse> getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
-        return customerFeedbackService.getList(page, size).stream()
+        return feedbackService.getList(page, size).stream()
                         .map(FeedbackResponse::new)
                         .collect(Collectors.toList());
     }
 
     @PostMapping
-    public FeedbackResponse save(@RequestBody CustomerFeedback customerFeedback) {
-        return new FeedbackResponse(customerFeedbackService.save(customerFeedback));
+    public FeedbackResponse save(@RequestBody Feedback feedback) {
+        return new FeedbackResponse(feedbackService.save(feedback));
     }
 
     @DeleteMapping("/id/{id}")
     public ResponseEntity<?> deleteById(@PathVariable String id) {
-        customerFeedbackService.delete(id);
+        feedbackService.delete(id);
         return ResponseEntity.ok(new ApiResponse(true, "Review has been deleted"));
     }
 }

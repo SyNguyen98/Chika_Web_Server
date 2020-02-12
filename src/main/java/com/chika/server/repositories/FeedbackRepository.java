@@ -1,6 +1,6 @@
 package com.chika.server.repositories;
 
-import com.chika.server.models.CustomerFeedback;
+import com.chika.server.models.user.Feedback;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CustomerFeedbackRepository extends JpaRepository<CustomerFeedback, String> {
+public interface FeedbackRepository extends JpaRepository<Feedback, String> {
 
-    List<CustomerFeedback> findAllBy(Pageable pageable);
+    List<Feedback> findAllBy(Pageable pageable);
 }

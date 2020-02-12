@@ -1,7 +1,7 @@
 package com.chika.server.payload.responses;
 
 import com.chika.server.Formatter;
-import com.chika.server.models.CustomerFeedback;
+import com.chika.server.models.user.Feedback;
 import lombok.Data;
 
 @Data
@@ -19,12 +19,12 @@ public class FeedbackResponse {
 
     private String time;
 
-    public FeedbackResponse(CustomerFeedback customerFeedback) {
-        this.id = customerFeedback.getId();
-        this.subject = customerFeedback.getSubject();
-        this.content = customerFeedback.getContent();
-        this.name = customerFeedback.getName();
-        this.phone = customerFeedback.getPhone();
-        this.time = Formatter.formatTime(customerFeedback.getCreatedAt().getTime());
+    public FeedbackResponse(Feedback feedback) {
+        this.id = feedback.getId();
+        this.subject = feedback.getSubject();
+        this.content = feedback.getContent();
+        this.name = feedback.getName();
+        this.phone = feedback.getPhone();
+        this.time = Formatter.formatTime(feedback.getCreatedAt().getTime());
     }
 }

@@ -2,7 +2,7 @@ package com.chika.server.services.implement;
 
 import com.chika.server.exception.AppException;
 import com.chika.server.exception.ResourceNotFoundException;
-import com.chika.server.models.account.AdminInfo;
+import com.chika.server.models.user.AdminInfo;
 import com.chika.server.models.account.Role;
 import com.chika.server.models.account.RoleName;
 import com.chika.server.models.account.User;

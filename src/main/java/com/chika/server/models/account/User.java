@@ -30,8 +30,6 @@ public class User {
     @Size(max = 40)
     private String name;
 
-    private String avatar;
-
     @NotBlank
     @Size(max = 15)
     private String username;
@@ -82,14 +80,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     public String getEmail() {
