@@ -22,7 +22,7 @@ import java.util.List;
  * CRUD function for User
  * @author Sy Nguyen
  * @version 1.0
- * @since 08-02-2020
+ * @since 12-02-2020
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,14 +46,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
-    }
-
-    @Override
     public User getByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+    }
+
+    @Override
+    public List<User> getAllByRole(Role role) {
+        return userRepository.findAllByRoles(role);
     }
 
     @Override

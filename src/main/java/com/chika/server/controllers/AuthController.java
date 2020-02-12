@@ -10,6 +10,7 @@ import com.chika.server.payload.requests.SignInRequest;
 import com.chika.server.payload.requests.SignUpRequest;
 import com.chika.server.repositories.account.RoleRepository;
 import com.chika.server.security.JwtTokenProvider;
+import com.chika.server.services.RoleService;
 import com.chika.server.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,14 +44,14 @@ public class AuthController {
 
     private final UserService userService;
 
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
 
-    public AuthController(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider, UserService userService, RoleRepository roleRepository) {
+    public AuthController(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider, UserService userService, RoleService roleService) {
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
         this.tokenProvider = tokenProvider;
         this.userService = userService;
-        this.roleRepository = roleRepository;
+        this.roleService = roleService;
     }
 
     @PostMapping("/signin")
@@ -85,8 +86,7 @@ public class AuthController {
         User user = new User(signUpRequest.getName(), signUpRequest.getUsername(), signUpRequest.getEmail(),
                             passwordEncoder.encode(signUpRequest.getPassword()));
 
-        Role userRole = roleRepository.findByName(RoleName.ROLE_HOME_USER)
-                .orElseThrow(() -> new AppException("User Role not set."));
+        Role userRole = roleService.getRoleByName(RoleName.ROLE_HOME_USER);
 
         user.setRoles(Collections.singleton(userRole));
 

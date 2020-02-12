@@ -1,5 +1,6 @@
 package com.chika.server.services;
 
+import com.chika.server.models.account.Role;
 import com.chika.server.models.user.AdminInfo;
 import com.chika.server.models.account.User;
 import org.springframework.stereotype.Service;
@@ -9,9 +10,9 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    List<User> getAll();
-
     User getByUsername(String username);
+
+    List<User> getAllByRole(Role role);
 
     AdminInfo getAdminInfo(Long userId);
 

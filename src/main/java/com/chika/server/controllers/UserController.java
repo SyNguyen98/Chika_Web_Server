@@ -1,12 +1,16 @@
 package com.chika.server.controllers;
 
+import com.chika.server.exception.AppException;
+import com.chika.server.models.account.RoleName;
 import com.chika.server.models.account.User;
 import com.chika.server.payload.requests.PasswordRequest;
 import com.chika.server.payload.responses.AdminInfoResponse;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.UserResponse;
+import com.chika.server.repositories.account.RoleRepository;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
+import com.chika.server.services.RoleService;
 import com.chika.server.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,8 +34,11 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final RoleService roleService;
+
+    public UserController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping
@@ -49,7 +56,8 @@ public class UserController {
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping("/all")
     public List<UserResponse> getAllUsers() {
-        return userService.getAll().stream()
+        return userService.getAllByRole(roleService.getRoleByName(RoleName.ROLE_HOME_USER))
+                .stream()
                 .map(UserResponse::new)
                 .collect(Collectors.toList());
     }

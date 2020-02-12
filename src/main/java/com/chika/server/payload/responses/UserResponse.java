@@ -2,6 +2,7 @@ package com.chika.server.payload.responses;
 
 import com.chika.server.models.account.RoleName;
 import com.chika.server.models.account.User;
+import com.chika.server.services.RoleService;
 import lombok.Data;
 
 @Data
@@ -16,6 +17,6 @@ public class UserResponse {
         this.name = user.getName();
         this.username = user.getUsername();
         this.email = user.getEmail();
-        this.role = user.getRoles().iterator().next().getName();
+        this.role = RoleService.getHighestRole(user.getRoles());
     }
 }
