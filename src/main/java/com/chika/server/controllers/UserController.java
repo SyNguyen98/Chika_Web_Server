@@ -1,13 +1,12 @@
 package com.chika.server.controllers;
 
-import com.chika.server.exception.AppException;
 import com.chika.server.models.account.RoleName;
 import com.chika.server.models.account.User;
 import com.chika.server.payload.requests.PasswordRequest;
 import com.chika.server.payload.responses.AdminInfoResponse;
 import com.chika.server.payload.responses.ApiResponse;
+import com.chika.server.payload.responses.UserInfoResponse;
 import com.chika.server.payload.responses.UserResponse;
-import com.chika.server.repositories.account.RoleRepository;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.RoleService;
@@ -26,7 +25,7 @@ import java.util.stream.Collectors;
  * To receive User requests from the client
  * @author Sy Nguyen
  * @version 1.0
- * @since 09-02-2020
+ * @since 13-02-2020
  */
 @RestController
 @RequestMapping("/user")
@@ -55,10 +54,10 @@ public class UserController {
 
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @GetMapping("/all")
-    public List<UserResponse> getAllUsers() {
+    public List<UserInfoResponse> getAllUsers() {
         return userService.getAllByRole(roleService.getRoleByName(RoleName.ROLE_HOME_USER))
                 .stream()
-                .map(UserResponse::new)
+                .map(user -> new UserInfoResponse(user, userService.getUserInfo(user.getId())))
                 .collect(Collectors.toList());
     }
 

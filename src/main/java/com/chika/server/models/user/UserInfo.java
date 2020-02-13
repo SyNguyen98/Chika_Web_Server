@@ -19,14 +19,17 @@ public class UserInfo {
 
     private String avatar;
 
+    private String birthday;
+
     private String phone;
 
     private String address;
 
     public UserInfo() {}
-    public UserInfo(Long userId, String avatar, String phone, String address) {
+    public UserInfo(Long userId, String avatar, String birthday, String phone, String address) {
         this.userId = userId;
         this.avatar = avatar;
+        this.birthday = birthday;
         this.phone = phone;
         this.address = address;
     }

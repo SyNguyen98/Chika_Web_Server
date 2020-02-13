@@ -104,7 +104,7 @@ public class AuthController {
             }
 
             user = userService.saveUser(user);
-            userService.saveUserInfo(new UserInfo(user.getId(), "", "", ""));
+            userService.saveUserInfo(new UserInfo(user.getId(), "", "", "", ""));
 
             URI location = ServletUriComponentsBuilder
                     .fromCurrentContextPath().path("/users/{username}")

@@ -13,7 +13,6 @@ import com.chika.server.repositories.account.UserRepository;
 import com.chika.server.repositories.user.UserInfoRepository;
 import com.chika.server.services.EmailService;
 import com.chika.server.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,7 @@ import java.util.List;
  * CRUD function for User
  * @author Sy Nguyen
  * @version 1.0
- * @since 12-02-2020
+ * @since 13-02-2020
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -66,6 +65,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public AdminInfo getAdminInfo(Long userId) {
         return adminInfoRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Info", "user's id", userId));
+    }
+
+    @Override
+    public UserInfo getUserInfo(Long userId) {
+        return userInfoRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Info", "user's id", userId));
     }
 

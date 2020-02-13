@@ -17,6 +17,8 @@ public interface UserService {
 
     AdminInfo getAdminInfo(Long userId);
 
+    UserInfo getUserInfo(Long userId);
+
     User saveUser(User user);
 
     UserInfo saveUserInfo(UserInfo userInfo);
