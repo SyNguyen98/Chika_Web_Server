@@ -6,11 +6,14 @@ import com.chika.server.models.user.AdminInfo;
 import com.chika.server.models.account.Role;
 import com.chika.server.models.account.RoleName;
 import com.chika.server.models.account.User;
-import com.chika.server.repositories.account.AdminInfoRepository;
+import com.chika.server.models.user.UserInfo;
+import com.chika.server.repositories.user.AdminInfoRepository;
 import com.chika.server.repositories.account.RoleRepository;
 import com.chika.server.repositories.account.UserRepository;
+import com.chika.server.repositories.user.UserInfoRepository;
 import com.chika.server.services.EmailService;
 import com.chika.server.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,12 +40,16 @@ public class UserServiceImpl implements UserService {
 
     private final AdminInfoRepository adminInfoRepository;
 
-    public UserServiceImpl(UserRepository userRepository, EmailService emailService, PasswordEncoder passwordEncoder, RoleRepository roleRepository, AdminInfoRepository adminInfoRepository) {
+    private final UserInfoRepository userInfoRepository;
+
+    public UserServiceImpl(UserRepository userRepository, EmailService emailService, PasswordEncoder passwordEncoder, RoleRepository roleRepository,
+                           AdminInfoRepository adminInfoRepository, UserInfoRepository userInfoRepository) {
         this.userRepository = userRepository;
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.adminInfoRepository = adminInfoRepository;
+        this.userInfoRepository = userInfoRepository;
     }
 
     @Override
@@ -65,6 +72,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public UserInfo saveUserInfo(UserInfo userInfo) {
+        return userInfoRepository.save(userInfo);
     }
 
     @Override

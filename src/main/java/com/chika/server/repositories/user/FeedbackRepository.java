@@ -1,4 +1,4 @@
-package com.chika.server.repositories;
+package com.chika.server.repositories.user;
 
 import com.chika.server.models.user.Feedback;
 import org.springframework.data.domain.Pageable;

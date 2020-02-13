@@ -1,5 +1,6 @@
 package com.chika.server.security;
 
+import com.chika.server.models.account.Role;
 import com.chika.server.models.account.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,24 +31,28 @@ public class UserPrincipal implements UserDetails {
     @JsonIgnore
     private String password;
 
+    private Set<Role> roles;
+
     private Collection<? extends GrantedAuthority> authorities;
 
-    private UserPrincipal(Long id, String name, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    private UserPrincipal(Long id, String name, String username, String email, String password, Set<Role> roles,
+                          Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.roles = roles;
         this.authorities = authorities;
     }
 
     static UserPrincipal create(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
-                new SimpleGrantedAuthority(role.getName().name()))
+        List<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
-        return new UserPrincipal(user.getId(), user.getName(),
-                user.getUsername(), user.getEmail(), user.getPassword(), authorities);
+        return new UserPrincipal(user.getId(), user.getName(), user.getUsername(),
+                user.getEmail(), user.getPassword(), user.getRoles(),authorities);
     }
 
     public Long getId() {
@@ -60,6 +65,10 @@ public class UserPrincipal implements UserDetails {
 
     public String getEmail() {
         return email;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 
     @Override

@@ -22,4 +22,12 @@ public class UserInfo {
     private String phone;
 
     private String address;
+
+    public UserInfo() {}
+    public UserInfo(Long userId, String avatar, String phone, String address) {
+        this.userId = userId;
+        this.avatar = avatar;
+        this.phone = phone;
+        this.address = address;
+    }
 }

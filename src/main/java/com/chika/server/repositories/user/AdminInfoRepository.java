@@ -1,4 +1,4 @@
-package com.chika.server.repositories.account;
+package com.chika.server.repositories.user;
 
 import com.chika.server.models.user.AdminInfo;
 import org.springframework.data.jpa.repository.JpaRepository;

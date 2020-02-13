@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @since 09-02-2020
  */
 @RestController
-@RequestMapping("/review")
+@RequestMapping("/feedback")
 public class FeedbackController {
 
     private final FeedbackService feedbackService;

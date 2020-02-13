@@ -1,7 +1,7 @@
 package com.chika.server.services.implement;
 
 import com.chika.server.models.user.Feedback;
-import com.chika.server.repositories.FeedbackRepository;
+import com.chika.server.repositories.user.FeedbackRepository;
 import com.chika.server.services.FeedbackService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

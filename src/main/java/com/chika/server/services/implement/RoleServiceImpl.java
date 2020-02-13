@@ -18,7 +18,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role getRoleByName(RoleName roleName) {
-        return roleRepository.findByName(RoleName.ROLE_HOME_USER)
+        return roleRepository.findByName(roleName)
                 .orElseThrow(() -> new AppException("User Role not set."));
     }
 }
