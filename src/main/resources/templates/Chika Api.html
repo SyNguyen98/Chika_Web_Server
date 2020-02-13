@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
   <head>
     <meta charset="UTF-8"/>
     <title>Chika API</title>
@@ -7,16 +7,17 @@
   </head>
   <body>
   <div class="sidenav">
-      <a class="dropdown" href="#authentication">Authentication</a>
+      <p class="dropdown">Authentication</p>
       <div class="dropdown-container">
           <a href="#sign_in">POST /auth/signin</a>
           <a href="#sign_up">POST /auth/signup</a>
       </div>
 
-      <a class="dropdown" href="#user">User</a>
+      <p class="dropdown">User</p>
       <div class="dropdown-container">
           <a href="#get_users">GET /user</a>
           <a href="#get_user_username">GET /user/{username}</a>
+          <a href="#get_admin_info">GET /user/admin</a>
           <a href="#put_user">PUT /user</a>
           <a href="#put_user_username_role">PUT /user/{username}/role</a>
           <a href="#put_user_password">PUT /user</a>
@@ -24,7 +25,7 @@
           <a href="#delete_user_username">DELETE /user/{username}</a>
       </div>
 
-      <a class="dropdown" href="#switch">Switch</a>
+      <p class="dropdown">Switch</p>
       <div class="dropdown-container">
           <a href="#get_switches">GET /switch</a>
           <a href="#get_switch">GET /switch/{switch-id}</a>
@@ -34,7 +35,7 @@
           <a href="#delete_switch">DELETE /switch/{switch-id}</a>
       </div>
 
-      <a class="dropdown" href="#module_ir">Module IR</a>
+      <p class="dropdown">Module IR</p>
       <div class="dropdown-container">
           <a href="#get_modules">GET /module_ir</a>
           <a href="#get_module">GET /module_ir/{module-id}</a>
@@ -44,7 +45,7 @@
           <a href="#delete_module">DELETE /module_ir/{module-id}</a>
       </div>
 
-      <a class="dropdown" href="#room">Room</a>
+      <p class="dropdown">Room</p>
       <div class="dropdown-container">
           <a href="#get_rooms">GET /room</a>
           <a href="#post_room">POST /room</a>
@@ -52,7 +53,7 @@
           <a href="#delete_room">DELETE /room/{room-id}</a>
       </div>
 
-      <a class="dropdown" href="#device">Device</a>
+      <p class="dropdown">Device</p>
       <div class="dropdown-container">
           <a href="#get_devices_switch">GET /device/switch/{switch-id}</a>
           <a href="#get_devices_room">GET /device/room/{room-id}</a>
@@ -63,7 +64,7 @@
           <a href="#delete_device_histories">DELETE /device/{device-id}/history</a>
       </div>
 
-      <a class="dropdown" href="#sensor">Sensor</a>
+      <p class="dropdown">Sensor</p>
       <div class="dropdown-container">
           <a href="#get_sensors_room">GET /sensor/room/{roomId}</a>
           <a href="#get_sensor">GET /sensor/{sensor-id}</a>
@@ -72,7 +73,7 @@
           <a href="#delete_sensor">DELETE /sensor/{sensor-id}</a>
       </div>
 
-      <a class="dropdown" href="#remote_ir">Remote IR</a>
+      <p class="dropdown">Remote IR</p>
       <div class="dropdown-container">
           <a href="#get_remotes_room">GET /remote_ir/room/{room-id}</a>
           <a href="#post_remote">POST /remote_ir/num_of_button/{number-of-button}</a>
@@ -80,19 +81,19 @@
           <a href="#delete_remote">DELETE /remote_ir/{remote-id}</a>
       </div>
 
-      <a class="dropdown" href="#ir_value">IR Value</a>
+      <p class="dropdown">IR Value</p>
       <div class="dropdown-container">
           <a href="#get_irs">GET /ir/remote/{remote-id}</a>
           <a href="#put_ir">PUT /ir</a>
       </div>
 
-      <a class="dropdown" href="#image">Image</a>
+      <p class="dropdown">Image</p>
       <div class="dropdown-container">
           <a href="#get_image">GET /image/{image-id}</a>
           <a href="#upload_image">POST /image</a>
       </div>
 
-      <a class="dropdown" href="#audio">Audio</a>
+      <p class="dropdown">Audio</p>
       <div class="dropdown-container">
           <a href="#get_audio">GET /audio/{audio-id}</a>
           <a href="#upload_audio">POST /audio</a>
@@ -123,9 +124,12 @@
 
       <div id="sign_up" class="content">
           <h2>Sign Up</h2>
+          <p class="description">Admin can register a user with ROLE_HOME_MASTER.
+              <br/>User with ROLE_HOME_MASTER can register a user with ROLE_HOME_USER.</p>
           <p class="link">POST &emsp; http://chika-server.herokuapp.com/auth/signup</p>
           <p class="example">&bull; Example request:</p>
           <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/auth/signup</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="body">Body:</p>
           <div class="json">{
               <br/>&emsp;"name": "Chika Smarthome",
@@ -145,6 +149,7 @@
 
       <div id="get_users" class="content">
           <h2>Get all users (admin only)</h2>
+          <p class="description">Get a user list with their information.</p>
           <p class="link">GET &emsp; http://chika-server.herokuapp.com/user/all</p>
           <p class="example">&bull; Example request:</p>
           <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/user/all</p>
@@ -152,17 +157,23 @@
           <p class="example">&bull; Example response:</p>
           <div class="json">[
               <br/>&emsp;{
+              <br/>&emsp;&emsp;"avatar": "http://chika-server.herokuapp.com/image/ac962f09-911c-48ac-b4d8-6b483bc46d8c",
               <br/>&emsp;&emsp;"name": "Chika Smarthome",
               <br/>&emsp;&emsp;"username": "chika123",
+              <br/>&emsp;&emsp;"birthday": "12/12/1912",
+              <br/>&emsp;&emsp;"address": "123 Đường Thành Thái",
               <br/>&emsp;&emsp;"email": "chika@gmail.com",
-              <br/>&emsp;&emsp;"createAt": "20:00 27/09/2019",
-              <br/>&emsp;&emsp;"role": "ROLE_ADMIN"
+              <br/>&emsp;&emsp;""phone": "0701234567",
+              <br/>&emsp;&emsp;"role": "ROLE_HOME_MASTER"
               <br/>&emsp;},<br/>&emsp;{
+              <br/>&emsp;&emsp;"avatar": "http://chika-server.herokuapp.com/image/ty962f09-922c-36ac-b4d8-6b483bc71d8c",
               <br/>&emsp;&emsp;"name": "Chika User",
               <br/>&emsp;&emsp;"username": "user123",
+              <br/>&emsp;&emsp;"birthday": "01/01/1990",
+              <br/>&emsp;&emsp;"address": "123 Đường Lê Duẩn",
               <br/>&emsp;&emsp;"email": "user@gmail.com",
-              <br/>&emsp;&emsp;"createAt": "06:00 28/09/2019",
-              <br/>&emsp;&emsp;"role": "ROLE_HOME_MASTER"
+              <br/>&emsp;&emsp;""phone": "0701234567",
+              <br/>&emsp;&emsp;"role": "ROLE_HOME_USER"
               <br/>&emsp;}<br/>]
           </div>
           <br/>
@@ -181,6 +192,29 @@
               <br/>&emsp;"email": "chika@gmail.com",
               <br/>&emsp;"createAt": "20:00 27/09/2019",
               <br/>&emsp;"role": "ROLE_ADMIN"
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="get_admin_info" class="content">
+          <h2>Get admin's information (admin only)</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/user/admin</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/user/admin</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"avatar": "http://chika-server.herokuapp.com/image/8d78efc5-cqdc-51a4-a4b3-323edfg941c6",
+              <br/>&emsp;"name": "Chika Smarthome",
+              <br/>&emsp;"username": "chika123",
+              <br/>&emsp;"birthday": "18/09/1998",
+              <br/>&emsp;"address": "606 3 tháng 2",
+              <br/>&emsp;"email": "chika@gmail.com",
+              <br/>&emsp;"phone": "0701234567",
+              <br/>&emsp;"employeeId": "FUL0001",
+              <br/>&emsp;"function": "Lập trình viên Full-Stack",
+              <br/>&emsp;"department": "Thiết kế phần mềm"
               <br/>}
           </div>
           <br/>

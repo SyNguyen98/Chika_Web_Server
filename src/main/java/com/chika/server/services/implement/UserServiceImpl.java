@@ -93,16 +93,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateRole(String username) {
-        User user = getByUsername(username);
-        Role userRole = roleRepository.findByName(RoleName.ROLE_HOME_MASTER)
-                .orElseThrow(() -> new AppException("User Role not set."));
-
-        user.setRoles(Collections.singleton(userRole));
-        return user;
-    }
-
-    @Override
     public Boolean changePassword(String username, String oldPassword, String newPassword) {
         User user = getByUsername(username);
         if (BCrypt.checkpw(oldPassword, user.getPassword())) {

@@ -25,8 +25,6 @@ public interface UserService {
 
     User updateUser(String username, String name, String email);
 
-    User updateRole(String username);
-
     Boolean changePassword(String username, String oldPassword, String newPassword);
 
     void resetPassword(String token, String newPassword);

@@ -21,7 +21,8 @@ body {
 }
 
 /* Style the sidenav links and the dropdown button */
-.sidenav a {
+.sidenav p , .sidenav a {
+  margin: 0;
   padding: 2vh 10px 2vh 16px;
   text-decoration: none;
   font-size: 17px;
@@ -69,34 +70,37 @@ body {
 
 .content {
   border-bottom: 1px solid #ffee7d;
+  margin-left: 2vw;
 }
 
 .content h2 {
-  margin-left: 2vw;
   font-size: 30px;
   text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff;
 }
 
+.content .description {
+  line-height: 30px;
+  color: white;
+}
+
 .content .link {
-  margin-left: 2vw;
   color: #69f0ff;
 }
 
 .content .example {
-  margin-left: 2vw;
   margin-bottom: 5px;
   color: white;
 }
 
 .content .link-example, .content .header, .content .body {
-  margin-left: 3vw;
+  margin-left: 2vw;
   margin-bottom: 5px;
   font-size: 17px;
   color: #dbe300;
 }
 
 .content .json {
-  margin-left: 4vw;
+  margin-left: 3vw;
   font-size: 17px;
   color: #02e60e;
   word-break: break-all;

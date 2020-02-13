@@ -66,12 +66,6 @@ public class UserController {
         return new UserResponse(userService.updateUser(currentUser.getUsername(), user.getName(), user.getEmail()));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/{username}/role")
-    public UserResponse updateRole(@PathVariable String username) {
-        return new UserResponse(userService.updateRole(username));
-    }
-
     @PutMapping("/password")
     public ResponseEntity<?> changePassword(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody PasswordRequest passwordRequest) {
         if (userService.changePassword(currentUser.getUsername(),
