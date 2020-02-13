@@ -19,7 +19,6 @@
           <a href="#get_user_username">GET /user/{username}</a>
           <a href="#get_admin_info">GET /user/admin</a>
           <a href="#put_user">PUT /user</a>
-          <a href="#put_user_username_role">PUT /user/{username}/role</a>
           <a href="#put_user_password">PUT /user</a>
           <a href="#put_user_email">PUT /user/email/{email}</a>
           <a href="#delete_user_username">DELETE /user/{username}</a>
@@ -164,7 +163,7 @@
               <br/>&emsp;&emsp;"address": "123 Đường Thành Thái",
               <br/>&emsp;&emsp;"email": "chika@gmail.com",
               <br/>&emsp;&emsp;""phone": "0701234567",
-              <br/>&emsp;&emsp;"role": "ROLE_HOME_MASTER"
+              <br/>&emsp;&emsp;"role": "HOME_MASTER"
               <br/>&emsp;},<br/>&emsp;{
               <br/>&emsp;&emsp;"avatar": "http://chika-server.herokuapp.com/image/ty962f09-922c-36ac-b4d8-6b483bc71d8c",
               <br/>&emsp;&emsp;"name": "Chika User",
@@ -173,7 +172,7 @@
               <br/>&emsp;&emsp;"address": "123 Đường Lê Duẩn",
               <br/>&emsp;&emsp;"email": "user@gmail.com",
               <br/>&emsp;&emsp;""phone": "0701234567",
-              <br/>&emsp;&emsp;"role": "ROLE_HOME_USER"
+              <br/>&emsp;&emsp;"role": "HOME_USER"
               <br/>&emsp;}<br/>]
           </div>
           <br/>
@@ -239,24 +238,6 @@
               <br/>&emsp;"email": "chika456@gmail.com",
               <br/>&emsp;"createAt": "20:00 27/09/2019",
               <br/>&emsp;"role": "ROLE_ADMIN"
-              <br/>}
-          </div>
-          <br/>
-      </div>
-
-      <div id="put_user_username_role" class="content">
-          <h2>Update user from ROLE_HOME_USER to ROLE_HOME_MASTER (admin only)</h2>
-          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/user/{username}/role</p>
-          <p class="example">&bull; Example request:</p>
-          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/user/chika123/role</p>
-          <p class="header">Header: "Authorization": "Bearer {token}"</p>
-          <p class="example">&bull; Example response:</p>
-          <div class="json">{
-              <br/>&emsp;"name": "Chika User",
-              <br/>&emsp;"username": "user123",
-              <br/>&emsp;"email": "user@gmail.com",
-              <br/>&emsp;"createAt": "20:00 27/09/2019",
-              <br/>&emsp;"role": "ROLE_HOME_MASTER"
               <br/>}
           </div>
           <br/>

@@ -1,6 +1,5 @@
 package com.chika.server.payload.responses;
 
-import com.chika.server.models.account.RoleName;
 import com.chika.server.models.account.User;
 import com.chika.server.models.user.UserInfo;
 import com.chika.server.services.RoleService;
@@ -16,7 +15,7 @@ public class UserInfoResponse {
     private String address;
     private String email;
     private String phone;
-    private RoleName role;
+    private String role;
 
     public UserInfoResponse(User user, UserInfo userInfo) {
         this.avatar = userInfo.getAvatar();
@@ -26,6 +25,7 @@ public class UserInfoResponse {
         this.address = userInfo.getAddress();
         this.email = user.getEmail();
         this.phone = userInfo.getPhone();
-        this.role = RoleService.getHighestRole(user.getRoles());
+        this.role = RoleService.getHighestRole(user.getRoles())
+                    .toString().replace("ROLE_", "");
     }
 }
