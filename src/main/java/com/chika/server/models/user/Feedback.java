@@ -29,5 +29,7 @@ public class Feedback extends DateAudit {
 
     private String name;
 
-    private String phone;
+    private String email;
+
+    private Boolean response;
 }

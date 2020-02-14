@@ -7,24 +7,19 @@ import lombok.Data;
 @Data
 public class FeedbackResponse {
 
-    private String id;
-
     private String subject;
-
     private String content;
-
     private String name;
-
-    private String phone;
-
+    private String email;
     private String time;
+    private Boolean response;
 
     public FeedbackResponse(Feedback feedback) {
-        this.id = feedback.getId();
         this.subject = feedback.getSubject();
         this.content = feedback.getContent();
         this.name = feedback.getName();
-        this.phone = feedback.getPhone();
+        this.email = feedback.getEmail();
         this.time = Formatter.formatTime(feedback.getCreatedAt().getTime());
+        this.response = feedback.getResponse();
     }
 }
