@@ -18,7 +18,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public List<Feedback> getAll() {
-        return feedbackRepository.findAll();
+        return feedbackRepository.findAllByOrderByCreatedAtDesc();
     }
 
     @Override
