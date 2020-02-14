@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface FeedbackService {
 
-    List<Feedback> getList(int page, int size);
+    List<Feedback> getAll();
 
     Feedback save(Feedback feedback);
 

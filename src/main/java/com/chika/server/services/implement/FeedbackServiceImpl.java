@@ -3,9 +3,6 @@ package com.chika.server.services.implement;
 import com.chika.server.models.user.Feedback;
 import com.chika.server.repositories.user.FeedbackRepository;
 import com.chika.server.services.FeedbackService;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,9 +17,8 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public List<Feedback> getList(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-        return feedbackRepository.findAllBy(pageable);
+    public List<Feedback> getAll() {
+        return feedbackRepository.findAll();
     }
 
     @Override

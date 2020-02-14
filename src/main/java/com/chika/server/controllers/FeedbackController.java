@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * To receive Feedback requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 09-02-2020
+ * @since 14-02-2020
  */
 @RestController
 @RequestMapping("/feedback")
@@ -29,8 +29,8 @@ public class FeedbackController {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<FeedbackResponse> getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
-        return feedbackService.getList(page, size).stream()
+    public List<FeedbackResponse> getAll() {
+        return feedbackService.getAll().stream()
                         .map(FeedbackResponse::new)
                         .collect(Collectors.toList());
     }
