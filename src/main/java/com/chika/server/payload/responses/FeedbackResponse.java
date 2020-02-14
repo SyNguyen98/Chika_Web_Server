@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class FeedbackResponse {
 
+    private String id;
     private String subject;
     private String content;
     private String name;
@@ -15,6 +16,7 @@ public class FeedbackResponse {
     private Boolean response;
 
     public FeedbackResponse(Feedback feedback) {
+        this.id = feedback.getId();
         this.subject = feedback.getSubject();
         this.content = feedback.getContent();
         this.name = feedback.getName();

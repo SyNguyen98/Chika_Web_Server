@@ -1,5 +1,6 @@
 package com.chika.server.services.implement;
 
+import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.user.Feedback;
 import com.chika.server.repositories.user.FeedbackRepository;
 import com.chika.server.services.FeedbackService;
@@ -23,6 +24,14 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public Feedback save(Feedback feedback) {
+        return feedbackRepository.save(feedback);
+    }
+
+    @Override
+    public Feedback updateResponse(String id, Boolean response) {
+        Feedback feedback = feedbackRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Feedback", "feedback's id", id));
+        feedback.setResponse(response);
         return feedbackRepository.save(feedback);
     }
 

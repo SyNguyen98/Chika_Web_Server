@@ -40,6 +40,11 @@ public class FeedbackController {
         return new FeedbackResponse(feedbackService.save(feedback));
     }
 
+    @PutMapping("/id/{id}/response/{response}")
+    public FeedbackResponse updateResponse(@PathVariable String id, @PathVariable Boolean response) {
+        return new FeedbackResponse(feedbackService.updateResponse(id, response));
+    }
+
     @DeleteMapping("/id/{id}")
     public ResponseEntity<?> deleteById(@PathVariable String id) {
         feedbackService.delete(id);

@@ -12,5 +12,7 @@ public interface FeedbackService {
 
     Feedback save(Feedback feedback);
 
+    Feedback updateResponse(String id, Boolean response);
+
     void delete(String id);
 }
