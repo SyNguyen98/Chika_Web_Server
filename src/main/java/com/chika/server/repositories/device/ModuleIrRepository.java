@@ -1,6 +1,6 @@
 package com.chika.server.repositories.device;
 
-import com.chika.server.models.device.ModuleIr;
+import com.chika.server.models.product.ModuleIr;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

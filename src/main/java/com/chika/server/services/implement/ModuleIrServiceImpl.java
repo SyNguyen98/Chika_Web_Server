@@ -1,7 +1,7 @@
 package com.chika.server.services.implement;
 
 import com.chika.server.exception.ResourceNotFoundException;
-import com.chika.server.models.device.ModuleIr;
+import com.chika.server.models.product.ModuleIr;
 import com.chika.server.repositories.device.ModuleIrRepository;
 import com.chika.server.services.ModuleIrService;
 import org.springframework.stereotype.Service;

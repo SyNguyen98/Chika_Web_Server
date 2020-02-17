@@ -1,6 +1,6 @@
 package com.chika.server.services;
 
-import com.chika.server.models.device.Switch;
+import com.chika.server.models.product.Switch;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

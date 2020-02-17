@@ -1,7 +1,7 @@
-package com.chika.server.payload.responses;
+package com.chika.server.payload.responses.products;
 
 import com.chika.server.Formatter;
-import com.chika.server.models.device.ModuleIr;
+import com.chika.server.models.product.ModuleIr;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,7 +20,7 @@ public class ModuleIrResponse {
     public ModuleIrResponse(ModuleIr moduleIr) {
         this.id = moduleIr.getId();
         this.name = moduleIr.getName();
-        this.time = Formatter.formatTime(moduleIr.getCreatedAt().getTime());
+        this.time = Formatter.formatTimeFull(moduleIr.getCreatedAt());
         this.userId = moduleIr.getUserId();
     }
 }

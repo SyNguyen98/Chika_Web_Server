@@ -21,7 +21,7 @@ public class FeedbackResponse {
         this.content = feedback.getContent();
         this.name = feedback.getName();
         this.email = feedback.getEmail();
-        this.time = Formatter.formatTime(feedback.getCreatedAt().getTime());
+        this.time = Formatter.formatTimeFull(feedback.getCreatedAt());
         this.response = feedback.getResponse();
     }
 }

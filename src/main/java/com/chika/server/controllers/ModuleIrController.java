@@ -1,14 +1,13 @@
 package com.chika.server.controllers;
 
-import com.chika.server.models.device.ModuleIr;
+import com.chika.server.models.product.ModuleIr;
 import com.chika.server.payload.responses.ApiResponse;
-import com.chika.server.payload.responses.ModuleIrResponse;
+import com.chika.server.payload.responses.products.ModuleIrResponse;
 import com.chika.server.services.ModuleIrService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

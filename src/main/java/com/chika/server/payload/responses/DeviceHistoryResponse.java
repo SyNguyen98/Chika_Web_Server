@@ -13,6 +13,6 @@ public class DeviceHistoryResponse {
 
     public DeviceHistoryResponse(DeviceHistory deviceHistory) {
         this.state = deviceHistory.getState();
-        this.time = Formatter.formatTime(deviceHistory.getCreatedAt().getTime());
+        this.time = Formatter.formatTimeFull(deviceHistory.getCreatedAt());
     }
 }

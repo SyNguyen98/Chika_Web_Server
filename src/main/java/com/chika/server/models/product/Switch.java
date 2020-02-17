@@ -1,4 +1,4 @@
-package com.chika.server.models.device;
+package com.chika.server.models.product;
 
 import com.chika.server.models.audit.DateAudit;
 import com.chika.server.models.house.Device;
@@ -9,13 +9,14 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
  * Connect to table Switch in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-12-2019
+ * @since 17-02-2020
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -31,12 +32,16 @@ public class Switch extends DateAudit {
     @NotBlank
     private String name;
 
+    @NotNull
+    private Integer type;
+
     private Long userId;
 
     @OneToMany(mappedBy = "switchId", fetch = FetchType.LAZY)
     private List<Device> devices;
 
-    public Switch(String name) {
+    public Switch(String name, int type) {
         this.name = name;
+        this.type = type;
     }
 }

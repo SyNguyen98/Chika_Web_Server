@@ -1,4 +1,4 @@
-package com.chika.server.models.device;
+package com.chika.server.models.product;
 
 import com.chika.server.models.audit.DateAudit;
 import lombok.Data;

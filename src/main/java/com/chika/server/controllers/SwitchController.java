@@ -1,9 +1,10 @@
 package com.chika.server.controllers;
 
 import com.chika.server.models.house.Device;
-import com.chika.server.models.device.Switch;
+import com.chika.server.models.product.Switch;
 import com.chika.server.payload.responses.ApiResponse;
-import com.chika.server.payload.responses.SwitchResponse;
+import com.chika.server.payload.responses.products.SwitchResponse;
+import com.chika.server.payload.responses.products.SwitchResponseForAdmin;
 import com.chika.server.services.DeviceService;
 import com.chika.server.services.SwitchService;
 import org.springframework.http.ResponseEntity;
@@ -34,9 +35,9 @@ public class SwitchController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
-    public List<SwitchResponse> getAll() {
+    public List<SwitchResponseForAdmin> getAll() {
         return switchService.getAll().stream()
-                .map(SwitchResponse::new)
+                .map(SwitchResponseForAdmin::new)
                 .collect(Collectors.toList());
     }
 
@@ -48,7 +49,7 @@ public class SwitchController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/num_of_device/{numOfDevice}")
     public SwitchResponse save(@PathVariable int numOfDevice) {
-        Switch newSwitch = switchService.save(new Switch("CA-SW" + numOfDevice));
+        Switch newSwitch = switchService.save(new Switch("CA-SW" + numOfDevice, numOfDevice));
         for (int i = 0; i < numOfDevice; i++) {
             deviceService.save(new Device("", 0, "", newSwitch.getId()));
         }
