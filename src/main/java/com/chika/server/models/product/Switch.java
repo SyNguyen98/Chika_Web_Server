@@ -43,5 +43,6 @@ public class Switch extends DateAudit {
     public Switch(String name, int type) {
         this.name = name;
         this.type = type;
+        this.userId = 0L;
     }
 }

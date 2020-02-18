@@ -6,6 +6,7 @@ import com.chika.server.repositories.device.SwitchRepository;
 import com.chika.server.services.SwitchService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ public class SwitchServiceImpl implements SwitchService {
     }
 
     @Override
+    @Transactional
     public List<Switch> getAll() {
         return switchRepository.findAll();
     }

@@ -28,4 +28,14 @@ public class SwitchResponseForAdmin {
                         .map(Device::getId)
                         .collect(Collectors.toList());
     }
+
+    public SwitchResponseForAdmin(Switch _switch, List<Device> devices) {
+        this.id = _switch.getId();
+        this.day = Formatter.formatTimeDay(_switch.getCreatedAt());
+        this.type = _switch.getType();
+        this.userId = _switch.getUserId();
+        this.buttonId = devices.stream()
+                        .map(Device::getId)
+                        .collect(Collectors.toList());
+    }
 }

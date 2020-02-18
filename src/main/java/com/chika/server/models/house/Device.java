@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
  * Connect to table Device in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-12-2019
+ * @since 17-02-2020
  */
 @Entity
 @Data
@@ -32,10 +32,10 @@ public class Device {
     @NotBlank
     private String switchId;
 
-    public Device(String name, int state, String roomId, String switchId) {
-        this.name = name;
+    public Device(int state, String switchId) {
+        this.name = "";
         this.state = state;
-        this.roomId = roomId;
+        this.roomId = "";
         this.switchId = switchId;
     }
 }

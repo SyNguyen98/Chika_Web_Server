@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * To receive Switch requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 09-02-2020
+ * @since 17-02-2020
  */
 @RestController
 @RequestMapping("/switch")
@@ -48,12 +48,12 @@ public class SwitchController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/num_of_device/{numOfDevice}")
-    public SwitchResponse save(@PathVariable int numOfDevice) {
+    public SwitchResponseForAdmin save(@PathVariable int numOfDevice) {
         Switch newSwitch = switchService.save(new Switch("CA-SW" + numOfDevice, numOfDevice));
         for (int i = 0; i < numOfDevice; i++) {
-            deviceService.save(new Device("", 0, "", newSwitch.getId()));
+            deviceService.save(new Device(0, newSwitch.getId()));
         }
-        return new SwitchResponse(newSwitch, deviceService.getAllBySwitchId(newSwitch.getId()));
+        return new SwitchResponseForAdmin(newSwitch, deviceService.getAllBySwitchId(newSwitch.getId()));
     }
 
     @PutMapping("/name")
