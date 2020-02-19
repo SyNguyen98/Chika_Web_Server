@@ -44,6 +44,16 @@
           <a href="#delete_module">DELETE /module_ir/{module-id}</a>
       </div>
 
+      <p class="dropdown">Home Center</p>
+      <div class="dropdown-container">
+          <a href="#get_home_centers">GET /home_center</a>
+          <a href="#get_home_center">GET /home_center/{home-center-id}</a>
+          <a href="#post_home_center">POST /home_center</a>
+          <a href="#put_home_center_name">PUT /home_center/name</a>
+          <a href="#put_home_center_user">PUT /home_center/user</a>
+          <a href="#delete_home_center">DELETE /home_center/{home-center-id}</a>
+      </div>
+
       <p class="dropdown">Room</p>
       <div class="dropdown-container">
           <a href="#get_rooms">GET /room</a>
@@ -543,10 +553,10 @@
       </div>
 
       <div id="put_module_user" class="content">
-          <h2>Update module IR's owner by id</h2>
-          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/module_ir/name</p>
+          <h2>Update module IR's owner by id (admin only)</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/module_ir/user</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/module_ir/name</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/module_ir/user</p>
           <p class="body">Body:</p>
           <div class="json">{
               <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
@@ -574,6 +584,119 @@
           <div class="json">{
               <br/>&emsp;"success: true,
               <br/>&emsp;"message": "Module has been deleted"
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="get_home_centers" class="content">
+          <h2>Get all home centers (admin only)</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/home_center</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/home_center</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">[
+              <br/>&emsp;{
+              <br/>&emsp;&emsp;"day": "07/01/2020",
+              <br/>&emsp;&emsp;"id": "4bc68c26-bb1c-4f28-8c5d-bd5305530da1",
+              <br/>&emsp;&emsp;"userId": 5
+              <br/>&emsp;},<br/>&emsp;{
+              <br/>&emsp;&emsp;"day": "14:30 08/01/2020",
+              <br/>&emsp;&emsp;"id": "1f1180c6-079d-4b62-92c6-6f81351d67d9",
+              <br/>&emsp;&emsp;"userId": null
+              <br/>&emsp;}
+              <br/>]
+          </div>
+          <br/>
+      </div>
+
+      <div id="get_home_center" class="content">
+          <h2>Get home center by id</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/home_center/{home-center-id}</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/home_center/4bc68c26-bb1c-4f28-8c5d-bd5305530da1</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "4bc68c26-bb1c-4f28-8c5d-bd5305530da1",
+              <br/>&emsp;"name": "CA-HC",
+              <br/>&emsp;"userId": 5
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="post_home_center" class="content">
+          <h2>Save a home center</h2>
+          <p class="link">POST &emsp; http://chika-server.herokuapp.com/home_center</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/home_center</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"day": "08/01/2020",
+              <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+              <br/>&emsp;"userId": null
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="put_home_center_name" class="content">
+          <h2>Update home center's name by id</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/home_center/name</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/home_center/name</p>
+          <p class="body">Body:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+              <br/>&emsp;"name": "Andy's Home"
+              <br/>}
+          </div>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"createdAt": "14:30 08/01/2020",
+              <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+              <br/>&emsp;"name": "Andy's Home",
+              <br/>&emsp;"userId": 5
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="put_home_center_user" class="content">
+          <h2>Update home center's owner by id (admin only)</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/home_center/user</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/home_center/user</p>
+          <p class="body">Body:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+              <br/>&emsp;"userId": 5
+              <br/>}
+          </div>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"createdAt": "14:30 08/01/2020",
+              <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+              <br/>&emsp;"name": "CA-HC",
+              <br/>&emsp;"userId": 5
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="delete_home_center" class="content">
+          <h2>Delete home center by id (admin only)</h2>
+          <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/home_center/{home-center-id}</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/home_center/661e998a-3516-47c7-b961-ab0e5a33313b</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"success: true,
+              <br/>&emsp;"message": "Home Center has been deleted"
               <br/>}
           </div>
           <br/>
