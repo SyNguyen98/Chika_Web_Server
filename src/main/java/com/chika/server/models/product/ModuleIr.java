@@ -3,7 +3,6 @@ package com.chika.server.models.product;
 import com.chika.server.models.audit.DateAudit;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -15,12 +14,11 @@ import javax.validation.constraints.NotBlank;
  * Connect to table Switch in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-12-2019
+ * @since 19-02-2020
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@NoArgsConstructor
 public class ModuleIr extends DateAudit {
 
     @Id
@@ -33,7 +31,7 @@ public class ModuleIr extends DateAudit {
 
     private Long userId;
 
-    public ModuleIr(String name) {
-        this.name = name;
+    public ModuleIr() {
+        this.name = "CA-IRX";
     }
 }

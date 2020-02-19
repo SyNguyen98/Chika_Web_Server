@@ -1,20 +1,21 @@
 package com.chika.server.payload.responses.products;
 
+import com.chika.server.Formatter;
 import com.chika.server.models.product.ModuleIr;
 import lombok.Data;
 
 @Data
-public class ModuleIrResponse {
+public class ModuleIrResponseForAdmin {
 
     private String id;
 
-    private String name;
+    private String day;
 
     private Long userId;
 
-    public ModuleIrResponse(ModuleIr moduleIr) {
+    public ModuleIrResponseForAdmin(ModuleIr moduleIr) {
         this.id = moduleIr.getId();
-        this.name = moduleIr.getName();
+        this.day = Formatter.formatTimeDay(moduleIr.getCreatedAt());
         this.userId = moduleIr.getUserId();
     }
 }

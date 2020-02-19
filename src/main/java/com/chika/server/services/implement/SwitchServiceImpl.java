@@ -13,7 +13,7 @@ import java.util.List;
  * CRUD function for Switch
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-12-2019
+ * @since 19-02-2020
  */
 @Service
 public class SwitchServiceImpl implements SwitchService {

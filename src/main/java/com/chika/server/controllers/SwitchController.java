@@ -66,8 +66,7 @@ public class SwitchController {
     public Switch updateUser(@RequestBody Switch _switch) {
         return switchService.updateUser(_switch.getId(), _switch.getUserId());
     }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable String id) {
         switchService.getById(id).getDevices()

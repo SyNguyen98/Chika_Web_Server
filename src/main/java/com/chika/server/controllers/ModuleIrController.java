@@ -3,6 +3,7 @@ package com.chika.server.controllers;
 import com.chika.server.models.product.ModuleIr;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.products.ModuleIrResponse;
+import com.chika.server.payload.responses.products.ModuleIrResponseForAdmin;
 import com.chika.server.services.ModuleIrService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  * To receive Module Ir requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 09-02-2020
+ * @since 19-02-2020
  */
 @RestController
 @RequestMapping("/module_ir")
@@ -29,9 +30,9 @@ public class ModuleIrController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
-    public List<ModuleIrResponse> getAll() {
+    public List<ModuleIrResponseForAdmin> getAll() {
         return moduleIrService.getAll().stream()
-                .map(ModuleIrResponse::new)
+                .map(ModuleIrResponseForAdmin::new)
                 .collect(Collectors.toList());
     }
 
@@ -42,8 +43,8 @@ public class ModuleIrController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public ModuleIrResponse save() {
-        return new ModuleIrResponse(moduleIrService.save(new ModuleIr("CA-IRX")));
+    public ModuleIrResponseForAdmin save() {
+        return new ModuleIrResponseForAdmin(moduleIrService.save(new ModuleIr()));
     }
 
     @PutMapping("/name")
