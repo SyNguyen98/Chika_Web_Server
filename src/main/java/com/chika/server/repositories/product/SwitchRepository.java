@@ -14,5 +14,5 @@ import java.util.List;
 @Repository
 public interface SwitchRepository extends JpaRepository<Switch, String> {
 
-    List<Switch> findAllByOrderByCreatedAt();
+    List<Switch> findAllByOrderByCreatedAtDesc();
 }

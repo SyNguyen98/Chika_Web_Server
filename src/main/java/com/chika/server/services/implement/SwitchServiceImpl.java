@@ -27,7 +27,7 @@ public class SwitchServiceImpl implements SwitchService {
     @Override
     @Transactional
     public List<Switch> getAll() {
-        return switchRepository.findAllByOrderByCreatedAt();
+        return switchRepository.findAllByOrderByCreatedAtDesc();
     }
 
     @Override

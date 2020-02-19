@@ -14,5 +14,5 @@ import java.util.List;
 @Repository
 public interface ModuleIrRepository extends JpaRepository<ModuleIr, String> {
 
-    List<ModuleIr> findAllByOrderByCreatedAt();
+    List<ModuleIr> findAllByOrderByCreatedAtDesc();
 }

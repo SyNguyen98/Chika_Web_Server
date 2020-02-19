@@ -27,7 +27,7 @@ public class ModuleIrServiceImpl implements ModuleIrService {
     @Override
     @Transactional
     public List<ModuleIr> getAll() {
-        return moduleIrRepository.findAllByOrderByCreatedAt();
+        return moduleIrRepository.findAllByOrderByCreatedAtDesc();
     }
 
     @Override
