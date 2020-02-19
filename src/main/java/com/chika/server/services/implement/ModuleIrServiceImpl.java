@@ -2,17 +2,18 @@ package com.chika.server.services.implement;
 
 import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.product.ModuleIr;
-import com.chika.server.repositories.device.ModuleIrRepository;
+import com.chika.server.repositories.product.ModuleIrRepository;
 import com.chika.server.services.ModuleIrService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * CRUD function for Module Ir
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-12-2019
+ * @since 19-02-2020
  */
 @Service
 public class ModuleIrServiceImpl implements ModuleIrService {
@@ -24,8 +25,9 @@ public class ModuleIrServiceImpl implements ModuleIrService {
     }
 
     @Override
+    @Transactional
     public List<ModuleIr> getAll() {
-        return moduleIrRepository.findAll();
+        return moduleIrRepository.findAllByOrderByCreatedAt();
     }
 
     @Override

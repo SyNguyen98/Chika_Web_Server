@@ -2,7 +2,7 @@ package com.chika.server.services.implement;
 
 import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.product.Switch;
-import com.chika.server.repositories.device.SwitchRepository;
+import com.chika.server.repositories.product.SwitchRepository;
 import com.chika.server.services.SwitchService;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class SwitchServiceImpl implements SwitchService {
     @Override
     @Transactional
     public List<Switch> getAll() {
-        return switchRepository.findAll();
+        return switchRepository.findAllByOrderByCreatedAt();
     }
 
     @Override
