@@ -8,9 +8,7 @@ import lombok.Data;
 public class ModuleIrResponseForAdmin {
 
     private String id;
-
     private String day;
-
     private Long userId;
 
     public ModuleIrResponseForAdmin(ModuleIr moduleIr) {

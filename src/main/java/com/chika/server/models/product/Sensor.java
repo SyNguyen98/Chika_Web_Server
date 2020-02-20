@@ -1,23 +1,27 @@
-package com.chika.server.models.house;
+package com.chika.server.models.product;
 
+import com.chika.server.models.audit.DateAudit;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * Connect to table Sensor in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-12-2019
+ * @since 20-02-2020
  */
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
-public class Sensor {
+public class Sensor extends DateAudit {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -27,15 +31,9 @@ public class Sensor {
     @NotBlank
     private String name;
 
-    @NotNull
-    private double data;
+    private Long userId;
 
-    @NotBlank
-    private String roomId;
-
-    public Sensor(String name, double data, String roomId) {
+    public Sensor(String name) {
         this.name = name;
-        this.data = data;
-        this.roomId = roomId;
     }
 }

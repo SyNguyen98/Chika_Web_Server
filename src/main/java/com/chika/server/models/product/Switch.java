@@ -16,7 +16,7 @@ import java.util.List;
  * Connect to table Switch in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 17-02-2020
+ * @since 20-02-2020
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -43,6 +43,5 @@ public class Switch extends DateAudit {
     public Switch(String name, int type) {
         this.name = name;
         this.type = type;
-        this.userId = 0L;
     }
 }

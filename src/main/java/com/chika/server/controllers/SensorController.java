@@ -1,16 +1,21 @@
 package com.chika.server.controllers;
 
-import com.chika.server.models.house.Sensor;
+import com.chika.server.models.product.Sensor;
+import com.chika.server.payload.responses.ApiResponse;
+import com.chika.server.payload.responses.products.SensorResponseForAdmin;
 import com.chika.server.services.SensorService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * To receive Sensor requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-12-2019
+ * @since 20-02-2020
  */
 @RestController
 @RequestMapping("/sensor")
@@ -22,9 +27,12 @@ public class SensorController {
         this.sensorService = sensorService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
-    public List<Sensor> getAll() {
-        return sensorService.getAll();
+    public List<SensorResponseForAdmin> getAll() {
+        return sensorService.getAll().stream()
+                .map(SensorResponseForAdmin::new)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
@@ -32,18 +40,21 @@ public class SensorController {
         return sensorService.getById(id);
     }
 
-    @PostMapping
-    public Sensor save(@RequestBody Sensor sensor) {
-        return sensorService.save(sensor);
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/name/{name}")
+    public SensorResponseForAdmin save(@PathVariable String name) {
+        return new SensorResponseForAdmin(sensorService.save(new Sensor(name)));
     }
 
-    @PutMapping
-    public Sensor updateInfo(@RequestBody Sensor sensor) {
-        return sensorService.updateInfo(sensor.getId(), sensor.getName(), sensor.getData());
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/user")
+    public Sensor updateUser(@RequestBody Sensor sensor) {
+        return sensorService.updateUser(sensor.getId(), sensor.getUserId());
     }
 
     @DeleteMapping("/{id}")
-    public void deleteSensor(@PathVariable String id) {
+    public ResponseEntity<?> deleteSensor(@PathVariable String id) {
         sensorService.deleteById(id);
+        return ResponseEntity.ok(new ApiResponse(true, "Sensor has been deleted"));
     }
 }

@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
  * Connect to table Module Ir in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 19-02-2020
+ * @since 20-02-2020
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -33,6 +33,5 @@ public class ModuleIr extends DateAudit {
 
     public ModuleIr() {
         this.name = "CA-IRX";
-        this.userId = 0L;
     }
 }

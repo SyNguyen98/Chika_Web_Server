@@ -1,12 +1,11 @@
 package com.chika.server.services.implement;
 
 import com.chika.server.exception.ResourceNotFoundException;
-import com.chika.server.models.house.Sensor;
 import com.chika.server.models.house.SensorHistory;
+import com.chika.server.models.product.Sensor;
 import com.chika.server.repositories.house.SensorHistoryRepository;
-import com.chika.server.repositories.house.SensorRepository;
+import com.chika.server.repositories.product.SensorRepository;
 import com.chika.server.services.SensorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-12-2019
+ * @since 20-02-2020
  */
 @Service
 public class SensorServiceImpl implements SensorService {
@@ -45,10 +44,9 @@ public class SensorServiceImpl implements SensorService {
     }
 
     @Override
-    public Sensor updateInfo(String id, String name, double data) {
+    public Sensor updateUser(String id, Long userId) {
         Sensor sensor = getById(id);
-        sensor.setName(name);
-        sensor.setData(data);
+        sensor.setUserId(userId);
         return sensorRepository.save(sensor);
     }
 
