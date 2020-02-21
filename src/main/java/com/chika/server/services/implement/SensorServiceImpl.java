@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-02-2020
+ * @since 21-02-2020
  */
 @Service
 public class SensorServiceImpl implements SensorService {
@@ -29,7 +29,7 @@ public class SensorServiceImpl implements SensorService {
 
     @Override
     public List<Sensor> getAll() {
-        return sensorRepository.findAll();
+        return sensorRepository.findAllByOrderByCreatedAtDesc();
     }
 
     @Override

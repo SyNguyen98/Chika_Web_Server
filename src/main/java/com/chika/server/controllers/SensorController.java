@@ -41,8 +41,8 @@ public class SensorController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/name/{name}")
-    public SensorResponseForAdmin save(@PathVariable String name) {
+    @PostMapping
+    public SensorResponseForAdmin save(@RequestParam("name") String name) {
         return new SensorResponseForAdmin(sensorService.save(new Sensor(name)));
     }
 

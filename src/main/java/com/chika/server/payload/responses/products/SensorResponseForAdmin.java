@@ -9,11 +9,13 @@ public class SensorResponseForAdmin {
 
     private String id;
     private String day;
+    private String name;
     private Long userId;
 
     public SensorResponseForAdmin(Sensor sensor) {
         this.id = sensor.getId();
         this.day = Formatter.formatTimeDay(sensor.getCreatedAt());
+        this.name = sensor.getName();
         this.userId = sensor.getUserId();
     }
 }

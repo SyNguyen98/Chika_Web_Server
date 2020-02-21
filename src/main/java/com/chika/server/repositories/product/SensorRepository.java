@@ -4,12 +4,15 @@ import com.chika.server.models.product.Sensor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-02-2020
+ * @since 21-02-2020
  */
 @Repository
 public interface SensorRepository extends JpaRepository<Sensor, String> {
 
+    List<Sensor> findAllByOrderByCreatedAtDesc();
 }
