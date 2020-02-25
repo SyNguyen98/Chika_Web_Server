@@ -3,7 +3,7 @@ package com.chika.server.services.implement;
 import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.product.ModuleIr;
 import com.chika.server.repositories.product.ModuleIrRepository;
-import com.chika.server.services.ModuleIrService;
+import com.chika.server.services.product.ModuleIrService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

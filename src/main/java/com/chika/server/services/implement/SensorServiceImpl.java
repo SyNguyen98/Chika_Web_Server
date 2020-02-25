@@ -5,7 +5,7 @@ import com.chika.server.models.house.SensorHistory;
 import com.chika.server.models.product.Sensor;
 import com.chika.server.repositories.house.SensorHistoryRepository;
 import com.chika.server.repositories.product.SensorRepository;
-import com.chika.server.services.SensorService;
+import com.chika.server.services.product.SensorService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

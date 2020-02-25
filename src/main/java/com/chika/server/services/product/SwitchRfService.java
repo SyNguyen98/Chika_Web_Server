@@ -1,0 +1,26 @@
+package com.chika.server.services.product;
+
+import com.chika.server.models.product.SwitchRf;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public interface SwitchRfService {
+
+    List<SwitchRf> getAll();
+
+    SwitchRf getById(String id);
+
+    SwitchRf save(SwitchRf switchRf);
+
+    SwitchRf updateName(String id, String name);
+
+    SwitchRf updateChannel(String id, Long channel);
+
+    SwitchRf updateUser(String id, Long userId);
+
+    void deleteById(String id);
+
+    Boolean isOwner(String id, Long userId);
+}

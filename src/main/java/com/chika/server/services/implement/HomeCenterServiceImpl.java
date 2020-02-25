@@ -3,7 +3,7 @@ package com.chika.server.services.implement;
 import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.product.HomeCenter;
 import com.chika.server.repositories.product.HomeCenterRepository;
-import com.chika.server.services.HomeCenterService;
+import com.chika.server.services.product.HomeCenterService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

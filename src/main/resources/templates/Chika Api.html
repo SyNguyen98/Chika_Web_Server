@@ -29,7 +29,7 @@
       <div class="dropdown-container">
           <a href="#get_switches">GET /switch</a>
           <a href="#get_switch">GET /switch/{switch-id}</a>
-          <a href="#post_switch">POST /switch/num_of_device/{num-of-device}</a>
+          <a href="#post_switch">POST /switch/num_of_device/{num-of-buttonWifi}</a>
           <a href="#put_switch_name">PUT /switch/name</a>
           <a href="#put_switch_user">PUT /switch/user</a>
           <a href="#delete_switch">DELETE /switch/{switch-id}</a>
@@ -65,13 +65,13 @@
 
       <p class="dropdown">Device</p>
       <div class="dropdown-container">
-          <a href="#get_devices_switch">GET /device/switch/{switch-id}</a>
-          <a href="#get_devices_room">GET /device/room/{room-id}</a>
-          <a href="#get_device">GET /device/{device-id}</a>
-          <a href="#put_device_info">PUT /device/info</a>
-          <a href="#put_device_state">PUT /device/state</a>
-          <a href="#get_device_histories">GET /device/{device-id}/history</a>
-          <a href="#delete_device_histories">DELETE /device/{device-id}/history</a>
+          <a href="#get_devices_switch">GET /buttonWifi/switch/{switch-id}</a>
+          <a href="#get_devices_room">GET /buttonWifi/room/{room-id}</a>
+          <a href="#get_device">GET /buttonWifi/{buttonWifi-id}</a>
+          <a href="#put_device_info">PUT /buttonWifi/info</a>
+          <a href="#put_device_state">PUT /buttonWifi/state</a>
+          <a href="#get_device_histories">GET /buttonWifi/{buttonWifi-id}/history</a>
+          <a href="#delete_device_histories">DELETE /buttonWifi/{buttonWifi-id}/history</a>
       </div>
 
       <p class="dropdown">Sensor</p>
@@ -337,7 +337,7 @@
           <div class="json">{
               <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
               <br/>&emsp;"name": "CA-SW2",
-              <br/>&emsp;"devices": [
+              <br/>&emsp;"buttonWifis": [
               <br/>&emsp;&emsp;{
               <br/>&emsp;&emsp;&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
               <br/>&emsp;&emsp;&emsp;"name": "",
@@ -359,7 +359,7 @@
 
       <div id="post_switch" class="content">
           <h2>Save a switch</h2>
-          <p class="link">POST &emsp; http://chika-server.herokuapp.com/switch/num_of_device/{num-of-device}</p>
+          <p class="link">POST &emsp; http://chika-server.herokuapp.com/switch/num_of_device/{num-of-buttonWifi}</p>
           <p class="example">&bull; Example request:</p>
           <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/switch/num_of_device/2</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
@@ -367,7 +367,7 @@
           <div class="json">{
               <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
               <br/>&emsp;"name": "CA-SW2",
-              <br/>&emsp;"devices": [
+              <br/>&emsp;"buttonWifis": [
               <br/>&emsp;&emsp;{
               <br/>&emsp;&emsp;&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
               <br/>&emsp;&emsp;&emsp;"name": "",
@@ -404,7 +404,7 @@
               <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
               <br/>&emsp;"name": "Living Room Switch",
               <br/>&emsp;"userId": null,
-              <br/>&emsp;"devices": [
+              <br/>&emsp;"buttonWifis": [
               <br/>&emsp;&emsp;{
               <br/>&emsp;&emsp;&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
               <br/>&emsp;&emsp;&emsp;"name": "",
@@ -441,7 +441,7 @@
               <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
               <br/>&emsp;"name": "CA-SW2",
               <br/>&emsp;"userId": 5,
-              <br/>&emsp;"devices": [
+              <br/>&emsp;"buttonWifis": [
               <br/>&emsp;&emsp;{
               <br/>&emsp;&emsp;&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
               <br/>&emsp;&emsp;&emsp;"name": "",
@@ -790,10 +790,10 @@
       </div>
 
       <div id="get_devices_switch" class="content">
-          <h2>Get all devices by switch's id</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/device/switch/{switch-id}</p>
+          <h2>Get all buttonWifis by switch's id</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/buttonWifi/switch/{switch-id}</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/device/switch/b36e333e-3800-4450-84cd-6f90e7e0f721</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/buttonWifi/switch/b36e333e-3800-4450-84cd-6f90e7e0f721</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="example">&bull; Example response:</p>
           <div class="json">[
@@ -816,10 +816,10 @@
       </div>
 
       <div id="get_devices_room" class="content">
-          <h2>Get all devices by room's id</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/device/room/{room-id}</p>
+          <h2>Get all buttonWifis by room's id</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/buttonWifi/room/{room-id}</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/device/room/54174664-d42b-4013-aa9f-125e90ae06a5</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/buttonWifi/room/54174664-d42b-4013-aa9f-125e90ae06a5</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="example">&bull; Example response:</p>
           <div class="json">[
@@ -843,9 +843,9 @@
 
       <div id="get_device" class="content">
           <h2>Get module IR by id</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/device/{device-id}</p>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/buttonWifi/{buttonWifi-id}</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/device/0c38a97d-1564-4707-935c-18b4e9bcb0db</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/buttonWifi/0c38a97d-1564-4707-935c-18b4e9bcb0db</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="example">&bull; Example response:</p>
           <div class="json">{
@@ -860,10 +860,10 @@
       </div>
 
       <div id="put_device_info" class="content">
-          <h2>Update device's information by id</h2>
-          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/device/info</p>
+          <h2>Update buttonWifi's information by id</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/buttonWifi/info</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/device/info</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/buttonWifi/info</p>
           <p class="body">Body:</p>
           <div class="json">{
               <br/>&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
@@ -884,10 +884,10 @@
       </div>
 
       <div id="put_device_state" class="content">
-          <h2>Update device's state by id</h2>
-          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/device/state</p>
+          <h2>Update buttonWifi's state by id</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/buttonWifi/state</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/device/state</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/buttonWifi/state</p>
           <p class="body">Body:</p>
           <div class="json">{
               <br/>&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
@@ -907,10 +907,10 @@
       </div>
 
       <div id="get_device_histories" class="content">
-          <h2>Get all device histories by device's id</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/device/{device-id}/history?page={page}&size={size}</p>
+          <h2>Get all buttonWifi histories by buttonWifi's id</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/buttonWifi/{buttonWifi-id}/history?page={page}&size={size}</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/device/0c38a97d-1564-4707-935c-18b4e9bcb0db/history?page=0&size=3</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/buttonWifi/0c38a97d-1564-4707-935c-18b4e9bcb0db/history?page=0&size=3</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="example">&bull; Example response:</p>
           <div class="json">[
@@ -930,15 +930,15 @@
       </div>
 
       <div id="delete_device_histories" class="content">
-          <h2>Delete all device histories by device's id</h2>
-          <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/device/{device-id}/history</p>
+          <h2>Delete all buttonWifi histories by buttonWifi's id</h2>
+          <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/buttonWifi/{buttonWifi-id}/history</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/device/0c38a97d-1564-4707-935c-18b4e9bcb0db/history</p>
+          <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/buttonWifi/0c38a97d-1564-4707-935c-18b4e9bcb0db/history</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="example">&bull; Example response:</p>
           <div class="json">{
               <br/>&emsp;"success: true,
-              <br/>&emsp;"message": "All device's histories have been deleted"
+              <br/>&emsp;"message": "All buttonWifi's histories have been deleted"
               <br/>}
           </div>
           <br/>

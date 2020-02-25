@@ -1,7 +1,7 @@
 package com.chika.server.payload.responses.products;
 
-import com.chika.server.models.product.Switch;
-import com.chika.server.models.house.Device;
+import com.chika.server.models.product.ButtonWifi;
+import com.chika.server.models.product.SwitchWifi;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,17 +13,17 @@ public class SwitchResponse {
 
     private String id;
     private String name;
-    private List<Device> devices;
+    private List<ButtonWifi> buttonWifis;
 
-    public SwitchResponse(Switch _switch) {
-        this.id = _switch.getId();
-        this.name = _switch.getName();
-        this.devices = _switch.getDevices();
+    public SwitchResponse(SwitchWifi _switchWifi) {
+        this.id = _switchWifi.getId();
+        this.name = _switchWifi.getName();
+        this.buttonWifis = _switchWifi.getButtonWifis();
     }
 
-    public SwitchResponse(Switch _switch, List<Device> devices) {
-        this.id = _switch.getId();
-        this.name = _switch.getName();
-        this.devices = devices;
+    public SwitchResponse(SwitchWifi _switchWifi, List<ButtonWifi> buttonWifis) {
+        this.id = _switchWifi.getId();
+        this.name = _switchWifi.getName();
+        this.buttonWifis = buttonWifis;
     }
 }

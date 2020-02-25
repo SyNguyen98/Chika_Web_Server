@@ -1,4 +1,4 @@
-package com.chika.server.services;
+package com.chika.server.services.product;
 
 import com.chika.server.models.product.HomeCenter;
 import org.springframework.stereotype.Service;

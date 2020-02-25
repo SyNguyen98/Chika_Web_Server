@@ -5,7 +5,7 @@ import com.chika.server.models.product.ModuleIr;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.products.HomeCenterResponse;
 import com.chika.server.payload.responses.products.HomeCenterResponseForAdmin;
-import com.chika.server.services.HomeCenterService;
+import com.chika.server.services.product.HomeCenterService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * To receive Module Ir requests from client
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 19-02-2020
+ */
 @RestController
 @RequestMapping("/home_center")
 public class HomeCenterController {

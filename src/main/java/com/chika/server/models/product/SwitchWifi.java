@@ -1,7 +1,6 @@
 package com.chika.server.models.product;
 
 import com.chika.server.models.audit.DateAudit;
-import com.chika.server.models.house.Device;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -13,16 +12,16 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * Connect to table Switch in database
+ * Connect to table Switch Wifi in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-02-2020
+ * @since 24-02-2020
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @NoArgsConstructor
-public class Switch extends DateAudit {
+public class SwitchWifi extends DateAudit {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -37,10 +36,10 @@ public class Switch extends DateAudit {
 
     private Long userId;
 
-    @OneToMany(mappedBy = "switchId", fetch = FetchType.LAZY)
-    private List<Device> devices;
+    @OneToMany(mappedBy = "switchWifiId", fetch = FetchType.LAZY)
+    private List<ButtonWifi> buttonWifis;
 
-    public Switch(String name, int type) {
+    public SwitchWifi(String name, int type) {
         this.name = name;
         this.type = type;
     }

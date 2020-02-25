@@ -3,7 +3,7 @@ package com.chika.server.controllers;
 import com.chika.server.models.product.Sensor;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.products.SensorResponseForAdmin;
-import com.chika.server.services.SensorService;
+import com.chika.server.services.product.SensorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

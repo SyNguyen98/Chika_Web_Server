@@ -1,22 +1,25 @@
-package com.chika.server.models.house;
+package com.chika.server.models.product;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
- * Connect to table Device in database
+ * Connect to table Button Rf in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 17-02-2020
+ * @since 25-02-2020
  */
 @Entity
 @Data
 @NoArgsConstructor
-public class Device {
+public class ButtonRf {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -25,17 +28,18 @@ public class Device {
 
     private String name;
 
+    @NotNull
     private int state;
 
     private String roomId;
 
     @NotBlank
-    private String switchId;
+    private String switchRfId;
 
-    public Device(int state, String switchId) {
+    public ButtonRf(String switchRfId) {
         this.name = "";
-        this.state = state;
+        this.state = 0;
         this.roomId = "";
-        this.switchId = switchId;
+        this.switchRfId = switchRfId;
     }
 }
