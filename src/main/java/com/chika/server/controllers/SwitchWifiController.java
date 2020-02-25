@@ -47,10 +47,10 @@ public class SwitchWifiController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/num_of_device/{numOfDevice}")
-    public SwitchWifiResponseForAdmin save(@PathVariable int numOfDevice) {
-        SwitchWifi switchWifi = switchWifiService.save(new SwitchWifi("CA-SWW" + numOfDevice, numOfDevice));
-        for (int i = 0; i < numOfDevice; i++) {
+    @PostMapping("/num_of_button/{numOfButton}")
+    public SwitchWifiResponseForAdmin save(@PathVariable int numOfButton) {
+        SwitchWifi switchWifi = switchWifiService.save(new SwitchWifi("CA-SWW" + numOfButton, numOfButton));
+        for (int i = 0; i < numOfButton; i++) {
             buttonWifiService.save(new ButtonWifi(switchWifi.getId()));
         }
         return new SwitchWifiResponseForAdmin(switchWifi, buttonWifiService.getAllBySwitchId(switchWifi.getId()));

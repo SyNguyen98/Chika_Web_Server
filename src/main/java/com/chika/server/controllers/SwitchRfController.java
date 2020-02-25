@@ -46,10 +46,10 @@ public class SwitchRfController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/num_of_device/{numOfDevice}/channel/{channel}")
-    public SwitchRfResponseForAdmin save(@PathVariable int numOfDevice, @PathVariable long channel) {
-        SwitchRf switchRf = switchRfService.save(new SwitchRf("CA-SWR" + numOfDevice, numOfDevice, channel));
-        for (int i = 0; i < numOfDevice; i++) {
+    @PostMapping("/num_of_button/{numOfButton}/channel/{channel}")
+    public SwitchRfResponseForAdmin save(@PathVariable int numOfButton, @PathVariable long channel) {
+        SwitchRf switchRf = switchRfService.save(new SwitchRf("CA-SWR" + numOfButton, numOfButton, channel));
+        for (int i = 0; i < numOfButton; i++) {
             buttonRfService.save(new ButtonRf(switchRf.getId()));
         }
         return new SwitchRfResponseForAdmin(switchRf, buttonRfService.getAllBySwitchId(switchRf.getId()));
