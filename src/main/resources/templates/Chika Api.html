@@ -25,14 +25,25 @@
           <a href="#delete_user_username">DELETE /user/{username}</a>
       </div>
 
-      <p class="dropdown">Switch</p>
+      <p class="dropdown">Switch Wifi</p>
       <div class="dropdown-container">
-          <a href="#get_switches">GET /switch</a>
-          <a href="#get_switch">GET /switch/{switch-id}</a>
-          <a href="#post_switch">POST /switch/num_of_device/{num-of-buttonWifi}</a>
-          <a href="#put_switch_name">PUT /switch/name</a>
-          <a href="#put_switch_user">PUT /switch/user</a>
-          <a href="#delete_switch">DELETE /switch/{switch-id}</a>
+          <a href="#get_wifi_switches">GET /switch_wifi</a>
+          <a href="#get_wifi_switch">GET /switch_wifi/{switch-id}</a>
+          <a href="#post_wifi_switch">POST /switch_wifi/num_of_button/{num-of-button}</a>
+          <a href="#put_wifi_switch_name">PUT /switch_wifi/name</a>
+          <a href="#put_wifi_switch_user">PUT /switch_wifi/user</a>
+          <a href="#delete_wifi_switch">DELETE /switch_wifi/{switch-id}</a>
+      </div>
+
+      <p class="dropdown">Switch Rf</p>
+      <div class="dropdown-container">
+          <a href="#get_rf_switches">GET /switch_rf</a>
+          <a href="#get_rf_switch">GET /switch_rf/{switch-id}</a>
+          <a href="#post_rf_switch">POST /switch_rf/num_of_button/{num-of-button}/channel/{channel}</a>
+          <a href="#put_rf_switch_name">PUT /switch_rf/name</a>
+          <a href="#put_rf_switch_channel">PUT /switch_rf/channel</a>
+          <a href="#put_rf_switch_user">PUT /switch_rf/user</a>
+          <a href="#delete_rf_switch">DELETE /switch_rf/{switch-id}</a>
       </div>
 
       <p class="dropdown">Module IR</p>
@@ -55,15 +66,16 @@
           <a href="#delete_home_center">DELETE /home_center/{home-center-id}</a>
       </div>
 
-      <p class="dropdown">Room</p>
+      <p class="dropdown">Sensor</p>
       <div class="dropdown-container">
-          <a href="#get_rooms">GET /room</a>
-          <a href="#post_room">POST /room</a>
-          <a href="#put_room">PUT /room</a>
-          <a href="#delete_room">DELETE /room/{room-id}</a>
+          <a href="#get_sensors">GET /sensor</a>
+          <a href="#get_sensor">GET /sensor/{sensor-id}</a>
+          <a href="#post_sensor">POST /sensor?name={name}</a>
+          <a href="#put_sensor_user">PUT /sensor/user</a>
+          <a href="#delete_sensor">DELETE /sensor/{sensor-id}</a>
       </div>
 
-      <p class="dropdown">Device</p>
+      <p class="dropdown">Button</p>
       <div class="dropdown-container">
           <a href="#get_devices_switch">GET /buttonWifi/switch/{switch-id}</a>
           <a href="#get_devices_room">GET /buttonWifi/room/{room-id}</a>
@@ -74,13 +86,12 @@
           <a href="#delete_device_histories">DELETE /buttonWifi/{buttonWifi-id}/history</a>
       </div>
 
-      <p class="dropdown">Sensor</p>
+      <p class="dropdown">Room</p>
       <div class="dropdown-container">
-          <a href="#get_sensors_room">GET /sensor/room/{roomId}</a>
-          <a href="#get_sensor">GET /sensor/{sensor-id}</a>
-          <a href="#post_sensor">POST /sensor</a>
-          <a href="#put_sensor">PUT /sensor</a>
-          <a href="#delete_sensor">DELETE /sensor/{sensor-id}</a>
+          <a href="#get_rooms">GET /room</a>
+          <a href="#post_room">POST /room</a>
+          <a href="#put_room">PUT /room</a>
+          <a href="#delete_room">DELETE /room/{room-id}</a>
       </div>
 
       <p class="dropdown">Remote IR</p>
@@ -112,6 +123,8 @@
 
   <div class="main">
       <h1>HTTP API Reference</h1>
+
+      <!-- Authenticate -->
       <div id="sign_in" class="content">
           <h2>Sign In</h2>
           <p class="link">POST &emsp; http://chika-server.herokuapp.com/auth/signin</p>
@@ -157,6 +170,7 @@
           <br/>
       </div>
 
+      <!-- User -->
       <div id="get_users" class="content">
           <h2>Get all users (admin only)</h2>
           <p class="description">Get a user list with their information.</p>
@@ -305,11 +319,12 @@
           <br/>
       </div>
 
-      <div id="get_switches" class="content">
+      <!-- Switch Wifi -->
+      <div id="get_wifi_switches" class="content">
           <h2>Get all switches (admin only)</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/switch</p>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/switch_wifi</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/switch</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/switch_wifi</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="example">&bull; Example response:</p>
           <div class="json">[
@@ -327,11 +342,11 @@
           <br/>
       </div>
 
-      <div id="get_switch" class="content">
+      <div id="get_wifi_switch" class="content">
           <h2>Get switch by id</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/switch/{switch-id}</p>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/switch_wifi/{switch-id}</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/switch/b36e333e-3800-4450-84cd-6f90e7e0f721</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/switch_wifi/b36e333e-3800-4450-84cd-6f90e7e0f721</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="example">&bull; Example response:</p>
           <div class="json">{
@@ -357,11 +372,11 @@
           <br/>
       </div>
 
-      <div id="post_switch" class="content">
+      <div id="post_wifi_switch" class="content">
           <h2>Save a switch</h2>
-          <p class="link">POST &emsp; http://chika-server.herokuapp.com/switch/num_of_device/{num-of-buttonWifi}</p>
+          <p class="link">POST &emsp; http://chika-server.herokuapp.com/switch_wifi/num_of_button/{num-of-button}</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/switch/num_of_device/2</p>
+          <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/switch_wifi/num_of_button/2</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="example">&bull; Example response:</p>
           <div class="json">{
@@ -387,11 +402,11 @@
           <br/>
       </div>
 
-      <div id="put_switch_name" class="content">
+      <div id="put_wifi_switch_name" class="content">
           <h2>Update switch's name by id</h2>
-          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/switch/name</p>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/switch_wifi/name</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/switch/name</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/switch_wifi/name</p>
           <p class="body">Body:</p>
           <div class="json">{
               <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
@@ -424,11 +439,11 @@
           <br/>
       </div>
 
-      <div id="put_switch_user" class="content">
+      <div id="put_wifi_switch_user" class="content">
           <h2>Update switch's owner by id</h2>
-          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/switch/name</p>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/switch_wifi/name</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/switch/name</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/switch_wifi/name</p>
           <p class="body">Body:</p>
           <div class="json">{
               <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
@@ -461,21 +476,224 @@
           <br/>
       </div>
 
-      <div id="delete_switch" class="content">
-          <h2>Delete switch by id (admin only)</h2>
-          <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/switch/{switch-id}</p>
+      <div id="delete_wifi_switch" class="content">
+          <h2>Delete wifi switch by id (admin only)</h2>
+          <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/switch_wifi/{switch-id}</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/switch/b36e333e-3800-4450-84cd-6f90e7e0f721</p>
+          <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/switch_wifi/b36e333e-3800-4450-84cd-6f90e7e0f721</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="example">&bull; Example response:</p>
           <div class="json">{
               <br/>&emsp;"success: true,
-              <br/>&emsp;"message": "Switch has been deleted"
+              <br/>&emsp;"message": "Switch Wifi has been deleted"
               <br/>}
           </div>
           <br/>
       </div>
 
+      <!-- Switch Rf -->
+      <div id="get_rf_switches" class="content">
+          <h2>Get all switches (admin only)</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/switch_rf</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/switch_rf</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">[
+              <br/>&emsp;{
+              <br/>&emsp;&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+              <br/>&emsp;&emsp;"day": "07/01/2020",
+              <br/>&emsp;&emsp;"type": 2,
+              <br/>&emsp;&emsp;"channel": 83878217022001,
+              <br/>&emsp;&emsp;"userId": 5,
+              <br/>&emsp;&emsp;"buttonId": [
+              <br/>&emsp;&emsp;&emsp;"0c38a97d-1564-4707-935c-18b4e9bcb0db",
+              <br/>&emsp;&emsp;&emsp;"7f704fdf-fa4b-44e2-b359-5ef19294196a"
+              <br/>&emsp;&emsp;]
+              <br/>&emsp;}<br/>]
+          </div>
+          <br/>
+      </div>
+
+      <div id="get_rf_switch" class="content">
+          <h2>Get switch by id</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/switch_rf/{switch-id}</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/switch_rf/b36e333e-3800-4450-84cd-6f90e7e0f721</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+              <br/>&emsp;"name": "CA-SW2",
+              <br/>&emsp;"buttonRfs": [
+              <br/>&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
+              <br/>&emsp;&emsp;&emsp;"name": "",
+              <br/>&emsp;&emsp;&emsp;"state": 0,
+              <br/>&emsp;&emsp;&emsp;"roomId": "",
+              <br/>&emsp;&emsp;&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;&emsp;},<br/>&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
+              <br/>&emsp;&emsp;&emsp;"name": "",
+              <br/>&emsp;&emsp;&emsp;"state": 0,
+              <br/>&emsp;&emsp;&emsp;"roomId": "",
+              <br/>&emsp;&emsp;&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;&emsp;}
+              <br/>&emsp;]
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="post_rf_switch" class="content">
+          <h2>Save a switch</h2>
+          <p class="link">POST &emsp; http://chika-server.herokuapp.com/switch_rf/num_of_button/{num-of-button}/channel/{channel}</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/switch_rf/num_of_button/2/channel/83878217022001</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+              <br/>&emsp;"day": "07/01/2020",
+              <br/>&emsp;"type": 2,
+              <br/>&emsp;"channel": 83878217022001,
+              <br/>&emsp;"userId": null,
+              <br/>&emsp;"buttonId": [
+              <br/>&emsp;&emsp;"0c38a97d-1564-4707-935c-18b4e9bcb0db",
+              <br/>&emsp;&emsp;"7f704fdf-fa4b-44e2-b359-5ef19294196a"
+              <br/>&emsp;]
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="put_rf_switch_name" class="content">
+          <h2>Update switch's name by id</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/switch_rf/name</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/switch_rf/name</p>
+          <p class="body">Body:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+              <br/>&emsp;"name": "Living Room Switch"
+              <br/>}
+          </div>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"createdAt": "15:30 07/01/2020",
+              <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+              <br/>&emsp;"name": "Living Room Switch",
+              <br/>&emsp;"userId": null,
+              <br/>&emsp;"buttonRfs": [
+              <br/>&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
+              <br/>&emsp;&emsp;&emsp;"name": "",
+              <br/>&emsp;&emsp;&emsp;"state": 0,
+              <br/>&emsp;&emsp;&emsp;"roomId": "",
+              <br/>&emsp;&emsp;&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;&emsp;},<br/>&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
+              <br/>&emsp;&emsp;&emsp;"name": "",
+              <br/>&emsp;&emsp;&emsp;"state": 0,
+              <br/>&emsp;&emsp;&emsp;"roomId": "",
+              <br/>&emsp;&emsp;&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;&emsp;}
+              <br/>&emsp;]
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="put_rf_switch_channel" class="content">
+          <h2>Update switch's name by id</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/switch_rf/name</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/switch_rf/name</p>
+          <p class="body">Body:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+              <br/>&emsp;"channel": 83878217022001
+              <br/>}
+          </div>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"createdAt": "15:30 07/01/2020",
+              <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+              <br/>&emsp;"channel": 83878217022001,
+              <br/>&emsp;"userId": null,
+              <br/>&emsp;"buttonRfs": [
+              <br/>&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
+              <br/>&emsp;&emsp;&emsp;"name": "",
+              <br/>&emsp;&emsp;&emsp;"state": 0,
+              <br/>&emsp;&emsp;&emsp;"roomId": "",
+              <br/>&emsp;&emsp;&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;&emsp;},<br/>&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
+              <br/>&emsp;&emsp;&emsp;"name": "",
+              <br/>&emsp;&emsp;&emsp;"state": 0,
+              <br/>&emsp;&emsp;&emsp;"roomId": "",
+              <br/>&emsp;&emsp;&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;&emsp;}
+              <br/>&emsp;]
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="put_rf_switch_user" class="content">
+          <h2>Update switch's owner by id</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/switch_rf/name</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/switch_rf/name</p>
+          <p class="body">Body:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+              <br/>&emsp;"userId": 5
+              <br/>}
+          </div>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"createdAt": "15:30 07/01/2020",
+              <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+              <br/>&emsp;"name": "CA-SWR2",
+              <br/>&emsp;"userId": 5,
+              <br/>&emsp;"buttonRfs": [
+              <br/>&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
+              <br/>&emsp;&emsp;&emsp;"name": "",
+              <br/>&emsp;&emsp;&emsp;"state": 0,
+              <br/>&emsp;&emsp;&emsp;"roomId": "",
+              <br/>&emsp;&emsp;&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;&emsp;},<br/>&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
+              <br/>&emsp;&emsp;&emsp;"name": "",
+              <br/>&emsp;&emsp;&emsp;"state": 0,
+              <br/>&emsp;&emsp;&emsp;"roomId": "",
+              <br/>&emsp;&emsp;&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;&emsp;}
+              <br/>&emsp;]
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="delete_rf_switch" class="content">
+          <h2>Delete rf switch by id (admin only)</h2>
+          <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/switch_rf/{switch-id}</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/switch_rf/b36e333e-3800-4450-84cd-6f90e7e0f721</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"success: true,
+              <br/>&emsp;"message": "Switch Rf has been deleted"
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <!-- Module IR -->
       <div id="get_modules" class="content">
           <h2>Get all module IR (admin only)</h2>
           <p class="link">GET &emsp; http://chika-server.herokuapp.com/module_ir</p>
@@ -590,6 +808,7 @@
           <br/>
       </div>
 
+      <!-- Home Center -->
       <div id="get_home_centers" class="content">
           <h2>Get all home centers (admin only)</h2>
           <p class="link">GET &emsp; http://chika-server.herokuapp.com/home_center</p>
@@ -603,7 +822,7 @@
               <br/>&emsp;&emsp;"id": "4bc68c26-bb1c-4f28-8c5d-bd5305530da1",
               <br/>&emsp;&emsp;"userId": 5
               <br/>&emsp;},<br/>&emsp;{
-              <br/>&emsp;&emsp;"day": "14:30 08/01/2020",
+              <br/>&emsp;&emsp;"day": "08/01/2020",
               <br/>&emsp;&emsp;"id": "1f1180c6-079d-4b62-92c6-6f81351d67d9",
               <br/>&emsp;&emsp;"userId": null
               <br/>&emsp;}
@@ -698,6 +917,121 @@
           <div class="json">{
               <br/>&emsp;"success: true,
               <br/>&emsp;"message": "Home Center has been deleted"
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <!-- Sensor -->
+      <div id="get_sensors" class="content">
+          <h2>Get all sensors (admin only)</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/sensor</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/sensor</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">[
+              <br/>&emsp;{
+              <br/>&emsp;&emsp;"day": "07/01/2020",
+              <br/>&emsp;&emsp;"id": "4bc68c26-bb1c-4f28-8c5d-bd5305530da1",
+              <br/>&emsp;&emsp;"name": "Cảm biến nhiệt độ",
+              <br/>&emsp;&emsp;"userId": 5
+              <br/>&emsp;},<br/>&emsp;{
+              <br/>&emsp;&emsp;"day": "08/01/2020",
+              <br/>&emsp;&emsp;"id": "1f1180c6-079d-4b62-92c6-6f81351d67d9",
+              <br/>&emsp;&emsp;"name": "Cảm biến ánh sáng",
+              <br/>&emsp;&emsp;"userId": null
+              <br/>&emsp;}
+              <br/>]
+          </div>
+          <br/>
+      </div>
+
+      <div id="get_sensor" class="content">
+          <h2>Get sensor by id</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/sensor/{sensor-id}</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/sensor/4bc68c26-bb1c-4f28-8c5d-bd5305530da1</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "4bc68c26-bb1c-4f28-8c5d-bd5305530da1",
+              <br/>&emsp;"name": "Cảm biến ánh sáng",
+              <br/>&emsp;"userId": 5
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="post_sensor" class="content">
+          <h2>Save a sensor</h2>
+          <p class="link">POST &emsp; http://chika-server.herokuapp.com/sensor?name={name}</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/sensor?name=Cảm+biến+cửa</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"day": "08/01/2020",
+              <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+              <br/>&emsp;"name": "Cảm biến cửa",
+              <br/>&emsp;"userId": null
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="put_sensor_name" class="content">
+          <h2>Update sensor's name by id</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/sensor/name</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/sensor/name</p>
+          <p class="body">Body:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+              <br/>&emsp;"name": "Cảm biến phòng khách"
+              <br/>}
+          </div>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+              <br/>&emsp;"name": "Cảm biến phòng khách",
+              <br/>&emsp;"userId": 5
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="put_sensor_user" class="content">
+          <h2>Update sensor's owner by id (admin only)</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/sensor/user</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/sensor/user</p>
+          <p class="body">Body:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+              <br/>&emsp;"userId": 5
+              <br/>}
+          </div>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
+              <br/>&emsp;"name": "Cảm biến phòng khách",
+              <br/>&emsp;"userId": 5
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="delete_sensor" class="content">
+          <h2>Delete sensor by id (admin only)</h2>
+          <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/sensor/{sensor-id}</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/sensor/661e998a-3516-47c7-b961-ab0e5a33313b</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"success: true,
+              <br/>&emsp;"message": "Sensor has been deleted"
               <br/>}
           </div>
           <br/>
