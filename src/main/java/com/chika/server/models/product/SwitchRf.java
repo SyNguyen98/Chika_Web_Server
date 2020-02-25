@@ -34,7 +34,7 @@ public class SwitchRf extends DateAudit {
     @NotNull
     private Integer type;
 
-    @NotBlank
+    @NotNull
     private Long channel;
 
     private Long userId;
