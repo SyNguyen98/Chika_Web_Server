@@ -94,7 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                 .antMatchers("/user/forget-password", "/user/reset-password")
                     .permitAll()
-                .antMatchers("/auth/signin")
+                .antMatchers("/auth/**")
                     .permitAll()
                 .antMatchers("/image/**", "/audio/**")
                     .permitAll()

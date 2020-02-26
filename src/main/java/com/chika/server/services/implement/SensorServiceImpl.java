@@ -1,9 +1,7 @@
 package com.chika.server.services.implement;
 
 import com.chika.server.exception.ResourceNotFoundException;
-import com.chika.server.models.house.SensorHistory;
 import com.chika.server.models.product.Sensor;
-import com.chika.server.repositories.house.SensorHistoryRepository;
 import com.chika.server.repositories.product.SensorRepository;
 import com.chika.server.services.product.SensorService;
 import org.springframework.stereotype.Service;
@@ -13,18 +11,15 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 21-02-2020
+ * @since 26-02-2020
  */
 @Service
 public class SensorServiceImpl implements SensorService {
 
     private final SensorRepository sensorRepository;
 
-    private final SensorHistoryRepository sensorHistoryRepository;
-
-    public SensorServiceImpl(SensorRepository sensorRepository, SensorHistoryRepository sensorHistoryRepository) {
+    public SensorServiceImpl(SensorRepository sensorRepository) {
         this.sensorRepository = sensorRepository;
-        this.sensorHistoryRepository = sensorHistoryRepository;
     }
 
     @Override
@@ -57,17 +52,7 @@ public class SensorServiceImpl implements SensorService {
     }
 
     @Override
-    public List<SensorHistory> getAllHistoriesBySensorId(String id) {
-        return null;
-    }
-
-    @Override
-    public SensorHistory saveHistory(SensorHistory sensor) {
-        return  sensorHistoryRepository.save(sensor);
-    }
-
-    @Override
-    public void deleteHistory(String id) {
-
+    public Boolean hasOwner(String id) {
+        return getById(id).getUserId() != null;
     }
 }

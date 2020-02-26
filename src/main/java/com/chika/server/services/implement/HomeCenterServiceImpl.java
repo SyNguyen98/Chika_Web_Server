@@ -53,4 +53,9 @@ public class HomeCenterServiceImpl implements HomeCenterService {
     public void deleteById(String id) {
         homeCenterRepository.deleteById(id);
     }
+
+    @Override
+    public Boolean hasOwner(String id) {
+        return getById(id).getUserId() != null;
+    }
 }

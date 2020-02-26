@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * To receive User requests from the client
  * @author Sy Nguyen
  * @version 1.0
- * @since 13-02-2020
+ * @since 26-02-2020
  */
 @RestController
 @RequestMapping("/user")
@@ -41,14 +41,14 @@ public class UserController {
     }
 
     @GetMapping
-    public UserResponse getUserByUsername(@CurrentUser UserPrincipal currentUser) {
-        return new UserResponse(userService.getByUsername(currentUser.getUsername()));
+    public UserResponse getUserByPhone(@CurrentUser UserPrincipal currentUser) {
+        return new UserResponse(userService.getByPhone(currentUser.getPhone()));
     }
 
     @GetMapping("/admin")
     @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     public AdminInfoResponse getAdminInfoById(@CurrentUser UserPrincipal currentUser) {
-        return new AdminInfoResponse(userService.getByUsername(currentUser.getUsername()),
+        return new AdminInfoResponse(userService.getById(currentUser.getId()),
                 userService.getAdminInfo(currentUser.getId()));
     }
 
@@ -63,12 +63,12 @@ public class UserController {
 
     @PutMapping
     public UserResponse updateInfo(@CurrentUser UserPrincipal currentUser, @RequestBody User user) {
-        return new UserResponse(userService.updateUser(currentUser.getUsername(), user.getName(), user.getEmail()));
+        return new UserResponse(userService.updateUser(currentUser.getId(), user.getName(), user.getPhone(), user.getEmail()));
     }
 
     @PutMapping("/password")
     public ResponseEntity<?> changePassword(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody PasswordRequest passwordRequest) {
-        if (userService.changePassword(currentUser.getUsername(),
+        if (userService.changePassword(currentUser.getId(),
                 passwordRequest.getOldPassword(), passwordRequest.getNewPassword()))  {
             return ResponseEntity.ok(new ApiResponse(true, "Password has been changed"));
         }
@@ -82,9 +82,9 @@ public class UserController {
         return ResponseEntity.ok(new ApiResponse(true, "Email has been sent"));
     }
 
-    @DeleteMapping("/{username}")
-    public ResponseEntity<?> deleteUser(@PathVariable String username) {
-        userService.deleteUser(username);
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
         return ResponseEntity.ok(new ApiResponse(true, "User has been deleted"));
     }
 

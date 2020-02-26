@@ -52,9 +52,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
+    public User getById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+    }
+
+    @Override
+    public User getByPhone(String phone) {
+        return userRepository.findByPhone(phone)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "phone", phone));
     }
 
     @Override
@@ -85,16 +91,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(String username, String name, String email) {
-        User user = getByUsername(username);
+    public User updateUser(Long userId, String name, String phone, String email) {
+        User user = getById(userId);
         user.setName(name);
+        user.setPhone(phone);
         user.setEmail(email);
         return userRepository.save(user);
     }
 
     @Override
-    public Boolean changePassword(String username, String oldPassword, String newPassword) {
-        User user = getByUsername(username);
+    public Boolean changePassword(Long userId, String oldPassword, String newPassword) {
+        User user = getById(userId);
         if (BCrypt.checkpw(oldPassword, user.getPassword())) {
             user.setPassword(passwordEncoder.encode(newPassword));
             return true;
@@ -119,13 +126,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(String username) {
-        userRepository.deleteByUsername(username);
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
     }
 
     @Override
-    public Boolean isExistByUsername(String username) {
-        return userRepository.existsByUsername(username);
+    public Boolean isExistByPhone(String phone) {
+        return userRepository.existsByPhone(phone);
     }
 
     @Override

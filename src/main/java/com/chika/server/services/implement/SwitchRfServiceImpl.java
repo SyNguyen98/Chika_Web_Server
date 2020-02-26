@@ -69,4 +69,9 @@ public class SwitchRfServiceImpl implements SwitchRfService {
     public Boolean isOwner(String id, Long userId) {
         return getById(id).getUserId().equals(userId);
     }
+
+    @Override
+    public Boolean hasOwner(String id) {
+        return getById(id).getUserId() != null;
+    }
 }

@@ -23,4 +23,6 @@ public interface SwitchRfService {
     void deleteById(String id);
 
     Boolean isOwner(String id, Long userId);
+
+    Boolean hasOwner(String id);
 }

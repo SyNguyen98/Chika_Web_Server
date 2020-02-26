@@ -11,7 +11,9 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    User getByUsername(String username);
+    User getById(Long userId);
+
+    User getByPhone(String phone);
 
     List<User> getAllByRole(Role role);
 
@@ -23,17 +25,17 @@ public interface UserService {
 
     UserInfo saveUserInfo(UserInfo userInfo);
 
-    User updateUser(String username, String name, String email);
+    User updateUser(Long userId, String name, String phone, String email);
 
-    Boolean changePassword(String username, String oldPassword, String newPassword);
+    Boolean changePassword(Long userId, String oldPassword, String newPassword);
 
     void resetPassword(String token, String newPassword);
 
     void forgetPassword(String email);
 
-    void deleteUser(String username);
+    void deleteUser(Long userId);
 
-    Boolean isExistByUsername(String username);
+    Boolean isExistByPhone(String phone);
 
     Boolean isExistByEmail(String email);
 }

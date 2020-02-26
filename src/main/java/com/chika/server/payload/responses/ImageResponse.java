@@ -8,8 +8,6 @@ import lombok.Data;
 public class ImageResponse {
 
     private String name;
-
     private String uri;
-
     private String type;
 }

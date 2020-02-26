@@ -19,4 +19,6 @@ public interface ModuleIrService {
     ModuleIr updateUser(String id, Long userId);
 
     void deleteById(String id);
+
+    Boolean hasOwner(String id);
 }

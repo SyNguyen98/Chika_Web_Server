@@ -20,11 +20,10 @@ public class UserInfoResponse {
     public UserInfoResponse(User user, UserInfo userInfo) {
         this.avatar = userInfo.getAvatar();
         this.name = user.getName();
-        this.username = user.getUsername();
+        this.phone = user.getPhone();
+        this.email = user.getEmail();
         this.birthday = userInfo.getBirthday();
         this.address = userInfo.getAddress();
-        this.email = user.getEmail();
-        this.phone = userInfo.getPhone();
         this.role = RoleService.getHighestRole(user.getRoles())
                     .toString().replace("ROLE_", "");
     }

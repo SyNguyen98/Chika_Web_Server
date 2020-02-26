@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * to perform authentication and authorization.
  * @author Sy Nguyen
  * @version 1.0
- * @since 16-08-2019
+ * @since 26-02-2020
  */
 public class UserPrincipal implements UserDetails {
 
@@ -23,7 +23,7 @@ public class UserPrincipal implements UserDetails {
 
     private String name;
 
-    private String username;
+    private String phone;
 
     @JsonIgnore
     private String email;
@@ -35,11 +35,11 @@ public class UserPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    private UserPrincipal(Long id, String name, String username, String email, String password, Set<Role> roles,
+    private UserPrincipal(Long id, String name, String phone, String email, String password, Set<Role> roles,
                           Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
-        this.username = username;
+        this.phone = phone;
         this.email = email;
         this.password = password;
         this.roles = roles;
@@ -51,7 +51,7 @@ public class UserPrincipal implements UserDetails {
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
-        return new UserPrincipal(user.getId(), user.getName(), user.getUsername(),
+        return new UserPrincipal(user.getId(), user.getName(), user.getPhone(),
                 user.getEmail(), user.getPassword(), user.getRoles(),authorities);
     }
 
@@ -61,6 +61,10 @@ public class UserPrincipal implements UserDetails {
 
     public String getName() {
         return name;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     public String getEmail() {
@@ -73,7 +77,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return phone;
     }
 
     @Override

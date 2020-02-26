@@ -59,4 +59,9 @@ public class ModuleIrServiceImpl implements ModuleIrService {
     public void deleteById(String id) {
         moduleIrRepository.deleteById(id);
     }
+
+    @Override
+    public Boolean hasOwner(String id) {
+        return getById(id).getUserId() != null;
+    }
 }

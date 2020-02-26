@@ -9,13 +9,11 @@ import lombok.Data;
 public class UserResponse {
 
     private String name;
-    private String username;
     private String email;
     private RoleName role;
 
     public UserResponse(User user) {
         this.name = user.getName();
-        this.username = user.getUsername();
         this.email = user.getEmail();
         this.role = RoleService.getHighestRole(user.getRoles());
     }

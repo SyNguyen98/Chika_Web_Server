@@ -19,4 +19,6 @@ public interface HomeCenterService {
     HomeCenter updateUser(String id, Long userId);
 
     void deleteById(String id);
+
+    Boolean hasOwner(String id);
 }

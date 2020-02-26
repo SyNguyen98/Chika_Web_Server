@@ -1,6 +1,7 @@
 package com.chika.server.models.user;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class UserInfo {
 
     @Id
@@ -21,16 +23,12 @@ public class UserInfo {
 
     private String birthday;
 
-    private String phone;
-
     private String address;
 
-    public UserInfo() {}
-    public UserInfo(Long userId, String avatar, String birthday, String phone, String address) {
+    public UserInfo(Long userId) {
         this.userId = userId;
-        this.avatar = avatar;
-        this.birthday = birthday;
-        this.phone = phone;
-        this.address = address;
+        this.avatar = "";
+        this.birthday = "";
+        this.address = "";
     }
 }

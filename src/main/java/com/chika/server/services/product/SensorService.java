@@ -1,6 +1,5 @@
 package com.chika.server.services.product;
 
-import com.chika.server.models.house.SensorHistory;
 import com.chika.server.models.product.Sensor;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +18,5 @@ public interface SensorService {
 
     void deleteById(String id);
 
-    List<SensorHistory> getAllHistoriesBySensorId(String id);
-
-    SensorHistory saveHistory(SensorHistory sensor);
-
-    void deleteHistory(String id);
+    Boolean hasOwner(String id);
 }

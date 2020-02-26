@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
  * To authenticate a User or perform various role-based checks
  * @author Sy Nguyen
  * @version 1.0
- * @since 16-08-2019
+ * @since 26-02-2020
  */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -26,13 +26,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String usernameOrEmail)
+    public UserDetails loadUserByUsername(String phoneOrEmail)
             throws UsernameNotFoundException {
-        // Let people login with either username or email
-        User user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email : " + usernameOrEmail)
+        // Let people login with either phone or email
+        User user = userRepository.findByPhoneOrEmail(phoneOrEmail, phoneOrEmail)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email : " + phoneOrEmail)
         );
-
         return UserPrincipal.create(user);
     }
 
@@ -41,7 +40,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("User", "id", id)
         );
-
         return UserPrincipal.create(user);
     }
 }

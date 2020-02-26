@@ -21,4 +21,6 @@ public interface SwitchWifiService {
     void deleteById(String id);
 
     Boolean isOwner(String id, Long userId);
+
+    Boolean hasOwner(String id);
 }

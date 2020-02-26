@@ -13,7 +13,7 @@ import java.util.List;
  * CRUD function for Switch Wifi
  * @author Sy Nguyen
  * @version 1.0
- * @since 24-02-2020
+ * @since 26-02-2020
  */
 @Service
 public class SwitchWifiServiceImpl implements SwitchWifiService {
@@ -63,5 +63,10 @@ public class SwitchWifiServiceImpl implements SwitchWifiService {
     @Override
     public Boolean isOwner(String id, Long userId) {
         return getById(id).getUserId().equals(userId);
+    }
+
+    @Override
+    public Boolean hasOwner(String id) {
+        return getById(id).getUserId() != null;
     }
 }
