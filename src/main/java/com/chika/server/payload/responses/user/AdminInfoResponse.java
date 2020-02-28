@@ -1,4 +1,4 @@
-package com.chika.server.payload.responses;
+package com.chika.server.payload.responses.user;
 
 import com.chika.server.models.user.AdminInfo;
 import com.chika.server.models.account.User;

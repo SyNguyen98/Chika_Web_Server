@@ -1,11 +1,11 @@
 package com.chika.server.controllers;
 
 import com.chika.server.models.account.RoleName;
-import com.chika.server.models.account.User;
 import com.chika.server.payload.requests.PasswordRequest;
-import com.chika.server.payload.responses.AdminInfoResponse;
+import com.chika.server.payload.responses.user.AdminInfoResponse;
 import com.chika.server.payload.responses.ApiResponse;
-import com.chika.server.payload.responses.UserInfoResponse;
+import com.chika.server.payload.responses.user.ChangeInfoRequest;
+import com.chika.server.payload.responses.user.UserInfoResponse;
 import com.chika.server.payload.responses.UserResponse;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
@@ -32,7 +32,6 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserService userService;
-
     private final RoleService roleService;
 
     public UserController(UserService userService, RoleService roleService) {
@@ -41,8 +40,8 @@ public class UserController {
     }
 
     @GetMapping
-    public UserResponse getUserByPhone(@CurrentUser UserPrincipal currentUser) {
-        return new UserResponse(userService.getByPhone(currentUser.getPhone()));
+    public UserResponse getUserById(@CurrentUser UserPrincipal currentUser) {
+        return new UserResponse(userService.getById(currentUser.getId()));
     }
 
     @GetMapping("/admin")
@@ -61,9 +60,21 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
-    @PutMapping
-    public UserResponse updateInfo(@CurrentUser UserPrincipal currentUser, @RequestBody User user) {
-        return new UserResponse(userService.updateUser(currentUser.getId(), user.getName(), user.getPhone(), user.getEmail()));
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+    @PutMapping("/admin_info")
+    public ResponseEntity<?> updateAdminInfo(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody ChangeInfoRequest request) {
+        String phone = request.getPhone();
+        String email = request.getEmail();
+        if(!currentUser.getPhone().equals(phone) && userService.isExistByPhone(phone)) {
+            return new ResponseEntity<>(new ApiResponse(false, "Phone number is already taken!"),
+                    HttpStatus.BAD_REQUEST);
+        }
+        if(!currentUser.getEmail().equals(email) && userService.isExistByEmail(email)) {
+            return new ResponseEntity<>(new ApiResponse(false, "Email address already in use!"),
+                    HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok(userService.updateAdminInfo(currentUser.getId(), phone, email,
+                request.getBirthday(), request.getAddress()));
     }
 
     @PutMapping("/password")

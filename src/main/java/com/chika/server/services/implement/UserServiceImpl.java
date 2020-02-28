@@ -1,15 +1,14 @@
 package com.chika.server.services.implement;
 
-import com.chika.server.exception.AppException;
 import com.chika.server.exception.ResourceNotFoundException;
-import com.chika.server.models.user.AdminInfo;
 import com.chika.server.models.account.Role;
-import com.chika.server.models.account.RoleName;
 import com.chika.server.models.account.User;
+import com.chika.server.models.user.AdminInfo;
 import com.chika.server.models.user.UserInfo;
-import com.chika.server.repositories.user.AdminInfoRepository;
+import com.chika.server.payload.responses.user.AdminInfoResponse;
 import com.chika.server.repositories.account.RoleRepository;
 import com.chika.server.repositories.account.UserRepository;
+import com.chika.server.repositories.user.AdminInfoRepository;
 import com.chika.server.repositories.user.UserInfoRepository;
 import com.chika.server.services.EmailService;
 import com.chika.server.services.UserService;
@@ -17,7 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,18 +33,15 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final RoleRepository roleRepository;
-
     private final AdminInfoRepository adminInfoRepository;
 
     private final UserInfoRepository userInfoRepository;
 
-    public UserServiceImpl(UserRepository userRepository, EmailService emailService, PasswordEncoder passwordEncoder, RoleRepository roleRepository,
+    public UserServiceImpl(UserRepository userRepository, EmailService emailService, PasswordEncoder passwordEncoder,
                            AdminInfoRepository adminInfoRepository, UserInfoRepository userInfoRepository) {
         this.userRepository = userRepository;
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
-        this.roleRepository = roleRepository;
         this.adminInfoRepository = adminInfoRepository;
         this.userInfoRepository = userInfoRepository;
     }
@@ -91,12 +86,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(Long userId, String name, String phone, String email) {
+    public AdminInfoResponse updateAdminInfo(Long userId, String phone, String email, String birthday, String address) {
         User user = getById(userId);
-        user.setName(name);
         user.setPhone(phone);
         user.setEmail(email);
-        return userRepository.save(user);
+
+        AdminInfo adminInfo = getAdminInfo(userId);
+        adminInfo.setBirthday(birthday);
+        adminInfo.setAddress(address);
+        return new AdminInfoResponse(userRepository.save(user), adminInfoRepository.save(adminInfo));
     }
 
     @Override

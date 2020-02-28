@@ -1,4 +1,4 @@
-package com.chika.server.payload.responses;
+package com.chika.server.payload.responses.user;
 
 import com.chika.server.models.account.User;
 import com.chika.server.models.user.UserInfo;
@@ -10,7 +10,6 @@ public class UserInfoResponse {
 
     private String avatar;
     private String name;
-    private String username;
     private String birthday;
     private String address;
     private String email;
