@@ -1,6 +1,5 @@
-package com.chika.server.payload.responses;
+package com.chika.server.payload.responses.user;
 
-import com.chika.server.models.account.RoleName;
 import com.chika.server.models.account.User;
 import com.chika.server.services.RoleService;
 import lombok.Data;
@@ -9,12 +8,15 @@ import lombok.Data;
 public class UserResponse {
 
     private String name;
+    private String phone;
     private String email;
-    private RoleName role;
+    private String role;
 
     public UserResponse(User user) {
         this.name = user.getName();
+        this.phone = user.getPhone();
         this.email = user.getEmail();
-        this.role = RoleService.getHighestRole(user.getRoles());
+        this.role = RoleService.getHighestRole(user.getRoles())
+                    .toString().replace("ROLE_", "");
     }
 }

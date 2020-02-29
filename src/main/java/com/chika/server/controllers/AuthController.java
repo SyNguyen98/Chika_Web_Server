@@ -98,7 +98,7 @@ public class AuthController {
                         HttpStatus.BAD_REQUEST);
             }
             if(userService.isExistByEmail(signUpRequest.getEmail())) {
-                return new ResponseEntity<>(new ApiResponse(false, "Email address already in use!"),
+                return new ResponseEntity<>(new ApiResponse(false, "Email address is already taken!"),
                         HttpStatus.BAD_REQUEST);
             }
 

@@ -6,7 +6,7 @@ import com.chika.server.payload.responses.user.AdminInfoResponse;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.user.ChangeInfoRequest;
 import com.chika.server.payload.responses.user.UserInfoResponse;
-import com.chika.server.payload.responses.UserResponse;
+import com.chika.server.payload.responses.user.UserResponse;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.RoleService;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * To receive User requests from the client
  * @author Sy Nguyen
  * @version 1.0
- * @since 26-02-2020
+ * @since 29-02-2020
  */
 @RestController
 @RequestMapping("/user")
@@ -42,6 +42,11 @@ public class UserController {
     @GetMapping
     public UserResponse getUserById(@CurrentUser UserPrincipal currentUser) {
         return new UserResponse(userService.getById(currentUser.getId()));
+    }
+
+    @GetMapping("/phone/{phone}")
+    public UserResponse getUserByPhone(@PathVariable String phone) {
+        return new UserResponse(userService.getByPhone(phone));
     }
 
     @GetMapping("/admin")
