@@ -6,7 +6,6 @@ import com.chika.server.models.account.User;
 import com.chika.server.models.user.AdminInfo;
 import com.chika.server.models.user.UserInfo;
 import com.chika.server.payload.responses.user.AdminInfoResponse;
-import com.chika.server.repositories.account.RoleRepository;
 import com.chika.server.repositories.account.UserRepository;
 import com.chika.server.repositories.user.AdminInfoRepository;
 import com.chika.server.repositories.user.UserInfoRepository;
@@ -102,6 +101,7 @@ public class UserServiceImpl implements UserService {
         User user = getById(userId);
         if (BCrypt.checkpw(oldPassword, user.getPassword())) {
             user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
             return true;
         }
         return false;
