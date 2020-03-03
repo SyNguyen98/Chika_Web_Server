@@ -24,6 +24,11 @@
           <a href="#delete_user_username">DELETE /user/{username}</a>
       </div>
 
+      <p class="dropdown">Product</p>
+      <div class="dropdown-container">
+          <a href="#put_products">PUT /product</a>
+      </div>
+
       <p class="dropdown">Switch Wifi</p>
       <div class="dropdown-container">
           <a href="#get_wifi_switches">GET /switch_wifi</a>
@@ -146,8 +151,6 @@
 
       <div id="sign_up" class="content">
           <h2>Sign Up</h2>
-          <p class="description">Admin can register a user with ROLE_HOME_MASTER.
-              <br/>User with ROLE_HOME_MASTER can register a user with ROLE_HOME_USER.</p>
           <p class="link">POST &emsp; http://chika-server.herokuapp.com/auth/signup</p>
           <p class="example">&bull; Example request:</p>
           <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/auth/signup</p>
@@ -157,13 +160,58 @@
               <br/>&emsp;"name": "Chika Smarthome",
               <br/>&emsp;"username": "chika123",
               <br/>&emsp;"email": "chika@gmail.com",
-              <br/>&emsp;"password": "123456"
+              <br/>&emsp;"password": "123456",
+              <br/>&emsp;"products": [
+              <br/>&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;"name": "Switch Wifi",
+              <br/>&emsp;&emsp;&emsp;"ids": [
+              <br/>&emsp;&emsp;&emsp;&emsp;"b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;&emsp;&emsp;]
+              <br/>&emsp;&emsp;},<br/>&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;"name": "Module Ir",
+              <br/>&emsp;&emsp;&emsp;"ids": [
+              <br/>&emsp;&emsp;&emsp;&emsp;"661e998a-3516-47c7-b961-ab0e5a33313b"
+              <br/>&emsp;&emsp;&emsp;]
+              <br/>&emsp;&emsp;}<br/>&emsp;]
               <br/>}
           </div>
           <p class="example">&bull; Example response:</p>
           <div class="json">{
               <br/>&emsp;"success: true,
               <br/>&emsp;"message": "Register successfully"
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <!-- Product -->
+      <div id="put_products" class="content">
+          <h2>Update user's id of products by user's phone number</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/product</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/product</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="body">Body:</p>
+          <div class="json">{
+              <br/>&emsp;"userPhone": "0701234567",
+              <br/>&emsp;"products": [
+              <br/>&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;"name": "Switch Wifi",
+              <br/>&emsp;&emsp;&emsp;"ids": [
+              <br/>&emsp;&emsp;&emsp;&emsp;"b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;&emsp;&emsp;]
+              <br/>&emsp;&emsp;},<br/>&emsp;&emsp;{
+              <br/>&emsp;&emsp;&emsp;"name": "Module Ir",
+              <br/>&emsp;&emsp;&emsp;"ids": [
+              <br/>&emsp;&emsp;&emsp;&emsp;"661e998a-3516-47c7-b961-ab0e5a33313b"
+              <br/>&emsp;&emsp;&emsp;]
+              <br/>&emsp;&emsp;}<br/>&emsp;]
+              <br/>}
+          </div>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"success: true,
+              <br/>&emsp;"message": "Product has been updated with user's id"
               <br/>}
           </div>
           <br/>

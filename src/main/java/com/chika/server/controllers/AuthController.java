@@ -46,25 +46,16 @@ public class AuthController {
     private final UserService userService;
     private final RoleService roleService;
 
-    private final SwitchWifiService switchWifiService;
-    private final SwitchRfService switchRfService;
-    private final ModuleIrService moduleIrService;
-    private final HomeCenterService homeCenterService;
-    private final SensorService sensorService;
+    private final ProductService productService;
 
     public AuthController(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, JwtTokenProvider tokenProvider,
-                          UserService userService, RoleService roleService, SwitchWifiService switchWifiService, SwitchRfService switchRfService,
-                          ModuleIrService moduleIrService, HomeCenterService homeCenterService, SensorService sensorService) {
+                          UserService userService, RoleService roleService, ProductService productService) {
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
         this.tokenProvider = tokenProvider;
         this.userService = userService;
         this.roleService = roleService;
-        this.switchWifiService = switchWifiService;
-        this.switchRfService = switchRfService;
-        this.moduleIrService = moduleIrService;
-        this.homeCenterService = homeCenterService;
-        this.sensorService = sensorService;
+        this.productService = productService;
     }
 
     @PostMapping("/signin")
@@ -87,7 +78,7 @@ public class AuthController {
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         List<Product> products = signUpRequest.getProducts();
         if (!products.isEmpty()) {
-            String productName = checkListProduct(products);
+            String productName = productService.checkListProduct(products);
             if (!productName.equals("")) {
                 return new ResponseEntity<>(new ApiResponse(false, productName + " already have owner!"),
                         HttpStatus.BAD_REQUEST);
@@ -111,87 +102,12 @@ public class AuthController {
 
             user = userService.saveUser(user);
             userService.saveUserInfo(new UserInfo(user.getId()));
-            updateProductWithUserId(user.getId(), products);
+            productService.updateProductWithUserId(user.getId(), products);
 
             return ResponseEntity.ok(new ApiResponse(true, "User registered successfully"));
         } else {
             return new ResponseEntity<>(new ApiResponse(false, "You need to own at least 1 Chika product to create an account!"),
                     HttpStatus.BAD_REQUEST);
         }
-    }
-
-    String checkListProduct(List<Product> products) {
-        for (Product product : products) {
-            switch (product.getName()) {
-                case "Switch Wifi": {
-                    for (String id : product.getIds()) {
-                        if (switchWifiService.hasOwner(id)) {
-                            return "Switch Wifi";
-                        }
-                    }
-                    break;
-                }
-                case "Switch Rf": {
-                    for (String id : product.getIds()) {
-                        if (switchRfService.hasOwner(id)) {
-                            return "Switch Rf";
-                        }
-                    }
-                    break;
-                }
-                case "Module Ir": {
-                    for (String id : product.getIds()) {
-                        if (moduleIrService.hasOwner(id)) {
-                            return "Module Ir";
-                        }
-                    }
-                    break;
-                }
-                case "Home Center": {
-                    for (String id : product.getIds()) {
-                        if (homeCenterService.hasOwner(id)) {
-                            return "Home Center";
-                        }
-                    }
-                    break;
-                }
-                case "Sensor": {
-                    for (String id : product.getIds()) {
-                        if (sensorService.hasOwner(id)) {
-                            return "Sensor";
-                        }
-                    }
-                    break;
-                }
-            }
-        }
-        return "";
-    }
-
-    void updateProductWithUserId(Long userId, List<Product> products) {
-        products.forEach(product -> {
-            switch (product.getName()) {
-                case "Switch Wifi": {
-                    product.getIds().forEach(id -> switchWifiService.updateUser(id, userId));
-                    break;
-                }
-                case "Switch Rf": {
-                    product.getIds().forEach(id -> switchRfService.updateUser(id, userId));
-                    break;
-                }
-                case "Module Ir": {
-                    product.getIds().forEach(id -> moduleIrService.updateUser(id, userId));
-                    break;
-                }
-                case "Home Center": {
-                    product.getIds().forEach(id -> homeCenterService.updateUser(id, userId));
-                    break;
-                }
-                case "Sensor": {
-                    product.getIds().forEach(id -> sensorService.updateUser(id, userId));
-                    break;
-                }
-            }
-        });
     }
 }
