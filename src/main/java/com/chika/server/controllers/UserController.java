@@ -50,13 +50,19 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public AdminInfoResponse getAdminInfoById(@CurrentUser UserPrincipal currentUser) {
         return new AdminInfoResponse(userService.getById(currentUser.getId()),
                 userService.getAdminInfo(currentUser.getId()));
     }
 
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+    @GetMapping("/user")
+    public UserInfoResponse getUserInfoById(@CurrentUser UserPrincipal currentUser) {
+        return new UserInfoResponse(userService.getById(currentUser.getId()),
+                userService.getUserInfo(currentUser.getId()));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/all")
     public List<UserInfoResponse> getAllUsers() {
         return userService.getAllByRole(roleService.getRoleByName(RoleName.ROLE_HOME_USER))
@@ -65,7 +71,7 @@ public class UserController {
                 .collect(Collectors.toList());
     }
 
-    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/admin_info")
     public ResponseEntity<?> updateAdminInfo(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody ChangeInfoRequest request) {
         String phone = request.getPhone();
