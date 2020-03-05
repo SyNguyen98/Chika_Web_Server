@@ -1,5 +1,7 @@
 package com.chika.server.models.account;
 
+import com.chika.server.models.audit.DateAudit;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -15,12 +17,13 @@ import java.util.Set;
  * @version 1.0
  * @since 08-02-2020
  */
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"phone"}),
         @UniqueConstraint(columnNames = {"email"})
 })
-public class User {
+public class User extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
