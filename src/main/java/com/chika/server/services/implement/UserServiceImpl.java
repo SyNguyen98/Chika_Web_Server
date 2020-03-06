@@ -6,6 +6,7 @@ import com.chika.server.models.account.User;
 import com.chika.server.models.user.AdminInfo;
 import com.chika.server.models.user.UserInfo;
 import com.chika.server.payload.responses.user.AdminInfoResponse;
+import com.chika.server.payload.responses.user.UserInfoResponse;
 import com.chika.server.repositories.account.UserRepository;
 import com.chika.server.repositories.user.AdminInfoRepository;
 import com.chika.server.repositories.user.UserInfoRepository;
@@ -94,6 +95,18 @@ public class UserServiceImpl implements UserService {
         adminInfo.setBirthday(birthday);
         adminInfo.setAddress(address);
         return new AdminInfoResponse(userRepository.save(user), adminInfoRepository.save(adminInfo));
+    }
+
+    @Override
+    public UserInfoResponse updateUserInfo(Long userId, String phone, String email, String birthday, String address) {
+        User user = getById(userId);
+        user.setPhone(phone);
+        user.setEmail(email);
+
+        UserInfo userInfo = getUserInfo(userId);
+        userInfo.setBirthday(birthday);
+        userInfo.setAddress(address);
+        return new UserInfoResponse(userRepository.save(user), userInfoRepository.save(userInfo));
     }
 
     @Override

@@ -88,6 +88,22 @@ public class UserController {
                 request.getBirthday(), request.getAddress()));
     }
 
+    @PutMapping("/user_info")
+    public ResponseEntity<?> updateUserInfo(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody ChangeInfoRequest request) {
+        String phone = request.getPhone();
+        String email = request.getEmail();
+        if(!currentUser.getPhone().equals(phone) && userService.isExistByPhone(phone)) {
+            return new ResponseEntity<>(new ApiResponse(false, "Phone number is already taken!"),
+                    HttpStatus.BAD_REQUEST);
+        }
+        if(!currentUser.getEmail().equals(email) && userService.isExistByEmail(email)) {
+            return new ResponseEntity<>(new ApiResponse(false, "Email address already in use!"),
+                    HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok(userService.updateUserInfo(currentUser.getId(), phone, email,
+                request.getBirthday(), request.getAddress()));
+    }
+
     @PutMapping("/password")
     public ResponseEntity<?> changePassword(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody PasswordRequest passwordRequest) {
         if (userService.changePassword(currentUser.getId(),

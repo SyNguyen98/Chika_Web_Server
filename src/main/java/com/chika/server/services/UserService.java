@@ -5,6 +5,7 @@ import com.chika.server.models.user.AdminInfo;
 import com.chika.server.models.account.User;
 import com.chika.server.models.user.UserInfo;
 import com.chika.server.payload.responses.user.AdminInfoResponse;
+import com.chika.server.payload.responses.user.UserInfoResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public interface UserService {
     UserInfo saveUserInfo(UserInfo userInfo);
 
     AdminInfoResponse updateAdminInfo(Long userId, String phone, String email, String birthday, String address);
+
+    UserInfoResponse updateUserInfo(Long userId, String phone, String email, String birthday, String address);
 
     Boolean changePassword(Long userId, String oldPassword, String newPassword);
 
