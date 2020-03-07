@@ -6,12 +6,13 @@ import com.chika.server.repositories.product.SensorRepository;
 import com.chika.server.services.product.SensorService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 26-02-2020
+ * @since 07-03-2020
  */
 @Service
 public class SensorServiceImpl implements SensorService {
@@ -23,8 +24,15 @@ public class SensorServiceImpl implements SensorService {
     }
 
     @Override
+    @Transactional
     public List<Sensor> getAll() {
         return sensorRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+    @Override
+    @Transactional
+    public List<Sensor> getAllByUserId(Long userId) {
+        return sensorRepository.findAllByUserId(userId);
     }
 
     @Override

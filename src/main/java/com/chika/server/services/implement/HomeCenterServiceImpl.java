@@ -9,6 +9,12 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * CRUD functions for Home Center
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 07-03-2020
+ */
 @Service
 public class HomeCenterServiceImpl implements HomeCenterService {
 
@@ -22,6 +28,12 @@ public class HomeCenterServiceImpl implements HomeCenterService {
     @Transactional
     public List<HomeCenter> getAll() {
         return homeCenterRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+    @Override
+    @Transactional
+    public List<HomeCenter> getAllByUserId(Long userId) {
+        return homeCenterRepository.findAllByUserId(userId);
     }
 
     @Override

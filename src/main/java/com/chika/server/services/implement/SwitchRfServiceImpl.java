@@ -6,13 +6,14 @@ import com.chika.server.repositories.product.SwitchRfRepository;
 import com.chika.server.services.product.SwitchRfService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  * CRUD function for Switch Rf
  * @author Sy Nguyen
  * @version 1.0
- * @since 24-02-2020
+ * @since 07-03-2020
  */
 @Service
 public class SwitchRfServiceImpl implements SwitchRfService {
@@ -24,8 +25,15 @@ public class SwitchRfServiceImpl implements SwitchRfService {
     }
 
     @Override
+    @Transactional
     public List<SwitchRf> getAll() {
         return switchRfRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+    @Override
+    @Transactional
+    public List<SwitchRf> getAllByUserId(Long userId) {
+        return switchRfRepository.findAllByUserId(userId);
     }
 
     @Override

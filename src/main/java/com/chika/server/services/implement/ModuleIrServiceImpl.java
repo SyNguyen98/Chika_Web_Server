@@ -10,10 +10,10 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * CRUD function for Module Ir
+ * CRUD functions for Module Ir
  * @author Sy Nguyen
  * @version 1.0
- * @since 19-02-2020
+ * @since 07-03-2020
  */
 @Service
 public class ModuleIrServiceImpl implements ModuleIrService {
@@ -28,6 +28,12 @@ public class ModuleIrServiceImpl implements ModuleIrService {
     @Transactional
     public List<ModuleIr> getAll() {
         return moduleIrRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+    @Override
+    @Transactional
+    public List<ModuleIr> getAllByUserId(Long userId) {
+        return moduleIrRepository.findAllByUserId(userId);
     }
 
     @Override

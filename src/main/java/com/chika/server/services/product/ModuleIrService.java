@@ -10,6 +10,8 @@ public interface ModuleIrService {
 
     List<ModuleIr> getAll();
 
+    List<ModuleIr> getAllByUserId(Long userId);
+
     ModuleIr getById(String id);
 
     ModuleIr save(ModuleIr moduleIr);

@@ -10,6 +10,8 @@ public interface SensorService {
 
     List<Sensor> getAll();
 
+    List<Sensor> getAllByUserId(Long userId);
+
     Sensor getById(String id);
 
     Sensor save(Sensor sensor);

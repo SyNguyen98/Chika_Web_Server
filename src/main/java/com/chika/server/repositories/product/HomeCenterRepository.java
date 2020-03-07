@@ -6,8 +6,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 07-03-2020
+ */
 @Repository
 public interface HomeCenterRepository extends JpaRepository<HomeCenter, String> {
 
     List<HomeCenter> findAllByOrderByCreatedAtDesc();
+
+    List<HomeCenter> findAllByUserId(Long userId);
 }

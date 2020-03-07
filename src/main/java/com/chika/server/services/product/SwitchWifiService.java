@@ -10,6 +10,8 @@ public interface SwitchWifiService {
 
     List<SwitchWifi> getAll();
 
+    List<SwitchWifi> getAllByUserId(Long userId);
+
     SwitchWifi getById(String id);
 
     SwitchWifi save(SwitchWifi switchWifi);

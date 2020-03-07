@@ -10,6 +10,8 @@ public interface HomeCenterService {
 
     List<HomeCenter> getAll();
 
+    List<HomeCenter> getAllByUserId(Long userId);
+
     HomeCenter getById(String id);
 
     HomeCenter save(HomeCenter homeCenter);

@@ -10,6 +10,8 @@ public interface SwitchRfService {
 
     List<SwitchRf> getAll();
 
+    List<SwitchRf> getAllByUserId(Long userId);
+
     SwitchRf getById(String id);
 
     SwitchRf save(SwitchRf switchRf);

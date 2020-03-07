@@ -9,10 +9,12 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 21-02-2020
+ * @since 07-03-2020
  */
 @Repository
 public interface SensorRepository extends JpaRepository<Sensor, String> {
 
     List<Sensor> findAllByOrderByCreatedAtDesc();
+
+    List<Sensor> findAllByUserId(Long userId);
 }

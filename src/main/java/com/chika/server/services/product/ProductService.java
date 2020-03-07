@@ -8,6 +8,8 @@ import java.util.List;
 @Service
 public interface ProductService {
 
+    List<Product> getAllByUserId(Long userId);
+
     String checkListProduct(List<Product> products);
 
     void updateProductWithUserId(Long userId, List<Product> products);

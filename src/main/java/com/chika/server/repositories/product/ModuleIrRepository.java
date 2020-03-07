@@ -9,10 +9,12 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 19-02-2020
+ * @since 07-03-2020
  */
 @Repository
 public interface ModuleIrRepository extends JpaRepository<ModuleIr, String> {
 
     List<ModuleIr> findAllByOrderByCreatedAtDesc();
+
+    List<ModuleIr> findAllByUserId(Long userId);
 }
