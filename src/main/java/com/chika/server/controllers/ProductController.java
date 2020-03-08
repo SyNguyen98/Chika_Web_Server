@@ -10,6 +10,7 @@ import com.chika.server.services.UserService;
 import com.chika.server.services.product.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,7 +20,7 @@ import java.util.List;
  * To receive Product requests from the client
  * @author Sy Nguyen
  * @version 1.0
- * @since 07-03-2020
+ * @since 08-03-2020
  */
 @RestController
 @RequestMapping("/product")
@@ -31,6 +32,12 @@ public class ProductController {
     public ProductController(ProductService productService, UserService userService) {
         this.productService = productService;
         this.userService = userService;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/user/{userId}")
+    public List<Product> getAllProductByUserIdForAdmin(@PathVariable Long userId) {
+        return productService.getAllByUserId(userId);
     }
 
     @GetMapping

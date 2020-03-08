@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class UserInfoResponse {
 
+    private Long id;
     private String createAt;
     private String avatar;
     private String name;
@@ -19,6 +20,7 @@ public class UserInfoResponse {
     private String role;
 
     public UserInfoResponse(User user, UserInfo userInfo) {
+        this.id = user.getId();
         this.createAt = Formatter.formatTimeDay(user.getCreatedAt());
         this.avatar = userInfo.getAvatar();
         this.name = user.getName();
