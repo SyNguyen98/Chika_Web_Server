@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
 /**
  * Connect to table Room in database
  * @author Sy Nguyen
- * @version 1.2
- * @since 20-12-2019
+ * @version 1.0
+ * @since 09-03-2020
  */
 @Entity
 @Data
@@ -24,7 +24,8 @@ public class Room {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    private Long logo;
+    @NotBlank
+    private String logo;
 
     @NotBlank
     private String name;
@@ -32,7 +33,7 @@ public class Room {
     @NotNull
     private Long userId;
 
-    public Room(Long logo, String name, Long userId) {
+    public Room(String logo, String name, Long userId) {
         this.logo = logo;
         this.name = name;
         this.userId = userId;
