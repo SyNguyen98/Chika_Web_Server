@@ -2,6 +2,7 @@ package com.chika.server.controllers;
 
 import com.chika.server.models.house.Room;
 import com.chika.server.payload.responses.ApiResponse;
+import com.chika.server.payload.responses.house.RoomResponse;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.RoomService;
@@ -10,12 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * To receive Switch requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 05-01-2020
+ * @since 17-03-2020
  */
 @RestController
 @RequestMapping("/room")
@@ -28,13 +30,16 @@ public class RoomController {
     }
 
     @GetMapping
-    public List<Room> getAllByUserId(@CurrentUser UserPrincipal currentUser) {
-        return roomService.getAllByUserId(currentUser.getId());
+    public List<RoomResponse> getAllByUserId(@CurrentUser UserPrincipal currentUser) {
+        return roomService.getAllByUserId(currentUser.getId())
+                .stream()
+                .map(RoomResponse::new)
+                .collect(Collectors.toList());
     }
 
     @PostMapping
-    public Room save(@CurrentUser UserPrincipal currentUser, @RequestBody Room room) {
-        return roomService.save(new Room(room.getLogo(), room.getName(), currentUser.getId()));
+    public RoomResponse save(@CurrentUser UserPrincipal currentUser, @RequestBody Room room) {
+        return new RoomResponse(roomService.save(new Room(room.getLogo(), room.getName(), currentUser.getId())));
     }
 
     @PutMapping
