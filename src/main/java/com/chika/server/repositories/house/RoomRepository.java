@@ -9,10 +9,10 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-07-2019
+ * @since 17-03-2019
  */
 @Repository
 public interface RoomRepository extends JpaRepository<Room, String> {
 
-    List<Room> findAllByUserId(Long userId);
+    List<Room> findAllByUserIdOrderByCreatedAt(Long userId);
 }

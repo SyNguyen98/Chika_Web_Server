@@ -14,7 +14,7 @@ import java.util.List;
  * CRUD functions for Room
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-12-2019
+ * @since 17-03-2019
  */
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -28,7 +28,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     @Transactional
     public List<Room> getAllByUserId(Long userId) {
-        return roomRepository.findAllByUserId(userId);
+        return roomRepository.findAllByUserIdOrderByCreatedAt(userId);
     }
 
     @Override
