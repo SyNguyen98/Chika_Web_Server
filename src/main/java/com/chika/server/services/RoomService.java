@@ -14,7 +14,7 @@ public interface RoomService {
 
     Room save(Room room);
 
-    Room updateName(String id, String name);
+    Room updateRoom(String id, String logo, String name);
 
     void delete(String id);
 

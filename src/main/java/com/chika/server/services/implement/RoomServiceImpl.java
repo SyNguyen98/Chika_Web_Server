@@ -43,8 +43,9 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room updateName(String id, String name) {
+    public Room updateRoom(String id, String logo, String name) {
         Room room = getById(id);
+        room.setLogo(logo);
         room.setName(name);
         return roomRepository.save(room);
     }

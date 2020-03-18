@@ -43,9 +43,9 @@ public class RoomController {
     }
 
     @PutMapping
-    public ResponseEntity<?> updateName(@CurrentUser UserPrincipal currentUser, @RequestBody Room room) {
+    public ResponseEntity<?> updateRoom(@CurrentUser UserPrincipal currentUser, @RequestBody Room room) {
         if (roomService.isOwner(room.getId(), currentUser.getId())) {
-            return ResponseEntity.ok(roomService.updateName(room.getId(), room.getName()));
+            return ResponseEntity.ok(roomService.updateRoom(room.getId(), room.getLogo(), room.getName()));
         }
         return new ResponseEntity<>(new ApiResponse(false, "You are not room owner"),
                 HttpStatus.BAD_REQUEST);
