@@ -12,12 +12,12 @@ public class RoomResponse {
     private String id;
     private String logo;
     private String name;
-    private String createDay;
+    private String createAt;
 
     public RoomResponse(Room room) {
         this.id = room.getId();
         this.logo = room.getLogo();
         this.name = room.getName();
-        this.createDay = Formatter.formatTimeDay(room.getCreatedAt());
+        this.createAt = Formatter.formatDay(room.getCreatedAt());
     }
 }

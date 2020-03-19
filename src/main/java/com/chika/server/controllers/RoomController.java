@@ -39,7 +39,8 @@ public class RoomController {
 
     @PostMapping
     public RoomResponse save(@CurrentUser UserPrincipal currentUser, @RequestBody Room room) {
-        return new RoomResponse(roomService.save(new Room(room.getLogo(), room.getName(), currentUser.getId())));
+        room.setUserId(currentUser.getId());
+        return new RoomResponse(roomService.save(room));
     }
 
     @PutMapping

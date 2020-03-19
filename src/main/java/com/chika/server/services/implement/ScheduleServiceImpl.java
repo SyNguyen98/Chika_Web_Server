@@ -41,7 +41,7 @@ public class ScheduleServiceImpl implements ScheduleService, Runnable {
 
     @Override
     public void run() {
-        logger.info("Schedule " + script.getName() + " is running at " + Formatter.formatTimeFull(System.currentTimeMillis()));
+        logger.info("Schedule " + script.getName() + " is running at " + Formatter.formatTime(System.currentTimeMillis()));
         script.getDevices().forEach(scriptDevice -> mqttService.publish(scriptDevice.getDeviceId(), scriptDevice.getValue()));
     }
 }

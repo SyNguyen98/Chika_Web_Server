@@ -21,7 +21,7 @@ public class UserInfoResponse {
 
     public UserInfoResponse(User user, UserInfo userInfo) {
         this.id = user.getId();
-        this.createAt = Formatter.formatTimeDay(user.getCreatedAt());
+        this.createAt = Formatter.formatDay(user.getCreatedAt());
         this.avatar = userInfo.getAvatar();
         this.name = user.getName();
         this.phone = user.getPhone();

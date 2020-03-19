@@ -20,7 +20,7 @@ public class SwitchRfResponseForAdmin {
 
     public SwitchRfResponseForAdmin(SwitchRf switchRf) {
         this.id = switchRf.getId();
-        this.day = Formatter.formatTimeDay(switchRf.getCreatedAt());
+        this.day = Formatter.formatDay(switchRf.getCreatedAt());
         this.type = switchRf.getType();
         this.channel = switchRf.getChannel();
         this.userId = switchRf.getUserId();
@@ -31,7 +31,7 @@ public class SwitchRfResponseForAdmin {
 
     public SwitchRfResponseForAdmin(SwitchRf switchRf, List<ButtonRf> buttonRfs) {
         this.id = switchRf.getId();
-        this.day = Formatter.formatTimeDay(switchRf.getCreatedAt());
+        this.day = Formatter.formatDay(switchRf.getCreatedAt());
         this.type = switchRf.getType();
         this.channel = switchRf.getChannel();
         this.userId = switchRf.getUserId();

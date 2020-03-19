@@ -13,7 +13,7 @@ public class ModuleIrResponseForAdmin {
 
     public ModuleIrResponseForAdmin(ModuleIr moduleIr) {
         this.id = moduleIr.getId();
-        this.day = Formatter.formatTimeDay(moduleIr.getCreatedAt());
+        this.day = Formatter.formatDay(moduleIr.getCreatedAt());
         this.userId = moduleIr.getUserId();
     }
 }

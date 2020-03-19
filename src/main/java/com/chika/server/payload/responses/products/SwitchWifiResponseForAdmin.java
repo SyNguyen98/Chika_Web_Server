@@ -21,7 +21,7 @@ public class SwitchWifiResponseForAdmin {
 
     public SwitchWifiResponseForAdmin(SwitchWifi switchWifi) {
         this.id = switchWifi.getId();
-        this.day = Formatter.formatTimeDay(switchWifi.getCreatedAt());
+        this.day = Formatter.formatDay(switchWifi.getCreatedAt());
         this.type = switchWifi.getType();
         this.userId = switchWifi.getUserId();
         this.buttonId = switchWifi.getButtonWifis().stream()
@@ -31,7 +31,7 @@ public class SwitchWifiResponseForAdmin {
 
     public SwitchWifiResponseForAdmin(SwitchWifi switchWifi, List<ButtonWifi> buttonWifis) {
         this.id = switchWifi.getId();
-        this.day = Formatter.formatTimeDay(switchWifi.getCreatedAt());
+        this.day = Formatter.formatDay(switchWifi.getCreatedAt());
         this.type = switchWifi.getType();
         this.userId = switchWifi.getUserId();
         this.buttonId = buttonWifis.stream()

@@ -13,7 +13,7 @@ public class HomeCenterResponseForAdmin {
 
     public HomeCenterResponseForAdmin(HomeCenter homeCenter) {
         this.id = homeCenter.getId();
-        this.day = Formatter.formatTimeDay(homeCenter.getCreatedAt());
+        this.day = Formatter.formatDay(homeCenter.getCreatedAt());
         this.userId = homeCenter.getUserId();
     }
 }
