@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * To receive Switch requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 17-03-2020
+ * @since 19-03-2020
  */
 @RestController
 @RequestMapping("/room")
