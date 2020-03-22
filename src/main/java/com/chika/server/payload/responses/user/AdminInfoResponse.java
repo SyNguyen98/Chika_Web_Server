@@ -2,6 +2,7 @@ package com.chika.server.payload.responses.user;
 
 import com.chika.server.models.user.AdminInfo;
 import com.chika.server.models.account.User;
+import com.chika.server.services.RoleService;
 import lombok.Data;
 
 @Data
@@ -16,6 +17,7 @@ public class AdminInfoResponse {
     private String employeeId;
     private String function;
     private String department;
+    private String role;
 
     public AdminInfoResponse(User user, AdminInfo adminInfo) {
         this.avatar = adminInfo.getAvatar();
@@ -27,5 +29,7 @@ public class AdminInfoResponse {
         this.employeeId = adminInfo.getEmployeeId();
         this.function = adminInfo.getFunction();
         this.department = adminInfo.getDepartment();
+        this.role = RoleService.getHighestRole(user.getRoles())
+                .toString().replace("ROLE_", "");
     }
 }
