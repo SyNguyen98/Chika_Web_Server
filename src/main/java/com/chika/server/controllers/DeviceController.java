@@ -43,8 +43,12 @@ public class DeviceController {
     }
 
     @PostMapping
-    public DeviceResponse save(@RequestBody Device device) {
-        return new DeviceResponse(deviceService.save(device));
+    public ResponseEntity<?> save(@CurrentUser UserPrincipal currentUser, @RequestBody Device device) {
+        if (roomService.isOwner(device.getRoomId(), currentUser.getId())) {
+            return ResponseEntity.ok(new DeviceResponse(deviceService.save(device)));
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "You are not room's owner"),
+                HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping
@@ -58,7 +62,7 @@ public class DeviceController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> update(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
+    public ResponseEntity<?> delete(@CurrentUser UserPrincipal currentUser, @PathVariable String id) {
         if (deviceService.isOwner(id, currentUser.getId())) {
             deviceService.deleteById(id);
             return ResponseEntity.ok(new ApiResponse(true, "Device has been deleted"));

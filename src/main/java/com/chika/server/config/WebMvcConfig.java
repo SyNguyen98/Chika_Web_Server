@@ -1,16 +1,13 @@
 package com.chika.server.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 /**
  * To allow cross origin requests from the react client
  * @author Sy Nguyen
  * @version 1.0
- * @since 16-08-2019
+ * @since 22-03-2020
  */
 @Configuration
 @EnableWebMvc
@@ -38,5 +35,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "classpath:/static/img/",
                         "classpath:/static/css/",
                         "classpath:/static/js/");
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("").setViewName("api-reference");
     }
 }

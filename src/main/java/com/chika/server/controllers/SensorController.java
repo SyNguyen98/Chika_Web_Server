@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * To receive Sensor requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-02-2020
+ * @since 22-03-2020
  */
 @RestController
 @RequestMapping("/sensor")
@@ -42,8 +42,8 @@ public class SensorController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
-    public SensorResponseForAdmin save(@RequestParam("name") String name) {
-        return new SensorResponseForAdmin(sensorService.save(new Sensor(name)));
+    public SensorResponseForAdmin save(@RequestBody Sensor sensor) {
+        return new SensorResponseForAdmin(sensorService.save(sensor));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

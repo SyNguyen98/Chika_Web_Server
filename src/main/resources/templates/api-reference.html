@@ -82,17 +82,6 @@
           <a href="#delete_sensor">DELETE /sensor/{sensor-id}</a>
       </div>
 
-      <p class="dropdown">Button</p>
-      <div class="dropdown-container">
-          <a href="#get_devices_switch">GET /buttonWifi/switch/{switch-id}</a>
-          <a href="#get_devices_room">GET /buttonWifi/room/{room-id}</a>
-          <a href="#get_device">GET /buttonWifi/{buttonWifi-id}</a>
-          <a href="#put_device_info">PUT /buttonWifi/info</a>
-          <a href="#put_device_state">PUT /buttonWifi/state</a>
-          <a href="#get_device_histories">GET /buttonWifi/{buttonWifi-id}/history</a>
-          <a href="#delete_device_histories">DELETE /buttonWifi/{buttonWifi-id}/history</a>
-      </div>
-
       <p class="dropdown">Room</p>
       <div class="dropdown-container">
           <a href="#get_rooms">GET /room</a>
@@ -101,30 +90,13 @@
           <a href="#delete_room">DELETE /room/{room-id}</a>
       </div>
 
-      <p class="dropdown">Remote IR</p>
+      <p class="dropdown">Device</p>
       <div class="dropdown-container">
-          <a href="#get_remotes_room">GET /remote_ir/room/{room-id}</a>
-          <a href="#post_remote">POST /remote_ir/num_of_button/{number-of-button}</a>
-          <a href="#put_remote">PUT /remote_ir</a>
-          <a href="#delete_remote">DELETE /remote_ir/{remote-id}</a>
-      </div>
-
-      <p class="dropdown">IR Value</p>
-      <div class="dropdown-container">
-          <a href="#get_irs">GET /ir/remote/{remote-id}</a>
-          <a href="#put_ir">PUT /ir</a>
-      </div>
-
-      <p class="dropdown">Image</p>
-      <div class="dropdown-container">
-          <a href="#get_image">GET /image/{image-id}</a>
-          <a href="#upload_image">POST /image</a>
-      </div>
-
-      <p class="dropdown">Audio</p>
-      <div class="dropdown-container">
-          <a href="#get_audio">GET /audio/{audio-id}</a>
-          <a href="#upload_audio">POST /audio</a>
+          <a href="#get_devices_room">GET /device/room_id/{room-id}</a>
+          <a href="#get_device">GET /device/{device-id}</a>
+          <a href="#post_device">POST /device</a>
+          <a href="#put_device">PUT /device</a>
+          <a href="#delete_device">DELETE /device/{device-id}</a>
       </div>
   </div>
 
@@ -1094,15 +1066,22 @@
 
       <div id="post_sensor" class="content">
           <h2>Save a sensor</h2>
-          <p class="link">POST &emsp; http://chika-server.herokuapp.com/sensor?name={name}</p>
+          <p class="link">POST &emsp; http://chika-server.herokuapp.com/sensor</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/sensor?name=Cảm+biến+cửa</p>
+          <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/sensor</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="body">Body:</p>
+          <div class="json">{
+              <br/>&emsp;"name": "Cảm biến không khí",
+              <br/>&emsp;"rfChannel": "1002502019006"
+              <br/>}
+          </div>
           <p class="example">&bull; Example response:</p>
           <div class="json">{
               <br/>&emsp;"day": "08/01/2020",
               <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
-              <br/>&emsp;"name": "Cảm biến cửa",
+              <br/>&emsp;"name": "Cảm biến không khí",
+              <br/>&emsp;"rfChannel": "1002502019006"
               <br/>&emsp;"userId": null
               <br/>}
           </div>
@@ -1114,6 +1093,7 @@
           <p class="link">PUT &emsp; http://chika-server.herokuapp.com/sensor/name</p>
           <p class="example">&bull; Example request:</p>
           <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/sensor/name</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="body">Body:</p>
           <div class="json">{
               <br/>&emsp;"id": "661e998a-3516-47c7-b961-ab0e5a33313b",
@@ -1166,6 +1146,7 @@
           <br/>
       </div>
 
+      <!-- Room -->
       <div id="get_rooms" class="content">
           <h2>Get all rooms by user's id</h2>
           <p class="link">GET &emsp; http://chika-server.herokuapp.com/room</p>
@@ -1252,52 +1233,27 @@
           <br/>
       </div>
 
-      <div id="get_devices_switch" class="content">
-          <h2>Get all buttonWifis by switch's id</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/buttonWifi/switch/{switch-id}</p>
-          <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/buttonWifi/switch/b36e333e-3800-4450-84cd-6f90e7e0f721</p>
-          <p class="header">Header: "Authorization": "Bearer {token}"</p>
-          <p class="example">&bull; Example response:</p>
-          <div class="json">[
-              <br/>&emsp;{
-              <br/>&emsp;&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
-              <br/>&emsp;&emsp;"name": "",
-              <br/>&emsp;&emsp;"state": 0,
-              <br/>&emsp;&emsp;"roomId": "",
-              <br/>&emsp;&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
-              <br/>&emsp;},<br/>&emsp;{
-              <br/>&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
-              <br/>&emsp;&emsp;"name": "",
-              <br/>&emsp;&emsp;"state": 0,
-              <br/>&emsp;&emsp;"roomId": "",
-              <br/>&emsp;&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
-              <br/>&emsp;}
-              <br/>]
-          </div>
-          <br/>
-      </div>
-
+      <!-- Device -->
       <div id="get_devices_room" class="content">
-          <h2>Get all buttonWifis by room's id</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/buttonWifi/room/{room-id}</p>
+          <h2>Get all devices by room's id</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/device/room_id/{room-id}</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/buttonWifi/room/54174664-d42b-4013-aa9f-125e90ae06a5</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/device/room_id/b36e333e-3800-4450-84cd-6f90e7e0f721</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="example">&bull; Example response:</p>
           <div class="json">[
               <br/>&emsp;{
               <br/>&emsp;&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
-              <br/>&emsp;&emsp;"name": "Light",
-              <br/>&emsp;&emsp;"state": 0,
-              <br/>&emsp;&emsp;"roomId": "54174664-d42b-4013-aa9f-125e90ae06a5",
-              <br/>&emsp;&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;&emsp;"name": "Đèn chùm",
+              <br/>&emsp;&emsp;"logo": "light 1",
+              <br/>&emsp;&emsp;"roomId": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+              <br/>&emsp;&emsp;"buttonId": "5f129896-8362-4728-980e-af1c9dcc9a87"
               <br/>&emsp;},<br/>&emsp;{
               <br/>&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
-              <br/>&emsp;&emsp;"name": "Fan",
-              <br/>&emsp;&emsp;"state": 0,
-              <br/>&emsp;&emsp;"roomId": "54174664-d42b-4013-aa9f-125e90ae06a5",
-              <br/>&emsp;&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;&emsp;"name": "Đèn trần",
+              <br/>&emsp;&emsp;"logo": "light 2",
+              <br/>&emsp;&emsp;"roomId": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+              <br/>&emsp;&emsp;"buttonId": "ef336285-efab-4856-b2c5-278e07ea62c0"
               <br/>&emsp;}
               <br/>]
           </div>
@@ -1305,272 +1261,83 @@
       </div>
 
       <div id="get_device" class="content">
-          <h2>Get module IR by id</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/buttonWifi/{buttonWifi-id}</p>
+          <h2>Get device by id</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/device/{device-id}</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/buttonWifi/0c38a97d-1564-4707-935c-18b4e9bcb0db</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/device/0c38a97d-1564-4707-935c-18b4e9bcb0db</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="example">&bull; Example response:</p>
           <div class="json">{
               <br/>&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
-              <br/>&emsp;"name": "Light",
-              <br/>&emsp;"state": 0,
-              <br/>&emsp;"roomId": "54174664-d42b-4013-aa9f-125e90ae06a5",
-              <br/>&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;"name": "Đèn chùm",
+              <br/>&emsp;&emsp;"logo": "light 1",
+              <br/>&emsp;"roomId": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+              <br/>&emsp;"buttonId": "5f129896-8362-4728-980e-af1c9dcc9a87"
               <br/>}
           </div>
           <br/>
       </div>
 
-      <div id="put_device_info" class="content">
-          <h2>Update buttonWifi's information by id</h2>
-          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/buttonWifi/info</p>
+      <div id="post_device" class="content">
+          <h2>Save device</h2>
+          <p class="link">POST &emsp; http://chika-server.herokuapp.com/device</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/buttonWifi/info</p>
-          <p class="body">Body:</p>
-          <div class="json">{
-              <br/>&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
-              <br/>&emsp;"name": "Light",
-              <br/>&emsp;"roomId": "54174664-d42b-4013-aa9f-125e90ae06a5"
-              <br/>}
-          </div>
-          <p class="example">&bull; Example response:</p>
-          <div class="json">{
-              <br/>&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
-              <br/>&emsp;"name": "Light",
-              <br/>&emsp;"state": 0,
-              <br/>&emsp;"roomId": "54174664-d42b-4013-aa9f-125e90ae06a5",
-              <br/>&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
-              <br/>}
-          </div>
-          <br/>
-      </div>
-
-      <div id="put_device_state" class="content">
-          <h2>Update buttonWifi's state by id</h2>
-          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/buttonWifi/state</p>
-          <p class="example">&bull; Example request:</p>
-          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/buttonWifi/state</p>
-          <p class="body">Body:</p>
-          <div class="json">{
-              <br/>&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
-              <br/>&emsp;"state": 1,
-              <br/>}
-          </div>
-          <p class="example">&bull; Example response:</p>
-          <div class="json">{
-              <br/>&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
-              <br/>&emsp;"name": "Light",
-              <br/>&emsp;"state": 1,
-              <br/>&emsp;"roomId": "54174664-d42b-4013-aa9f-125e90ae06a5",
-              <br/>&emsp;"switchId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
-              <br/>}
-          </div>
-          <br/>
-      </div>
-
-      <div id="get_device_histories" class="content">
-          <h2>Get all buttonWifi histories by buttonWifi's id</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/buttonWifi/{buttonWifi-id}/history?page={page}&size={size}</p>
-          <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/buttonWifi/0c38a97d-1564-4707-935c-18b4e9bcb0db/history?page=0&size=3</p>
+          <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/device</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="body">Body:
+          <div class="json">{
+              <br/>&emsp;"name": "Đèn chùm",
+              <br/>&emsp;"logo": "light 1",
+              <br/>&emsp;"roomId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;"buttonId": "5f129896-8362-4728-980e-af1c9dcc9a87"
+              <br/>}
+          </div>
           <p class="example">&bull; Example response:</p>
-          <div class="json">[
-              <br/>&emsp;{
-              <br/>&emsp;&emsp;"state": 1,
-              <br/>&emsp;&emsp;"time": "01:03 12/01/2020"
-              <br/>&emsp;},<br/>&emsp;{
-              <br/>&emsp;&emsp;"state": 0,
-              <br/>&emsp;&emsp;"time": "01:00 12/01/2020"
-              <br/>&emsp;},<br/>&emsp;{
-              <br/>&emsp;&emsp;"state": 1,
-              <br/>&emsp;&emsp;"time": "00:55 12/01/2020"
-              <br/>&emsp;}
-              <br/>]
+          <div class="json">{
+              <br/>&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
+              <br/>&emsp;"name": "Đèn chùm",
+              <br/>&emsp;"logo": "light 1",
+              <br/>&emsp;"roomId": "b36e333e-3800-4450-84cd-6f90e7e0f721"
+              <br/>&emsp;"buttonId": "5f129896-8362-4728-980e-af1c9dcc9a87"
+              <br/>}
           </div>
           <br/>
       </div>
 
-      <div id="delete_device_histories" class="content">
-          <h2>Delete all buttonWifi histories by buttonWifi's id</h2>
-          <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/buttonWifi/{buttonWifi-id}/history</p>
+      <div id="put_device" class="content">
+          <h2>Update device information by id</h2>
+          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/device</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/buttonWifi/0c38a97d-1564-4707-935c-18b4e9bcb0db/history</p>
+          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/device</p>
+          <p class="body">Body:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
+              <br/>&emsp;"name": "Đèn phòng khác",
+              <br/>&emsp;"logo": "light 1"
+              <br/>}
+          </div>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">{
+              <br/>&emsp;"id": "0c38a97d-1564-4707-935c-18b4e9bcb0db",
+              <br/>&emsp;"name": "Đèn phòng khách",
+              <br/>&emsp;"logo": "light 1",
+              <br/>&emsp;"roomId": "b36e333e-3800-4450-84cd-6f90e7e0f721",
+              <br/>&emsp;"buttonId": "5f129896-8362-4728-980e-af1c9dcc9a87"
+              <br/>}
+          </div>
+          <br/>
+      </div>
+
+      <div id="delete_device" class="content">
+          <h2>Delete device by id</h2>
+          <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/device/{device-id}</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/device/0c38a97d-1564-4707-935c-18b4e9bcb0db</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
           <p class="example">&bull; Example response:</p>
           <div class="json">{
               <br/>&emsp;"success: true,
-              <br/>&emsp;"message": "All buttonWifi's histories have been deleted"
-              <br/>}
-          </div>
-          <br/>
-      </div>
-
-      <div id="get_remotes_room" class="content">
-          <h2>Get all remote IR by room's id</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/remote_ir/room/{room-id}</p>
-          <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/remote_ir/room/c869914a-c338-4e8a-b6ec-81aaadafca52</p>
-          <p class="header">Header: "Authorization": "Bearer {token}"</p>
-          <p class="example">&bull; Example response:</p>
-          <div class="json">[
-              <br/>&emsp;{
-              <br/>&emsp;&emsp;"id": "5f013f6a-f57b-4819-b681-664181eabf85",
-              <br/>&emsp;&emsp;"name": "Remote Tivi",
-              <br/>&emsp;&emsp;"moduleId": "335833a5-9cc8-4eb7-b6dd-468ff54d3129",
-              <br/>&emsp;&emsp;"roomId": "c869914a-c338-4e8a-b6ec-81aaadafca52",
-              <br/>&emsp;&emsp;"irValues": [
-              <br/>&emsp;&emsp;&emsp;{
-              <br/>&emsp;&emsp;&emsp;&emsp;"id": "1c55f9b7-c755-4013-87bd-8d1ebd87bbcd",
-              <br/>&emsp;&emsp;&emsp;&emsp;"name": "On",
-              <br/>&emsp;&emsp;&emsp;&emsp;"value": "576317",
-              <br/>&emsp;&emsp;&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
-              <br/>&emsp;&emsp;&emsp;},<br/>&emsp;&emsp;&emsp;{
-              <br/>&emsp;&emsp;&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
-              <br/>&emsp;&emsp;&emsp;&emsp;"name": "Off",
-              <br/>&emsp;&emsp;&emsp;&emsp;"value": "176943",
-              <br/>&emsp;&emsp;&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
-              <br/>&emsp;&emsp;&emsp;}
-              <br/>&emsp;&emsp;]
-              <br/>&emsp;}<br/>]
-          </div>
-          <br/>
-      </div>
-
-      <div id="post_remote" class="content">
-          <h2>Save a remote IR</h2>
-          <p class="link">POST &emsp; http://chika-server.herokuapp.com/remote_ir</p>
-          <p class="example">&bull; Example request:</p>
-          <p class="link-example">POST&emsp;http://chika-server.herokuapp.com/remote_ir</p>
-          <p class="header">Header: "Authorization": "Bearer {token}"</p>
-          <p class="body">Body:
-          <div class="json">{
-              <br/>&emsp;"name": "Remote Tivi",
-              <br/>&emsp;"numOfButton": 2,
-              <br/>&emsp;"moduleId": "335833a5-9cc8-4eb7-b6dd-468ff54d3129",
-              <br/>&emsp;"roomId": "c869914a-c338-4e8a-b6ec-81aaadafca52"
-              <br/>}
-          </div>
-          <p class="example">&bull; Example response:</p>
-          <div class="json">[
-              <br/>&emsp;{
-              <br/>&emsp;&emsp;"id": "5f013f6a-f57b-4819-b681-664181eabf85",
-              <br/>&emsp;&emsp;"name": "Remote Tivi",
-              <br/>&emsp;&emsp;"moduleId": "335833a5-9cc8-4eb7-b6dd-468ff54d3129",
-              <br/>&emsp;&emsp;"roomId": "c869914a-c338-4e8a-b6ec-81aaadafca52",
-              <br/>&emsp;&emsp;"irValues": [
-              <br/>&emsp;&emsp;&emsp;{
-              <br/>&emsp;&emsp;&emsp;&emsp;"id": "1c55f9b7-c755-4013-87bd-8d1ebd87bbcd",
-              <br/>&emsp;&emsp;&emsp;&emsp;"name": "0",
-              <br/>&emsp;&emsp;&emsp;&emsp;"value": "",
-              <br/>&emsp;&emsp;&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
-              <br/>&emsp;&emsp;&emsp;},<br/>&emsp;&emsp;&emsp;{
-              <br/>&emsp;&emsp;&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
-              <br/>&emsp;&emsp;&emsp;&emsp;"name": "1",
-              <br/>&emsp;&emsp;&emsp;&emsp;"value": "",
-              <br/>&emsp;&emsp;&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
-              <br/>&emsp;&emsp;&emsp;}
-              <br/>&emsp;&emsp;]
-              <br/>&emsp;}<br/>]
-          </div>
-          <br/>
-      </div>
-
-      <div id="put_remote" class="content">
-          <h2>Update remote IR's name</h2>
-          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/remote_ir</p>
-          <p class="example">&bull; Example request:</p>
-          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/remote_ir</p>
-          <p class="header">Header: "Authorization": "Bearer {token}"</p>
-          <p class="body">Body:
-          <div class="json">{
-              <br/>&emsp;"id": "5f013f6a-f57b-4819-b681-664181eabf85",
-              <br/>&emsp;"name": "Remote Air Conditioner"
-              <br/>}
-          </div>
-          <p class="example">&bull; Example response:</p>
-          <div class="json">[
-              <br/>&emsp;{
-              <br/>&emsp;&emsp;"id": "5f013f6a-f57b-4819-b681-664181eabf85",
-              <br/>&emsp;&emsp;"name": "Remote Air Conditioner",
-              <br/>&emsp;&emsp;"moduleId": "335833a5-9cc8-4eb7-b6dd-468ff54d3129",
-              <br/>&emsp;&emsp;"roomId": "c869914a-c338-4e8a-b6ec-81aaadafca52",
-              <br/>&emsp;&emsp;"irValues": [
-              <br/>&emsp;&emsp;&emsp;{
-              <br/>&emsp;&emsp;&emsp;&emsp;"id": "1c55f9b7-c755-4013-87bd-8d1ebd87bbcd",
-              <br/>&emsp;&emsp;&emsp;&emsp;"name": "0",
-              <br/>&emsp;&emsp;&emsp;&emsp;"value": "",
-              <br/>&emsp;&emsp;&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
-              <br/>&emsp;&emsp;&emsp;},<br/>&emsp;&emsp;&emsp;{
-              <br/>&emsp;&emsp;&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
-              <br/>&emsp;&emsp;&emsp;&emsp;"name": "1",
-              <br/>&emsp;&emsp;&emsp;&emsp;"value": "",
-              <br/>&emsp;&emsp;&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
-              <br/>&emsp;&emsp;&emsp;}
-              <br/>&emsp;&emsp;]
-              <br/>&emsp;}<br/>]
-          </div>
-          <br/>
-      </div>
-
-      <div id="delete_remote" class="content">
-          <h2>Delete remote by id</h2>
-          <p class="link">DELETE &emsp; http://chika-server.herokuapp.com/remote_ir/{remote-id}</p>
-          <p class="example">&bull; Example request:</p>
-          <p class="link-example">DELETE&emsp;http://chika-server.herokuapp.com/remote_ir/5f013f6a-f57b-4819-b681-664181eabf85</p>
-          <p class="header">Header: "Authorization": "Bearer {token}"</p>
-          <p class="example">&bull; Example response:</p>
-          <div class="json">{
-              <br/>&emsp;"success: true,
-              <br/>&emsp;"message": "Remote has been deleted"
-              <br/>}
-          </div>
-          <br/>
-      </div>
-
-      <div id="get_irs" class="content">
-          <h2>Get all ir values by remote's id</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/ir_value/remote/{remote-id}</p>
-          <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/ir_value/remote/5f013f6a-f57b-4819-b681-664181eabf85</p>
-          <p class="header">Header: "Authorization": "Bearer {token}"</p>
-          <p class="example">&bull; Example response:</p>
-          <div class="json">[
-              <br/>&emsp;{
-              <br/>&emsp;&emsp;"id": "1c55f9b7-c755-4013-87bd-8d1ebd87bbcd",
-              <br/>&emsp;&emsp;"name": "On",
-              <br/>&emsp;&emsp;"value": "576317",
-              <br/>&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
-              <br/>&emsp;},<br/>&emsp;{
-              <br/>&emsp;&emsp;"id": "7f704fdf-fa4b-44e2-b359-5ef19294196a",
-              <br/>&emsp;&emsp;"name": "Off",
-              <br/>&emsp;&emsp;"value": "176943",
-              <br/>&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
-              <br/>&emsp;}
-              <br/>]
-          </div>
-          <br/>
-      </div>
-
-      <div id="put_ir" class="content">
-          <h2>Update ir value</h2>
-          <p class="link">PUT &emsp; http://chika-server.herokuapp.com/ir_value</p>
-          <p class="example">&bull; Example request:</p>
-          <p class="link-example">PUT&emsp;http://chika-server.herokuapp.com/ir_value</p>
-          <p class="header">Header: "Authorization": "Bearer {token}"</p>
-          <p class="body">Body:
-          <div class="json">{
-              <br/>&emsp;"id": "1c55f9b7-c755-4013-87bd-8d1ebd87bbcd" ,
-              <br/>&emsp;"value": "123456"
-              <br/>}
-          </div>
-          <p class="example">&bull; Example response:</p>
-          <div class="json">{
-              <br/>&emsp;&emsp;"id": "1c55f9b7-c755-4013-87bd-8d1ebd87bbcd",
-              <br/>&emsp;&emsp;"name": "On",
-              <br/>&emsp;&emsp;"value": "123456",
-              <br/>&emsp;&emsp;"remoteId": "5f013f6a-f57b-4819-b681-664181eabf85"
+              <br/>&emsp;"message": "Device has been deleted"
               <br/>}
           </div>
           <br/>
