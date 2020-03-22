@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * To receive User requests from the client
  * @author Sy Nguyen
  * @version 1.0
- * @since 29-02-2020
+ * @since 22-03-2020
  */
 @RestController
 @RequestMapping("/user")
@@ -49,17 +49,21 @@ public class UserController {
         return new UserResponse(userService.getByPhone(phone));
     }
 
-    @GetMapping("/admin")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public AdminInfoResponse getAdminInfoById(@CurrentUser UserPrincipal currentUser) {
-        return new AdminInfoResponse(userService.getById(currentUser.getId()),
-                userService.getAdminInfo(currentUser.getId()));
-    }
-
-    @GetMapping("/user")
-    public UserInfoResponse getUserInfoById(@CurrentUser UserPrincipal currentUser) {
-        return new UserInfoResponse(userService.getById(currentUser.getId()),
-                userService.getUserInfo(currentUser.getId()));
+    @GetMapping("/info")
+    public ResponseEntity<?> getUserInfo(@CurrentUser UserPrincipal currentUser) {
+        RoleName role = RoleService.getHighestRole(currentUser.getRoles());
+        Long userId = currentUser.getId();
+        switch (role) {
+            case ROLE_ADMIN: {
+                return ResponseEntity.ok(new AdminInfoResponse(userService.getById(userId),
+                        userService.getAdminInfo(userId)));
+            }
+            case ROLE_HOME_MASTER: case ROLE_HOME_USER:
+                return ResponseEntity.ok(new UserInfoResponse(userService.getById(userId),
+                        userService.getUserInfo(userId)));
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "Account is not exist"),
+                HttpStatus.BAD_REQUEST);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
