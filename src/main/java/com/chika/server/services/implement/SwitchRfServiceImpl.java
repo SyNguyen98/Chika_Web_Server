@@ -13,7 +13,7 @@ import java.util.List;
  * CRUD function for Switch Rf
  * @author Sy Nguyen
  * @version 1.0
- * @since 07-03-2020
+ * @since 24-03-2020
  */
 @Service
 public class SwitchRfServiceImpl implements SwitchRfService {
@@ -71,6 +71,11 @@ public class SwitchRfServiceImpl implements SwitchRfService {
     @Override
     public void deleteById(String id) {
         switchRfRepository.deleteById(id);
+    }
+
+    @Override
+    public long countAll() {
+        return switchRfRepository.count();
     }
 
     @Override

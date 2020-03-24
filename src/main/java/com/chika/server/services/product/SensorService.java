@@ -18,6 +18,8 @@ public interface SensorService {
 
     Sensor updateUser(String id, Long userId);
 
+    long countAll();
+
     void deleteById(String id);
 
     Boolean hasOwner(String id);

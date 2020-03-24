@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * To receive Product requests from the client
  * @author Sy Nguyen
  * @version 1.0
- * @since 08-03-2020
+ * @since 24-03-2020
  */
 @RestController
 @RequestMapping("/product")
@@ -43,6 +44,12 @@ public class ProductController {
     @GetMapping
     public List<Product> getAllProductByUserId(@CurrentUser UserPrincipal currentUser) {
         return productService.getAllByUserId(currentUser.getId());
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/number")
+    public Map<String, Long> getAllNumberOfProduct() {
+        return productService.getAllNumberOfProduct();
     }
 
     @PutMapping

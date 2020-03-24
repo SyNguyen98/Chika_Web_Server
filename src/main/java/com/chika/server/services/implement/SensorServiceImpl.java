@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 07-03-2020
+ * @since 24-03-2020
  */
 @Service
 public class SensorServiceImpl implements SensorService {
@@ -57,6 +57,11 @@ public class SensorServiceImpl implements SensorService {
     public void deleteById(String id) {
         Sensor sensor = getById(id);
         sensorRepository.delete(sensor);
+    }
+
+    @Override
+    public long countAll() {
+        return sensorRepository.count();
     }
 
     @Override

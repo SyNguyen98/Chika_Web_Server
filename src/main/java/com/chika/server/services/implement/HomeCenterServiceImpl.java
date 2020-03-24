@@ -13,7 +13,7 @@ import java.util.List;
  * CRUD functions for Home Center
  * @author Sy Nguyen
  * @version 1.0
- * @since 07-03-2020
+ * @since 24-03-2020
  */
 @Service
 public class HomeCenterServiceImpl implements HomeCenterService {
@@ -64,6 +64,11 @@ public class HomeCenterServiceImpl implements HomeCenterService {
     @Override
     public void deleteById(String id) {
         homeCenterRepository.deleteById(id);
+    }
+
+    @Override
+    public long countAll() {
+        return homeCenterRepository.count();
     }
 
     @Override

@@ -5,14 +5,16 @@ import com.chika.server.services.product.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
  * Working with Chika products
  * @author Sy Nguyen
  * @version 1.0
- * @since 07-03-2020
+ * @since 24-03-2020
  */
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -59,6 +61,17 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return products;
+    }
+
+    @Override
+    public Map<String, Long> getAllNumberOfProduct() {
+        Map<String, Long> map = new HashMap<>();
+        map.put("Switch Wifi", switchWifiService.countAll());
+        map.put("Switch Rf", switchRfService.countAll());
+        map.put("Module Ir", moduleIrService.countAll());
+        map.put("Home Center", homeCenterService.countAll());
+        map.put("Sensor", sensorService.countAll());
+        return map;
     }
 
     @Override

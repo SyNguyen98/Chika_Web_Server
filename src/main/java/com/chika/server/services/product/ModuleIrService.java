@@ -22,5 +22,7 @@ public interface ModuleIrService {
 
     void deleteById(String id);
 
+    long countAll();
+
     Boolean hasOwner(String id);
 }
