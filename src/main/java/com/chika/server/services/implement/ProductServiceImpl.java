@@ -66,11 +66,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Map<String, Long> getAllNumberOfProduct() {
         Map<String, Long> map = new HashMap<>();
-        map.put("Switch Wifi", switchWifiService.countAll());
-        map.put("Switch Rf", switchRfService.countAll());
-        map.put("Module Ir", moduleIrService.countAll());
-        map.put("Home Center", homeCenterService.countAll());
-        map.put("Sensor", sensorService.countAll());
+        map.put("switchWifi", switchWifiService.countAll());
+        map.put("switchRf", switchRfService.countAll());
+        map.put("moduleIr", moduleIrService.countAll());
+        map.put("homeCenter", homeCenterService.countAll());
+        map.put("sensor", sensorService.countAll());
         return map;
     }
 
