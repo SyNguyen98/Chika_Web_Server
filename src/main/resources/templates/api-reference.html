@@ -17,8 +17,7 @@
       <div class="dropdown-container">
           <a href="#get_users">GET /user</a>
           <a href="#get_user_username">GET /user/{username}</a>
-          <a href="#get_admin_info">GET /user/admin</a>
-          <a href="#get_user_info">GET /user/user</a>
+          <a href="#get_user_info">GET /user/info</a>
           <a href="#put_admin_info">PUT /user/admin_info</a>
           <a href="#put_user_info">PUT /user/user_info</a>
           <a href="#put_user_password">PUT /user</a>
@@ -266,13 +265,13 @@
           <br/>
       </div>
 
-      <div id="get_admin_info" class="content">
-          <h2>Get admin's information (admin only)</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/user/admin</p>
+      <div id="get_user_info" class="content">
+          <h2>Get user's information</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/user/info</p>
           <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/user/admin</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/user/info</p>
           <p class="header">Header: "Authorization": "Bearer {token}"</p>
-          <p class="example">&bull; Example response:</p>
+          <p class="example">&bull; Example response: (Admin)</p>
           <div class="json">{
               <br/>&emsp;"avatar": "http://chika-server.herokuapp.com/image/8d78efc5-cqdc-51a4-a4b3-323edfg941c6",
               <br/>&emsp;"name": "Chika Smarthome",
@@ -286,16 +285,7 @@
               <br/>&emsp;"department": "Thiết kế phần mềm"
               <br/>}
           </div>
-          <br/>
-      </div>
-
-      <div id="get_user_info" class="content">
-          <h2>Get user's information</h2>
-          <p class="link">GET &emsp; http://chika-server.herokuapp.com/user/user</p>
-          <p class="example">&bull; Example request:</p>
-          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/user/user</p>
-          <p class="header">Header: "Authorization": "Bearer {token}"</p>
-          <p class="example">&bull; Example response:</p>
+          <p class="example">&bull; Example response: (User)</p>
           <div class="json">{
               <br/>&emsp;"createAt": "20:00 27/09/2019",
               <br/>&emsp;"avatar": "http://chika-server.herokuapp.com/image/6e48323b-bbc8-4f0a-b45e-58765035cdb6",
