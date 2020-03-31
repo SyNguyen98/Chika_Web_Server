@@ -4,6 +4,7 @@ import com.chika.server.models.user.Feedback;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.FeedbackResponse;
 import com.chika.server.services.FeedbackService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  * To receive Feedback requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 14-02-2020
+ * @since 31-03-2020
  */
 @RestController
 @RequestMapping("/feedback")
@@ -33,6 +34,15 @@ public class FeedbackController {
         return feedbackService.getAll().stream()
                         .map(FeedbackResponse::new)
                         .collect(Collectors.toList());
+    }
+
+    @GetMapping("/is_response")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> haveFeedbackNotResponse() {
+        if (feedbackService.haveFeedbackNotResponse()) {
+            return ResponseEntity.ok(new ApiResponse(true, "Having feedback did not response"));
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "Don't have"), HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping

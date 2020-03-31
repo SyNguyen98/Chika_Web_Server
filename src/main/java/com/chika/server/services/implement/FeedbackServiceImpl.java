@@ -24,6 +24,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public Feedback save(Feedback feedback) {
+        feedback.setResponse(false);
         return feedbackRepository.save(feedback);
     }
 
@@ -38,5 +39,10 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     public void delete(String id) {
         feedbackRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean haveFeedbackNotResponse() {
+        return feedbackRepository.existsByResponse(false);
     }
 }

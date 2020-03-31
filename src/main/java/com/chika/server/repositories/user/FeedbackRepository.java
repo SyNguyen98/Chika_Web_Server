@@ -11,4 +11,6 @@ import java.util.List;
 public interface FeedbackRepository extends JpaRepository<Feedback, String> {
 
     List<Feedback> findAllByOrderByCreatedAtDesc();
+
+    Boolean existsByResponse(boolean response);
 }

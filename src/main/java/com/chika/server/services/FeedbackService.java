@@ -15,4 +15,6 @@ public interface FeedbackService {
     Feedback updateResponse(String id, Boolean response);
 
     void delete(String id);
+
+    boolean haveFeedbackNotResponse();
 }
