@@ -21,7 +21,7 @@ import java.util.Map;
  * To receive Product requests from the client
  * @author Sy Nguyen
  * @version 1.0
- * @since 24-03-2020
+ * @since 03-04-2020
  */
 @RestController
 @RequestMapping("/product")
@@ -50,6 +50,12 @@ public class ProductController {
     @GetMapping("/number")
     public Map<String, Long> getAllNumberOfProduct() {
         return productService.getAllNumberOfProduct();
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/number/user_id/{userId}")
+    public Map<String, Long> getAllNumberOfProductByUserId(@PathVariable Long userId) {
+        return productService.getAllNumberOfProductByUserId(userId);
     }
 
     @PutMapping

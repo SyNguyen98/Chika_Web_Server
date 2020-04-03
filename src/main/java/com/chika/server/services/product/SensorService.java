@@ -20,6 +20,8 @@ public interface SensorService {
 
     long countAll();
 
+    long countByUserId(Long userId);
+
     void deleteById(String id);
 
     Boolean hasOwner(String id);

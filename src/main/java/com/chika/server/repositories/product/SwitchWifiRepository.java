@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 07-03-2020
+ * @since 03-04-2020
  */
 @Repository
 public interface SwitchWifiRepository extends JpaRepository<SwitchWifi, String> {
@@ -17,4 +17,6 @@ public interface SwitchWifiRepository extends JpaRepository<SwitchWifi, String> 
     List<SwitchWifi> findAllByOrderByCreatedAtDesc();
 
     List<SwitchWifi> findAllByUserId(Long userId);
+
+    long countAllByUserId(Long userId);
 }

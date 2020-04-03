@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 07-03-2020
+ * @since 03-04-2020
  */
 @Repository
 public interface ModuleIrRepository extends JpaRepository<ModuleIr, String> {
@@ -17,4 +17,6 @@ public interface ModuleIrRepository extends JpaRepository<ModuleIr, String> {
     List<ModuleIr> findAllByOrderByCreatedAtDesc();
 
     List<ModuleIr> findAllByUserId(Long userId);
+
+    long countAllByUserId(Long userId);
 }

@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 24-03-2020
+ * @since 03-04-2020
  */
 @Service
 public class SensorServiceImpl implements SensorService {
@@ -62,6 +62,11 @@ public class SensorServiceImpl implements SensorService {
     @Override
     public long countAll() {
         return sensorRepository.count();
+    }
+
+    @Override
+    public long countByUserId(Long userId) {
+        return sensorRepository.countAllByUserId(userId);
     }
 
     @Override

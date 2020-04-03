@@ -13,6 +13,8 @@ public interface ProductService {
 
     Map<String, Long> getAllNumberOfProduct();
 
+    Map<String, Long> getAllNumberOfProductByUserId(Long userId);
+
     String checkListProduct(List<Product> products);
 
     void updateProductWithUserId(Long userId, List<Product> products);

@@ -59,7 +59,6 @@ public class ProductServiceImpl implements ProductService {
         if (!sensors.isEmpty()) {
             products.add(new Product("Sensor", sensors.stream().map(Sensor::getId).collect(Collectors.toList())));
         }
-
         return products;
     }
 
@@ -71,6 +70,17 @@ public class ProductServiceImpl implements ProductService {
         map.put("moduleIr", moduleIrService.countAll());
         map.put("homeCenter", homeCenterService.countAll());
         map.put("sensor", sensorService.countAll());
+        return map;
+    }
+
+    @Override
+    public Map<String, Long> getAllNumberOfProductByUserId(Long userId) {
+        Map<String, Long> map = new HashMap<>();
+        map.put("switchWifi", switchWifiService.countByUserId(userId));
+        map.put("switchRf", switchRfService.countByUserId(userId));
+        map.put("moduleIr", moduleIrService.countByUserId(userId));
+        map.put("homeCenter", homeCenterService.countByUserId(userId));
+        map.put("sensor", sensorService.countByUserId(userId));
         return map;
     }
 

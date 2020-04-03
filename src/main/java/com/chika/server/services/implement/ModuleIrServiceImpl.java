@@ -13,7 +13,7 @@ import java.util.List;
  * CRUD functions for Module Ir
  * @author Sy Nguyen
  * @version 1.0
- * @since 24-03-2020
+ * @since 03-04-2020
  */
 @Service
 public class ModuleIrServiceImpl implements ModuleIrService {
@@ -69,6 +69,11 @@ public class ModuleIrServiceImpl implements ModuleIrService {
     @Override
     public long countAll() {
         return moduleIrRepository.count();
+    }
+
+    @Override
+    public long countByUserId(Long userId) {
+        return moduleIrRepository.countAllByUserId(userId);
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 07-03-2020
+ * @since 03-04-2020
  */
 @Repository
 public interface HomeCenterRepository extends JpaRepository<HomeCenter, String> {
@@ -17,4 +17,6 @@ public interface HomeCenterRepository extends JpaRepository<HomeCenter, String> 
     List<HomeCenter> findAllByOrderByCreatedAtDesc();
 
     List<HomeCenter> findAllByUserId(Long userId);
+
+    long countAllByUserId(Long userId);
 }

@@ -13,7 +13,7 @@ import java.util.List;
  * CRUD function for Switch Wifi
  * @author Sy Nguyen
  * @version 1.0
- * @since 24-03-2020
+ * @since 03-04-2020
  */
 @Service
 public class SwitchWifiServiceImpl implements SwitchWifiService {
@@ -69,6 +69,11 @@ public class SwitchWifiServiceImpl implements SwitchWifiService {
     @Override
     public long countAll() {
         return switchWifiRepository.count();
+    }
+
+    @Override
+    public long countByUserId(Long userId) {
+        return switchWifiRepository.countAllByUserId(userId);
     }
 
     @Override

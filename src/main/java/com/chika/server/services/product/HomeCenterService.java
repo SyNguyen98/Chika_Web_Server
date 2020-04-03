@@ -24,5 +24,7 @@ public interface HomeCenterService {
 
     long countAll();
 
+    long countByUserId(Long userId);
+
     Boolean hasOwner(String id);
 }

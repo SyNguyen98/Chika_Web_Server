@@ -26,6 +26,8 @@ public interface SwitchRfService {
 
     long countAll();
 
+    long countByUserId(Long userId);
+
     Boolean isOwner(String id, Long userId);
 
     Boolean hasOwner(String id);
