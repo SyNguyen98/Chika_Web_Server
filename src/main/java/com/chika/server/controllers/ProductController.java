@@ -52,7 +52,6 @@ public class ProductController {
         return productService.getAllNumberOfProduct();
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/number/user_id/{userId}")
     public Map<String, Long> getAllNumberOfProductByUserId(@PathVariable Long userId) {
         return productService.getAllNumberOfProductByUserId(userId);
