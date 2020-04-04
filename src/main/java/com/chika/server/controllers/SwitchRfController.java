@@ -1,10 +1,8 @@
 package com.chika.server.controllers;
 
-import com.chika.server.models.product.ButtonRf;
 import com.chika.server.models.product.SwitchRf;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.products.SwitchRfResponseForAdmin;
-import com.chika.server.services.product.ButtonRfService;
 import com.chika.server.services.product.SwitchRfService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,7 +15,7 @@ import java.util.stream.Collectors;
  * To receive Switch Rf requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 24-02-2020
+ * @since 04-04-2020
  */
 @RestController
 @RequestMapping("/switch_rf")
@@ -25,11 +23,8 @@ public class SwitchRfController {
 
     private final SwitchRfService switchRfService;
 
-    private final ButtonRfService buttonRfService;
-
-    public SwitchRfController(SwitchRfService switchRfService, ButtonRfService buttonRfService) {
+    public SwitchRfController(SwitchRfService switchRfService) {
         this.switchRfService = switchRfService;
-        this.buttonRfService = buttonRfService;
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -48,11 +43,8 @@ public class SwitchRfController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/num_of_button/{numOfButton}/channel/{channel}")
     public SwitchRfResponseForAdmin save(@PathVariable int numOfButton, @PathVariable long channel) {
-        SwitchRf switchRf = switchRfService.save(new SwitchRf("CA-SWR" + numOfButton, numOfButton, channel));
-        for (int i = 0; i < numOfButton; i++) {
-            buttonRfService.save(new ButtonRf(switchRf.getId()));
-        }
-        return new SwitchRfResponseForAdmin(switchRf, buttonRfService.getAllBySwitchId(switchRf.getId()));
+        SwitchRf switchRf = switchRfService.save(new SwitchRf("CA-SR" + numOfButton, numOfButton, channel));
+        return new SwitchRfResponseForAdmin(switchRf);
     }
 
     @PutMapping("/name")
@@ -74,8 +66,6 @@ public class SwitchRfController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable String id) {
-        switchRfService.getById(id).getButtonRfs()
-                .forEach(device -> buttonRfService.delete(device.getId()));
         switchRfService.deleteById(id);
         return ResponseEntity.ok(new ApiResponse(true, "Switch Rf has been deleted"));
     }

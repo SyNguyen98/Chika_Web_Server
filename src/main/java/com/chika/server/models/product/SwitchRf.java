@@ -9,13 +9,12 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * Connect to table Switch Rf in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 25-02-2020
+ * @since 04-04-2020
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -38,9 +37,6 @@ public class SwitchRf extends DateAudit {
     private Long channel;
 
     private Long userId;
-
-    @OneToMany(mappedBy = "switchRfId", fetch = FetchType.LAZY)
-    private List<ButtonRf> buttonRfs;
 
     public SwitchRf(String name, int type, Long channel) {
         this.name = name;

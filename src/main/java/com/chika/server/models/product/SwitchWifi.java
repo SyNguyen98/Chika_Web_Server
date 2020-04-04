@@ -9,13 +9,12 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * Connect to table Switch Wifi in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 24-02-2020
+ * @since 04-04-2020
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -35,9 +34,6 @@ public class SwitchWifi extends DateAudit {
     private Integer type;
 
     private Long userId;
-
-    @OneToMany(mappedBy = "switchWifiId", fetch = FetchType.LAZY)
-    private List<ButtonWifi> buttonWifis;
 
     public SwitchWifi(String name, int type) {
         this.name = name;

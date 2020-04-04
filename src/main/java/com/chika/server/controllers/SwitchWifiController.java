@@ -1,11 +1,8 @@
 package com.chika.server.controllers;
 
-import com.chika.server.models.product.ButtonWifi;
 import com.chika.server.models.product.SwitchWifi;
 import com.chika.server.payload.responses.ApiResponse;
-import com.chika.server.payload.responses.products.SwitchResponse;
 import com.chika.server.payload.responses.products.SwitchWifiResponseForAdmin;
-import com.chika.server.services.product.ButtonWifiService;
 import com.chika.server.services.product.SwitchWifiService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +15,7 @@ import java.util.stream.Collectors;
  * To receive Switch Wifi requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 24-02-2020
+ * @since 04-04-2020
  */
 @RestController
 @RequestMapping("/switch_wifi")
@@ -26,11 +23,8 @@ public class SwitchWifiController {
 
     private final SwitchWifiService switchWifiService;
 
-    private final ButtonWifiService buttonWifiService;
-
-    public SwitchWifiController(SwitchWifiService switchWifiService, ButtonWifiService buttonWifiService) {
+    public SwitchWifiController(SwitchWifiService switchWifiService) {
         this.switchWifiService = switchWifiService;
-        this.buttonWifiService = buttonWifiService;
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -42,18 +36,15 @@ public class SwitchWifiController {
     }
 
     @GetMapping("/{id}")
-    public SwitchResponse getById(@PathVariable String id) {
-        return new SwitchResponse(switchWifiService.getById(id));
+    public SwitchWifiResponseForAdmin getById(@PathVariable String id) {
+        return new SwitchWifiResponseForAdmin(switchWifiService.getById(id));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/num_of_button/{numOfButton}")
     public SwitchWifiResponseForAdmin save(@PathVariable int numOfButton) {
-        SwitchWifi switchWifi = switchWifiService.save(new SwitchWifi("CA-SWW" + numOfButton, numOfButton));
-        for (int i = 0; i < numOfButton; i++) {
-            buttonWifiService.save(new ButtonWifi(switchWifi.getId()));
-        }
-        return new SwitchWifiResponseForAdmin(switchWifi, buttonWifiService.getAllBySwitchId(switchWifi.getId()));
+        SwitchWifi switchWifi = switchWifiService.save(new SwitchWifi("CA-SW" + numOfButton, numOfButton));
+        return new SwitchWifiResponseForAdmin(switchWifi);
     }
 
     @PutMapping("/name")
@@ -70,8 +61,6 @@ public class SwitchWifiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable String id) {
-        switchWifiService.getById(id).getButtonWifis()
-                .forEach(device -> buttonWifiService.delete(device.getId()));
         switchWifiService.deleteById(id);
         return ResponseEntity.ok(new ApiResponse(true, "Switch Wifi has been deleted"));
     }

@@ -10,14 +10,16 @@ public class DeviceResponse {
     private String id;
     private String logo;
     private String name;
-    private String buttonId;
+    private String productId;
+    private String type;
     private String createAt;
 
     public DeviceResponse(Device device) {
         this.id = device.getId();
         this.logo = device.getLogo();
         this.name = device.getName();
-        this.buttonId = device.getButtonId();
+        this.productId = device.getProductId();
+        this.type = device.getType();
         this.createAt = Formatter.formatDay(device.getCreatedAt());
     }
 }

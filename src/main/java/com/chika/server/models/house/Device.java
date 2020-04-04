@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
  * Connect to table Device in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 19-03-2020
+ * @since 04-04-2020
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -40,13 +40,17 @@ public class Device extends DateAudit {
     private String roomId;
 
     @NotBlank
-    private String buttonId;
+    private String productId;
 
-    public Device(String logo, String name, String roomId, String buttonId) {
+    @NotBlank
+    private String type;
+
+    public Device(String logo, String name, String roomId, String productId, String type) {
         this.logo = logo;
         this.name = name;
         this.roomId = roomId;
-        this.buttonId = buttonId;
+        this.productId = productId;
+        this.type = type;
         this.state = 0;
     }
 }
