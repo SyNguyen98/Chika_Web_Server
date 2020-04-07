@@ -52,7 +52,7 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public Device updateStateById(String id, int state) {
+    public Device updateStateById(String id, boolean state) {
         Device device = getById(id);
         device.setState(state);
         return deviceRepository.save(device);

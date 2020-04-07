@@ -11,7 +11,7 @@ public class DeviceResponse {
     private String logo;
     private String name;
     private String productId;
-    private String type;
+    private String topic;
     private String createAt;
 
     public DeviceResponse(Device device) {
@@ -19,7 +19,7 @@ public class DeviceResponse {
         this.logo = device.getLogo();
         this.name = device.getName();
         this.productId = device.getProductId();
-        this.type = device.getType();
+        this.topic = device.getTopic();
         this.createAt = Formatter.formatDay(device.getCreatedAt());
     }
 }

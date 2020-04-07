@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * Connect to table Device in database
@@ -34,7 +35,7 @@ public class Device extends DateAudit {
     @NotBlank
     private String name;
 
-    private int state;
+    private Boolean state;
 
     @NotBlank
     private String roomId;
@@ -43,14 +44,14 @@ public class Device extends DateAudit {
     private String productId;
 
     @NotBlank
-    private String type;
+    private String topic;
 
-    public Device(String logo, String name, String roomId, String productId, String type) {
+    public Device(String logo, String name, String roomId, String productId, String topic) {
         this.logo = logo;
         this.name = name;
         this.roomId = roomId;
         this.productId = productId;
-        this.type = type;
-        this.state = 0;
+        this.topic = topic;
+        this.state = false;
     }
 }

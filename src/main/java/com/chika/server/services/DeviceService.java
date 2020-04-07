@@ -16,7 +16,7 @@ public interface DeviceService {
 
     Device updateInfoById(String id, String logo, String name);
 
-    Device updateStateById(String id, int state);
+    Device updateStateById(String id, boolean state);
 
     void deleteById(String id);
 
