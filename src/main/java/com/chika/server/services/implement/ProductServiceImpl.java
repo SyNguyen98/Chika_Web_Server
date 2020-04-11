@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Working with Chika products
  * @author Sy Nguyen
  * @version 1.0
- * @since 24-03-2020
+ * @since 11-04-2020
  */
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -41,7 +41,6 @@ public class ProductServiceImpl implements ProductService {
         List<SwitchWifi> switchWifis = switchWifiService.getAllByUserId(userId);
         List<SwitchRf> switchRfs = switchRfService.getAllByUserId(userId);
         List<ModuleIr> moduleIrs = moduleIrService.getAllByUserId(userId);
-        List<HomeCenter> homeCenters = homeCenterService.getAllByUserId(userId);
         List<Sensor> sensors = sensorService.getAllByUserId(userId);
 
         if (!switchWifis.isEmpty()) {
@@ -52,9 +51,6 @@ public class ProductServiceImpl implements ProductService {
         }
         if (!moduleIrs.isEmpty()) {
             products.add(new Product("Module Ir", moduleIrs.stream().map(ModuleIr::getId).collect(Collectors.toList())));
-        }
-        if (!homeCenters.isEmpty()) {
-            products.add(new Product("Home Center", homeCenters.stream().map(HomeCenter::getId).collect(Collectors.toList())));
         }
         if (!sensors.isEmpty()) {
             products.add(new Product("Sensor", sensors.stream().map(Sensor::getId).collect(Collectors.toList())));
