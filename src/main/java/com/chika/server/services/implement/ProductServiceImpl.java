@@ -39,9 +39,9 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductResponse> getAllByUserId(Long userId) {
         List<ProductResponse> productResponses = new ArrayList<>();
         switchWifiService.getAllByUserId(userId).forEach(switchWifi ->
-                productResponses.add(new ProductResponse("Switch Wifi", switchWifi.getName(), switchWifi.getId())));
+                productResponses.add(new ProductResponse("Switch Wifi " + switchWifi.getType(), switchWifi.getName(), switchWifi.getId())));
         switchRfService.getAllByUserId(userId).forEach(switchRf ->
-                productResponses.add(new ProductResponse("Switch Rf", switchRf.getName(), switchRf.getId())));
+                productResponses.add(new ProductResponse("Switch Rf " + switchRf.getType(), switchRf.getName(), switchRf.getId())));
         moduleIrService.getAllByUserId(userId).forEach(moduleIr ->
                 productResponses.add(new ProductResponse("Module Ir", moduleIr.getName(), moduleIr.getId())));
         sensorService.getAllByUserId(userId).forEach(sensor ->
