@@ -1,6 +1,7 @@
 package com.chika.server.services.implement;
 
 import com.chika.server.models.product.*;
+import com.chika.server.models.product.ProductResponse;
 import com.chika.server.services.product.*;
 import org.springframework.stereotype.Service;
 
@@ -8,13 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Working with Chika products
  * @author Sy Nguyen
  * @version 1.0
- * @since 11-04-2020
+ * @since 12-04-2020
  */
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -36,26 +36,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllByUserId(Long userId) {
-        List<Product> products = new ArrayList<>();
-        List<SwitchWifi> switchWifis = switchWifiService.getAllByUserId(userId);
-        List<SwitchRf> switchRfs = switchRfService.getAllByUserId(userId);
-        List<ModuleIr> moduleIrs = moduleIrService.getAllByUserId(userId);
-        List<Sensor> sensors = sensorService.getAllByUserId(userId);
-
-        if (!switchWifis.isEmpty()) {
-            products.add(new Product("Switch Wifi", switchWifis.stream().map(SwitchWifi::getId).collect(Collectors.toList())));
-        }
-        if (!switchRfs.isEmpty()) {
-            products.add(new Product("Switch Rf", switchRfs.stream().map(SwitchRf::getId).collect(Collectors.toList())));
-        }
-        if (!moduleIrs.isEmpty()) {
-            products.add(new Product("Module Ir", moduleIrs.stream().map(ModuleIr::getId).collect(Collectors.toList())));
-        }
-        if (!sensors.isEmpty()) {
-            products.add(new Product("Sensor", sensors.stream().map(Sensor::getId).collect(Collectors.toList())));
-        }
-        return products;
+    public List<ProductResponse> getAllByUserId(Long userId) {
+        List<ProductResponse> productResponses = new ArrayList<>();
+        switchWifiService.getAllByUserId(userId).forEach(switchWifi ->
+                productResponses.add(new ProductResponse("Switch Wifi", switchWifi.getName(), switchWifi.getId())));
+        switchRfService.getAllByUserId(userId).forEach(switchRf ->
+                productResponses.add(new ProductResponse("Switch Rf", switchRf.getName(), switchRf.getId())));
+        moduleIrService.getAllByUserId(userId).forEach(moduleIr ->
+                productResponses.add(new ProductResponse("Module Ir", moduleIr.getName(), moduleIr.getId())));
+        sensorService.getAllByUserId(userId).forEach(sensor ->
+                productResponses.add(new ProductResponse("Sensor", sensor.getName(), sensor.getId())));
+        return productResponses;
     }
 
     @Override

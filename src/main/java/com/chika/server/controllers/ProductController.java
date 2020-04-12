@@ -2,6 +2,7 @@ package com.chika.server.controllers;
 
 import com.chika.server.models.account.User;
 import com.chika.server.models.product.Product;
+import com.chika.server.models.product.ProductResponse;
 import com.chika.server.payload.requests.UpdateProductUserRequest;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.security.CurrentUser;
@@ -21,7 +22,7 @@ import java.util.Map;
  * To receive Product requests from the client
  * @author Sy Nguyen
  * @version 1.0
- * @since 03-04-2020
+ * @since 12-04-2020
  */
 @RestController
 @RequestMapping("/product")
@@ -35,14 +36,8 @@ public class ProductController {
         this.userService = userService;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/user/{userId}")
-    public List<Product> getAllProductByUserIdForAdmin(@PathVariable Long userId) {
-        return productService.getAllByUserId(userId);
-    }
-
     @GetMapping
-    public List<Product> getAllProductByUserId(@CurrentUser UserPrincipal currentUser) {
+    public List<ProductResponse> getAllProductByUserId(@CurrentUser UserPrincipal currentUser) {
         return productService.getAllByUserId(currentUser.getId());
     }
 

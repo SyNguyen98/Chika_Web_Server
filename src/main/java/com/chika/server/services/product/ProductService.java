@@ -1,6 +1,7 @@
 package com.chika.server.services.product;
 
 import com.chika.server.models.product.Product;
+import com.chika.server.models.product.ProductResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Map;
 @Service
 public interface ProductService {
 
-    List<Product> getAllByUserId(Long userId);
+    List<ProductResponse> getAllByUserId(Long userId);
 
     Map<String, Long> getAllNumberOfProduct();
 
