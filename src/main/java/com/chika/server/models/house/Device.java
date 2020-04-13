@@ -10,13 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * Connect to table Device in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 04-04-2020
+ * @since 13-04-2020
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -41,17 +40,20 @@ public class Device extends DateAudit {
     private String roomId;
 
     @NotBlank
-    private String productId;
+    private String type;
 
     @NotBlank
     private String topic;
 
-    public Device(String logo, String name, String roomId, String productId, String topic) {
+    private int switchButton;
+
+    public Device(String logo, String name, String roomId, String type, String topic, int switchButton) {
         this.logo = logo;
         this.name = name;
         this.roomId = roomId;
-        this.productId = productId;
+        this.type = type;
         this.topic = topic;
+        this.switchButton = switchButton;
         this.state = false;
     }
 }
