@@ -57,6 +57,7 @@ public class DeviceController {
     @PostMapping
     public ResponseEntity<?> save(@CurrentUser UserPrincipal currentUser, @RequestBody Device device) {
         if (roomService.isOwner(device.getRoomId(), currentUser.getId())) {
+            device.setState(false);
             return ResponseEntity.ok(new DeviceResponse(deviceService.save(device)));
         }
         return new ResponseEntity<>(new ApiResponse(false, "You are not room's owner"),
