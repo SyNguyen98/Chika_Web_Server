@@ -13,7 +13,7 @@ import java.util.List;
  * CRUD functions for Device
  * @author Sy Nguyen
  * @version 1.0
- * @since 19-03-2019
+ * @since 14-04-2020
  */
 @Service
 public class DeviceServiceImpl implements DeviceService {
@@ -69,5 +69,8 @@ public class DeviceServiceImpl implements DeviceService {
                 .getUserId().equals(userId);
     }
 
-
+    @Override
+    public List<Device> getDeviceByTopic(String topic) {
+        return deviceRepository.findAllByTopicContains(topic);
+    }
 }

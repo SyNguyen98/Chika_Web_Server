@@ -11,6 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/device")
 public class DeviceController {
@@ -40,6 +44,14 @@ public class DeviceController {
         }
         return new ResponseEntity<>(new ApiResponse(false, "You are not device's owner"),
                 HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/topic/{topic}")
+    public ResponseEntity<?> getSwitchButtonsByDeviceTopic(@PathVariable String topic) {
+        List<Integer> buttons = deviceService.getDeviceByTopic(topic).stream()
+                                            .map(Device::getSwitchButton)
+                                            .collect(Collectors.toList());
+        return ResponseEntity.ok(buttons);
     }
 
     @PostMapping

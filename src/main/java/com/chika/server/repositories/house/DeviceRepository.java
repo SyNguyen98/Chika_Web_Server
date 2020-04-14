@@ -9,10 +9,12 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 19-03-2019
+ * @since 14-04-2020
  */
 @Repository
 public interface DeviceRepository extends JpaRepository<Device, String> {
 
     List<Device> findAllByRoomIdOrderByCreatedAt(String roomId);
+
+    List<Device> findAllByTopicContains(String topic);
 }

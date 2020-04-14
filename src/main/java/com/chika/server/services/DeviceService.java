@@ -21,4 +21,6 @@ public interface DeviceService {
     void deleteById(String id);
 
     Boolean isOwner(String id, Long userId);
+
+    List<Device> getDeviceByTopic(String topic);
 }
