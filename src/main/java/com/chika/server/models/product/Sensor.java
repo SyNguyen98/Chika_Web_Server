@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
  * Connect to table Sensor in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-03-2020
+ * @since 15-04-2020
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -31,11 +31,10 @@ public class Sensor extends DateAudit {
     @NotBlank
     private String name;
 
+    @NotBlank
+    private String type;
+
     private String rfChannel;
 
     private Long userId;
-
-    public Sensor(String name) {
-        this.name = name;
-    }
 }

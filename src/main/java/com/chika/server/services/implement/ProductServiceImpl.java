@@ -14,7 +14,7 @@ import java.util.Map;
  * Working with Chika products
  * @author Sy Nguyen
  * @version 1.0
- * @since 12-04-2020
+ * @since 15-04-2020
  */
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -39,13 +39,13 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductResponse> getAllByUserId(Long userId) {
         List<ProductResponse> productResponses = new ArrayList<>();
         switchWifiService.getAllByUserId(userId).forEach(switchWifi ->
-                productResponses.add(new ProductResponse("Switch Wifi " + switchWifi.getType(), switchWifi.getName(), switchWifi.getId())));
+                productResponses.add(new ProductResponse("SW" + switchWifi.getType(), switchWifi.getName(), switchWifi.getId())));
         switchRfService.getAllByUserId(userId).forEach(switchRf ->
-                productResponses.add(new ProductResponse("Switch Rf " + switchRf.getType(), switchRf.getName(), switchRf.getId())));
+                productResponses.add(new ProductResponse("SR" + switchRf.getType(), switchRf.getName(), switchRf.getId())));
         moduleIrService.getAllByUserId(userId).forEach(moduleIr ->
-                productResponses.add(new ProductResponse("Module Ir", moduleIr.getName(), moduleIr.getId())));
+                productResponses.add(new ProductResponse("IRX", moduleIr.getName(), moduleIr.getId())));
         sensorService.getAllByUserId(userId).forEach(sensor ->
-                productResponses.add(new ProductResponse("Sensor", sensor.getName(), sensor.getId())));
+                productResponses.add(new ProductResponse(sensor.getType(), sensor.getName(), sensor.getId())));
         return productResponses;
     }
 

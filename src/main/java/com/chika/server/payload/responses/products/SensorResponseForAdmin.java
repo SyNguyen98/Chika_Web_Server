@@ -10,6 +10,7 @@ public class SensorResponseForAdmin {
     private String id;
     private String day;
     private String name;
+    private String type;
     private String rfChannel;
     private Long userId;
 
@@ -17,6 +18,7 @@ public class SensorResponseForAdmin {
         this.id = sensor.getId();
         this.day = Formatter.formatDay(sensor.getCreatedAt());
         this.name = sensor.getName();
+        this.type = sensor.getType();
         this.rfChannel = sensor.getRfChannel();
         this.userId = sensor.getUserId();
     }
