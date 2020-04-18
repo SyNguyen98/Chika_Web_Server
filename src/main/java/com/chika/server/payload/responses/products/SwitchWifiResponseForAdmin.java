@@ -11,7 +11,7 @@ public class SwitchWifiResponseForAdmin {
 
     private String id;
     private String day;
-    private Integer type;
+    private String type;
     private Long userId;
 
     public SwitchWifiResponseForAdmin(SwitchWifi switchWifi) {

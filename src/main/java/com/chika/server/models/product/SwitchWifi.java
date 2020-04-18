@@ -30,12 +30,12 @@ public class SwitchWifi extends DateAudit {
     @NotBlank
     private String name;
 
-    @NotNull
-    private Integer type;
+    @NotBlank
+    private String type;
 
     private Long userId;
 
-    public SwitchWifi(String name, int type) {
+    public SwitchWifi(String name, String type) {
         this.name = name;
         this.type = type;
     }

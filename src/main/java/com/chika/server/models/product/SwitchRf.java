@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * Connect to table Switch Rf in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 04-04-2020
+ * @since 18-04-2020
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -30,15 +30,15 @@ public class SwitchRf extends DateAudit {
     @NotBlank
     private String name;
 
-    @NotNull
-    private Integer type;
+    @NotBlank
+    private String type;
 
     @NotNull
     private Long channel;
 
     private Long userId;
 
-    public SwitchRf(String name, int type, Long channel) {
+    public SwitchRf(String name, String type, Long channel) {
         this.name = name;
         this.type = type;
         this.channel = channel;

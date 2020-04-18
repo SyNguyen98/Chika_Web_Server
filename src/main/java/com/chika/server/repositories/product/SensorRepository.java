@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 03-04-2020
+ * @since 18-04-2020
  */
 @Repository
 public interface SensorRepository extends JpaRepository<Sensor, String> {
@@ -17,6 +17,8 @@ public interface SensorRepository extends JpaRepository<Sensor, String> {
     List<Sensor> findAllByOrderByCreatedAtDesc();
 
     List<Sensor> findAllByUserId(Long userId);
+
+    List<Sensor> findAllByUserIdAndTypeNotLike(Long userId, String type);
 
     long countAllByUserId(Long userId);
 }

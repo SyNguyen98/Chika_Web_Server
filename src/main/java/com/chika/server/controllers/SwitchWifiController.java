@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * To receive Switch Wifi requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 04-04-2020
+ * @since 18-04-2020
  */
 @RestController
 @RequestMapping("/switch_wifi")
@@ -43,7 +43,7 @@ public class SwitchWifiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/num_of_button/{numOfButton}")
     public SwitchWifiResponseForAdmin save(@PathVariable int numOfButton) {
-        SwitchWifi switchWifi = switchWifiService.save(new SwitchWifi("CA-SW" + numOfButton, numOfButton));
+        SwitchWifi switchWifi = switchWifiService.save(new SwitchWifi("CA-SW" + numOfButton, "SW" + numOfButton));
         return new SwitchWifiResponseForAdmin(switchWifi);
     }
 

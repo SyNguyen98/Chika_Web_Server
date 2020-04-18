@@ -14,7 +14,7 @@ import java.util.Map;
  * Working with Chika products
  * @author Sy Nguyen
  * @version 1.0
- * @since 15-04-2020
+ * @since 18-04-2020
  */
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -39,9 +39,9 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductResponse> getAllByUserId(Long userId) {
         List<ProductResponse> productResponses = new ArrayList<>();
         switchWifiService.getAllByUserId(userId).forEach(switchWifi ->
-                productResponses.add(new ProductResponse("SW" + switchWifi.getType(), switchWifi.getName(), switchWifi.getId())));
+                productResponses.add(new ProductResponse(switchWifi.getType(), switchWifi.getName(), switchWifi.getId())));
         switchRfService.getAllByUserId(userId).forEach(switchRf ->
-                productResponses.add(new ProductResponse("SR" + switchRf.getType(), switchRf.getName(), switchRf.getId())));
+                productResponses.add(new ProductResponse(switchRf.getType(), switchRf.getName(), switchRf.getId())));
         moduleIrService.getAllByUserId(userId).forEach(moduleIr ->
                 productResponses.add(new ProductResponse("IRX", moduleIr.getName(), moduleIr.getId())));
         sensorService.getAllByUserId(userId).forEach(sensor ->
@@ -69,6 +69,17 @@ public class ProductServiceImpl implements ProductService {
         map.put("homeCenter", homeCenterService.countByUserId(userId));
         map.put("sensor", sensorService.countByUserId(userId));
         return map;
+    }
+
+    @Override
+    public List<RfProduct> getAllRfProductByUserId(Long userId) {
+        List<SwitchRf> switchRfs = switchRfService.getAllByUserId(userId);
+        List<Sensor> sensors = sensorService.getAllByUserIdAndTypeNotLike(userId, "SS01");
+
+        List<RfProduct> rfProducts = new ArrayList<>();
+        switchRfs.forEach(switchRf -> rfProducts.add(new RfProduct(switchRf.getId(), "SR", switchRf.getChannel())));
+        sensors.forEach(sensor -> rfProducts.add(new RfProduct(sensor.getId(), sensor.getType(), sensor.getRfChannel())));
+        return rfProducts;
     }
 
     @Override

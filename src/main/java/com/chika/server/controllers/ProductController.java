@@ -3,6 +3,7 @@ package com.chika.server.controllers;
 import com.chika.server.models.account.User;
 import com.chika.server.models.product.Product;
 import com.chika.server.models.product.ProductResponse;
+import com.chika.server.models.product.RfProduct;
 import com.chika.server.payload.requests.UpdateProductUserRequest;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.security.CurrentUser;
@@ -22,7 +23,7 @@ import java.util.Map;
  * To receive Product requests from the client
  * @author Sy Nguyen
  * @version 1.0
- * @since 12-04-2020
+ * @since 18-04-2020
  */
 @RestController
 @RequestMapping("/product")
@@ -50,6 +51,11 @@ public class ProductController {
     @GetMapping("/number/user_id/{userId}")
     public Map<String, Long> getAllNumberOfProductByUserId(@PathVariable Long userId) {
         return productService.getAllNumberOfProductByUserId(userId);
+    }
+
+    @GetMapping("/rf")
+    public List<RfProduct> getAllRfProductByHomeCentralId(@CurrentUser UserPrincipal currentUser) {
+        return productService.getAllRfProductByUserId(currentUser.getId());
     }
 
     @PutMapping

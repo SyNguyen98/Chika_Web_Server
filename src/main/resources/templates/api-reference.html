@@ -28,6 +28,7 @@
       <p class="dropdown">Product</p>
       <div class="dropdown-container">
           <a href="#get_products_user">GET /product</a>
+          <a href="#get_products_rf">GET /product/rf</a>
           <a href="#get_products_number_user">GET /product/number/user_id/{userId}</a>
           <a href="#put_products">PUT /product</a>
       </div>
@@ -181,6 +182,31 @@
               <br/>&emsp;&emsp;"type": "Module Ir",
               <br/>&emsp;&emsp;"name": "CA-IRX",
               <br/>&emsp;&emsp;"id": "335833a5-9cc8-4eb7-b6dd-468ff54d3129"
+              <br/>&emsp;}<br/>]
+          </div>
+          <br/>
+      </div>
+
+      <div id="get_products_rf" class="content">
+          <h2>Get all rf products by user's id</h2>
+          <p class="link">GET &emsp; http://chika-server.herokuapp.com/product/rf</p>
+          <p class="example">&bull; Example request:</p>
+          <p class="link-example">GET&emsp;http://chika-server.herokuapp.com/product/rf</p>
+          <p class="header">Header: "Authorization": "Bearer {token}"</p>
+          <p class="example">&bull; Example response:</p>
+          <div class="json">[
+              <br/>&emsp;{
+              <br/>&emsp;&emsp;"id": "ebb2464e-ba53-4f22-aa61-c76f24d3343d",
+              <br/>&emsp;&emsp;"type": "SR",
+              <br/>&emsp;&emsp;"rfChannel": 1002502019003
+              <br/>&emsp;},<br/>&emsp;{
+              <br/>&emsp;&emsp;"id": "9d860c55-7899-465b-9fb3-195ae0c0959a",
+              <br/>&emsp;&emsp;"type": "SS02",
+              <br/>&emsp;&emsp;"rfChannel": 1002502019004
+              <br/>&emsp;},<br/>&emsp;{
+              <br/>&emsp;&emsp;"id": "1dd591c2-9080-4dcc-9c14-d9ecf8561248",
+              <br/>&emsp;&emsp;"type": "SS03",
+              <br/>&emsp;&emsp;"rfChannel": 1002502019005
               <br/>&emsp;}<br/>]
           </div>
           <br/>
@@ -444,7 +470,7 @@
               <br/>&emsp;{
               <br/>&emsp;&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
               <br/>&emsp;&emsp;"day": "07/01/2020",
-              <br/>&emsp;&emsp;"type": 2,
+              <br/>&emsp;&emsp;"type": "SW2",
               <br/>&emsp;&emsp;"userId": 5
               <br/>&emsp;}<br/>]
           </div>
@@ -461,7 +487,7 @@
           <div class="json">{
               <br/>&emsp;"day": "04/03/2020",
               <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
-              <br/>&emsp;"type": 2
+              <br/>&emsp;"type": "SW2"
               <br/>}
           </div>
           <br/>
@@ -477,7 +503,7 @@
           <div class="json">{
               <br/>&emsp;"day": "04/03/2020",
               <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
-              <br/>&emsp;"type": 2
+              <br/>&emsp;"type": "SW2"
               <br/>}
           </div>
           <br/>
@@ -554,7 +580,7 @@
               <br/>&emsp;{
               <br/>&emsp;&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
               <br/>&emsp;&emsp;"day": "07/01/2020",
-              <br/>&emsp;&emsp;"type": 2,
+              <br/>&emsp;&emsp;"type": "SR2",
               <br/>&emsp;&emsp;"channel": 83878217022001,
               <br/>&emsp;&emsp;"userId": 5
               <br/>&emsp;}<br/>]
@@ -587,7 +613,7 @@
           <div class="json">{
               <br/>&emsp;"id": "b36e333e-3800-4450-84cd-6f90e7e0f721",
               <br/>&emsp;"day": "07/01/2020",
-              <br/>&emsp;"type": 2,
+              <br/>&emsp;"type": "SR2",
               <br/>&emsp;"channel": 83878217022001,
               <br/>&emsp;"userId": null
               <br/>}

@@ -12,6 +12,8 @@ public interface SensorService {
 
     List<Sensor> getAllByUserId(Long userId);
 
+    List<Sensor> getAllByUserIdAndTypeNotLike(Long userId, String type);
+
     Sensor getById(String id);
 
     Sensor save(Sensor sensor);

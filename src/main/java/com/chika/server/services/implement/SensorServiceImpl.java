@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 03-04-2020
+ * @since 18-04-2020
  */
 @Service
 public class SensorServiceImpl implements SensorService {
@@ -30,9 +30,13 @@ public class SensorServiceImpl implements SensorService {
     }
 
     @Override
-    @Transactional
     public List<Sensor> getAllByUserId(Long userId) {
         return sensorRepository.findAllByUserId(userId);
+    }
+
+    @Override
+    public List<Sensor> getAllByUserIdAndTypeNotLike(Long userId, String type) {
+        return sensorRepository.findAllByUserIdAndTypeNotLike(userId, type);
     }
 
     @Override

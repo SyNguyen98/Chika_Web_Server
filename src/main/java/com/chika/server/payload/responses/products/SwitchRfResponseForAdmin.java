@@ -9,7 +9,7 @@ public class SwitchRfResponseForAdmin {
 
     private String id;
     private String day;
-    private Integer type;
+    private String type;
     private Long channel;
     private Long userId;
 
