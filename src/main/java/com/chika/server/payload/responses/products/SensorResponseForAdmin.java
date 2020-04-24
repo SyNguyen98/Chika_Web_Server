@@ -11,7 +11,7 @@ public class SensorResponseForAdmin {
     private String day;
     private String name;
     private String type;
-    private Long rfChannel;
+    private String rfChannel;
     private Long userId;
 
     public SensorResponseForAdmin(Sensor sensor) {

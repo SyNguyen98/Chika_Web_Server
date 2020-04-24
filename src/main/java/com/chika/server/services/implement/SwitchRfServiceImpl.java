@@ -55,7 +55,7 @@ public class SwitchRfServiceImpl implements SwitchRfService {
     }
 
     @Override
-    public SwitchRf updateChannel(String id, Long channel) {
+    public SwitchRf updateChannel(String id, String channel) {
         SwitchRf switchRf = getById(id);
         switchRf.setChannel(channel);
         return switchRfRepository.save(switchRf);

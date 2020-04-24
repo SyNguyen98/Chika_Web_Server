@@ -18,7 +18,7 @@ public interface SwitchRfService {
 
     SwitchRf updateName(String id, String name);
 
-    SwitchRf updateChannel(String id, Long channel);
+    SwitchRf updateChannel(String id, String channel);
 
     SwitchRf updateUser(String id, Long userId);
 

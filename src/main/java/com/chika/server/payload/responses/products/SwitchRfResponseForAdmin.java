@@ -10,7 +10,7 @@ public class SwitchRfResponseForAdmin {
     private String id;
     private String day;
     private String type;
-    private Long channel;
+    private String channel;
     private Long userId;
 
     public SwitchRfResponseForAdmin(SwitchRf switchRf) {

@@ -13,5 +13,5 @@ public class RfProduct {
 
     private String type;
 
-    private Long rfChannel;
+    private String rfChannel;
 }
