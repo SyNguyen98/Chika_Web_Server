@@ -3,6 +3,7 @@ package com.chika.server.controllers;
 import com.chika.server.models.house.Device;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.house.DeviceResponse;
+import com.chika.server.payload.responses.house.ListDeviceResponse;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.DeviceService;
@@ -11,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +32,30 @@ public class DeviceController {
     public ResponseEntity<?> getAllByRoomId(@CurrentUser UserPrincipal currentUser, @PathVariable String roomId) {
         if (roomService.isOwner(roomId, currentUser.getId())) {
             return ResponseEntity.ok(deviceService.getAllByRoomId(roomId));
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "You are not room's owner"),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("room/{roomId}")
+    public ResponseEntity<?> getByRoomId(@CurrentUser UserPrincipal currentUser, @PathVariable String roomId) {
+        if (roomService.isOwner(roomId, currentUser.getId())) {
+            List<Device> devices = deviceService.getAllByRoomId(roomId);
+            ListDeviceResponse deviceResponse = new ListDeviceResponse();
+
+            deviceResponse.setSensors(devices.stream()
+                    .filter(device -> device.getType().contains("SS"))
+                    .collect(Collectors.toList()));
+
+            deviceResponse.setSwitches(devices.stream()
+                    .filter(device -> device.getType().contains("SW") || device.getType().contains("SR"))
+                    .collect(Collectors.toList()));
+
+            deviceResponse.setRemoteIr(devices.stream()
+                    .filter(device -> device.getType().contains("IR"))
+                    .collect(Collectors.toList()));
+
+            return ResponseEntity.ok(deviceResponse);
         }
         return new ResponseEntity<>(new ApiResponse(false, "You are not room's owner"),
                 HttpStatus.BAD_REQUEST);
