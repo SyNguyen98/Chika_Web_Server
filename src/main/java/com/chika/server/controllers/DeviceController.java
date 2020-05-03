@@ -1,11 +1,13 @@
 package com.chika.server.controllers;
 
+import com.chika.server.models.histories.DeviceHistory;
 import com.chika.server.models.house.Device;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.house.DeviceResponse;
 import com.chika.server.payload.responses.house.ListDeviceResponse;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
+import com.chika.server.services.DeviceHistoryService;
 import com.chika.server.services.DeviceService;
 import com.chika.server.services.RoomService;
 import org.springframework.http.HttpStatus;
@@ -21,11 +23,14 @@ public class DeviceController {
 
     private final DeviceService deviceService;
 
+    private final DeviceHistoryService deviceHistoryService;
+
     private final RoomService roomService;
 
-    public DeviceController(DeviceService deviceService, RoomService roomService) {
+    public DeviceController(DeviceService deviceService, RoomService roomService, DeviceHistoryService deviceHistoryService) {
         this.deviceService = deviceService;
         this.roomService = roomService;
+        this.deviceHistoryService = deviceHistoryService;
     }
 
     @GetMapping("/room_id/{roomId}")
@@ -93,6 +98,19 @@ public class DeviceController {
         if (deviceService.isOwner(device.getId(), currentUser.getId())) {
             return ResponseEntity.ok(new DeviceResponse(deviceService
                     .updateInfoById(device.getId(), device.getLogo(), device.getName())));
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "You are not device's owner"),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @PutMapping("{id}/state/{state}")
+    public ResponseEntity<?> updateState(@CurrentUser UserPrincipal currentUser,
+                                         @PathVariable String id,
+                                         @PathVariable int state) {
+        if (deviceService.isOwner(id, currentUser.getId())) {
+            Device device = deviceService.updateStateById(id, state == 1);
+            deviceHistoryService.save(new DeviceHistory(id, state == 1));
+            return ResponseEntity.ok(device);
         }
         return new ResponseEntity<>(new ApiResponse(false, "You are not device's owner"),
                 HttpStatus.BAD_REQUEST);
