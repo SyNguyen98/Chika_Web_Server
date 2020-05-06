@@ -1,19 +1,18 @@
 package com.chika.server.controllers;
 
 import com.chika.server.models.house.IrValue;
+import com.chika.server.payload.responses.house.IrValueResponse;
 import com.chika.server.services.IrValueService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * To receive Ir Value requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 12-01-2019
+ * @since 06-05-2019
  */
 @RestController
-@RequestMapping("/ir_value")
+@RequestMapping("/ir-value")
 public class IrValueController {
 
     private final IrValueService irValueService;
@@ -22,13 +21,21 @@ public class IrValueController {
         this.irValueService = irValueService;
     }
 
-    @GetMapping("/remote/{remoteId}")
-    public List<IrValue> getAllByRemoteIrId(@PathVariable String remoteId) {
-        return irValueService.getAllByRemoteIrId(remoteId);
+    @GetMapping("{id}")
+    public IrValueResponse getIrValueById(@PathVariable String id) {
+        return new IrValueResponse(irValueService.getById(id));
     }
 
-    @PutMapping
-    public IrValue updateValue(@RequestBody IrValue irValue) {
-        return irValueService.updateValue(irValue.getId(), irValue.getValue());
+    @GetMapping
+    public IrValueResponse getIrValueByDeviceAndProtocolAndFunction(@RequestParam("device") String device,
+                                                                    @RequestParam("protocol") String protocol,
+                                                                    @RequestParam("function") String function) {
+        return new IrValueResponse(irValueService.getByDeviceAndProtocolAndFunction(
+                device.toUpperCase(), protocol.toUpperCase(), function.toUpperCase()));
+    }
+
+    @PostMapping
+    public IrValue saveIrValue(@RequestBody IrValue irValue) {
+        return irValueService.save(irValue);
     }
 }
