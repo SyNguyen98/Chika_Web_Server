@@ -6,11 +6,14 @@ import com.chika.server.repositories.house.IrValueRepository;
 import com.chika.server.services.IrValueService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 /**
  * CRUD functions for Ir Value
  * @author Sy Nguyen
  * @version 1.0
- * @since 06-05-2020
+ * @since 09-05-2020
  */
 @Service
 public class IrValueServiceImpl implements IrValueService {
@@ -19,6 +22,12 @@ public class IrValueServiceImpl implements IrValueService {
 
     public IrValueServiceImpl(IrValueRepository irValueRepository) {
         this.irValueRepository = irValueRepository;
+    }
+
+    @Override
+    @Transactional
+    public List<IrValue> getAllByDeviceAndProtocol(String device, String protocol) {
+        return irValueRepository.findAllByDeviceAndProtocol(device, protocol);
     }
 
     @Override
