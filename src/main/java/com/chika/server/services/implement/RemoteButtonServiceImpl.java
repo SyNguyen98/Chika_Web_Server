@@ -3,9 +3,11 @@ package com.chika.server.services.implement;
 import com.chika.server.models.RemoteButton;
 import com.chika.server.repositories.house.RemoteButtonRepository;
 import com.chika.server.services.RemoteButtonService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class RemoteButtonServiceImpl implements RemoteButtonService {
 
     private final RemoteButtonRepository remoteButtonRepository;
