@@ -8,12 +8,13 @@ import com.chika.server.services.RoomService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * CRUD functions for Device
  * @author Sy Nguyen
  * @version 1.0
- * @since 14-04-2020
+ * @since 14-05-2020
  */
 @Service
 public class DeviceServiceImpl implements DeviceService {
@@ -25,6 +26,13 @@ public class DeviceServiceImpl implements DeviceService {
     public DeviceServiceImpl(DeviceRepository deviceRepository, RoomService roomService) {
         this.deviceRepository = deviceRepository;
         this.roomService = roomService;
+    }
+
+    @Override
+    public List<String> getAllTopic() {
+        return deviceRepository.getAllTopic().stream()
+                .map(objects -> objects[0].toString())
+                .collect(Collectors.toList());
     }
 
     @Override

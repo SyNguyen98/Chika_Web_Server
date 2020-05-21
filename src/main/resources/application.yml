@@ -1,0 +1,46 @@
+## Database Properties
+spring:
+  datasource:
+    url: jdbc:postgresql://ec2-54-235-92-43.compute-1.amazonaws.com:5432/d701bk4ead4vhp
+    username: xgmjwmgyxxzeky
+    password: ec463ab4b3aad12fa981fbc19cb889786999ce3e9c0aad31a757b755d0581bce
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: chikaproject2502@gmail.com
+    password: chika2502
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          ssl:
+            trust: smtp.gmail.com
+          starttls:
+            enable: true
+        transport:
+          protocol: smtp
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    time-zone: UTC
+
+## Hibernate Logging
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+
+## App Properties
+app:
+  jwtSecret: ChikaJwtSecretKey
+  jwtExpirationInMs: 31536000000

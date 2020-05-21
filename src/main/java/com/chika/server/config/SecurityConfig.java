@@ -5,6 +5,7 @@ import com.chika.server.security.JwtAuthenticationEntryPoint;
 import com.chika.server.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -82,7 +83,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
                 .authorizeRequests()
-                    .antMatchers("/",
+                    .antMatchers(
+                            HttpMethod.GET,
+                            "/",
                             "/favicon.ico",
                             "/**/*.png",
                             "/**/*.gif",
@@ -90,7 +93,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             "/**/*.jpg",
                             "/**/*.html",
                             "/**/*.css",
-                            "/**/*.js")
+                            "/**/*.js",
+                            "/v2/api-docs",           // swagger
+                            "/webjars/**",            // swagger-ui webjars
+                            "/swagger-resources/**",  // swagger-ui resources
+                            "/configuration/**")      // swagger configuration
                         .permitAll()
                 .antMatchers("/user/forget-password", "/user/reset-password")
                     .permitAll()
@@ -99,6 +106,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/image/**", "/audio/**")
                     .permitAll()
                 .antMatchers("/feedback")
+                    .permitAll()
+                .antMatchers("/swagger-ui.html")
                     .permitAll()
                 // Need authentication.
                 .anyRequest()

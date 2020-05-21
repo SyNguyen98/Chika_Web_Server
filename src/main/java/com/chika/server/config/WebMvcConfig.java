@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.*;
  * To allow cross origin requests from the react client
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-03-2020
+ * @since 21-05-2020
  */
 @Configuration
 @EnableWebMvc
@@ -25,6 +25,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler(
                 "/webjars/**",
                 "/img/**",
@@ -35,6 +37,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "classpath:/static/img/",
                         "classpath:/static/css/",
                         "classpath:/static/js/");
+
     }
 
     @Override

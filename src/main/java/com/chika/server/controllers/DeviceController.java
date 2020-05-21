@@ -12,13 +12,19 @@ import com.chika.server.services.DeviceService;
 import com.chika.server.services.RoomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 14-05-2020
+ */
 @RestController
-@RequestMapping("/device")
+@RequestMapping("device")
 public class DeviceController {
 
     private final DeviceService deviceService;
@@ -31,6 +37,12 @@ public class DeviceController {
         this.deviceService = deviceService;
         this.roomService = roomService;
         this.deviceHistoryService = deviceHistoryService;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("topics")
+    public List<String> getAllTopic() {
+        return deviceService.getAllTopic();
     }
 
     @GetMapping("/room_id/{roomId}")
