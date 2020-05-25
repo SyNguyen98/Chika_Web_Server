@@ -44,8 +44,8 @@ public class ProductServiceImpl implements ProductService {
                 productResponses.add(new ProductResponse(switchRf.getType(), switchRf.getName(), switchRf.getId())));
         moduleIrService.getAllByUserId(userId).forEach(moduleIr ->
                 productResponses.add(new ProductResponse("IRX", moduleIr.getName(), moduleIr.getId())));
-        sensorService.getAllByUserId(userId).forEach(sensor ->
-                productResponses.add(new ProductResponse(sensor.getType(), sensor.getName(), sensor.getId())));
+//        sensorService.getAllByUserId(userId).forEach(sensor ->
+//                productResponses.add(new ProductResponse(sensor.getType(), sensor.getName(), sensor.getId())));
         return productResponses;
     }
 
