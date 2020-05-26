@@ -1,9 +1,11 @@
 package com.chika.server.services.implement;
 
 import com.chika.server.exception.ResourceNotFoundException;
+import com.chika.server.models.house.IrData;
 import com.chika.server.models.house.IrValue;
+import com.chika.server.repositories.house.IrDataRepository;
 import com.chika.server.repositories.house.IrValueRepository;
-import com.chika.server.services.IrValueService;
+import com.chika.server.services.IrService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,21 +15,24 @@ import java.util.List;
  * CRUD functions for Ir Value
  * @author Sy Nguyen
  * @version 1.0
- * @since 09-05-2020
+ * @since 26-05-2020
  */
 @Service
-public class IrValueServiceImpl implements IrValueService {
+public class IrServiceImpl implements IrService {
 
     private final IrValueRepository irValueRepository;
 
-    public IrValueServiceImpl(IrValueRepository irValueRepository) {
+    private final IrDataRepository irDataRepository;
+
+    public IrServiceImpl(IrValueRepository irValueRepository, IrDataRepository irDataRepository) {
         this.irValueRepository = irValueRepository;
+        this.irDataRepository = irDataRepository;
     }
 
     @Override
     @Transactional
-    public List<IrValue> getAllByDeviceAndProtocol(String device, String protocol) {
-        return irValueRepository.findAllByDeviceAndProtocol(device, protocol);
+    public IrValue getByDeviceAndProtocol(String device, String protocol) {
+        return irValueRepository.findByDeviceAndProtocol(device, protocol);
     }
 
     @Override
@@ -36,13 +41,13 @@ public class IrValueServiceImpl implements IrValueService {
     }
 
     @Override
-    public IrValue getByDeviceAndProtocolAndFunction(String device, String protocol, String function) {
-        return irValueRepository.findByDeviceAndProtocolAndFunction(device, protocol, function)
-                .orElseThrow(() -> new ResourceNotFoundException("Ir Value", "device", device));
+    public IrValue saveValue(IrValue irValue) {
+        return irValueRepository.save(irValue);
     }
 
     @Override
-    public IrValue save(IrValue irValue) {
-        return irValueRepository.save(irValue);
+    @Transactional
+    public IrData saveData(IrData irData) {
+        return irDataRepository.save(irData);
     }
 }

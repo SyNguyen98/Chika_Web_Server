@@ -1,6 +1,6 @@
 package com.chika.server.services.implement;
 
-import com.chika.server.models.RemoteButton;
+import com.chika.server.models.house.RemoteButton;
 import com.chika.server.repositories.house.RemoteButtonRepository;
 import com.chika.server.services.RemoteButtonService;
 import org.springframework.stereotype.Service;

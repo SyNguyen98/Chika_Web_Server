@@ -1,4 +1,4 @@
-package com.chika.server.models;
+package com.chika.server.models.house;
 
 import org.hibernate.annotations.GenericGenerator;
 

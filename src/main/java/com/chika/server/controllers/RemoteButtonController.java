@@ -1,6 +1,6 @@
 package com.chika.server.controllers;
 
-import com.chika.server.models.RemoteButton;
+import com.chika.server.models.house.RemoteButton;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.services.RemoteButtonService;
 import org.springframework.http.ResponseEntity;

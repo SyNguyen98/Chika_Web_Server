@@ -10,7 +10,5 @@ import java.util.Optional;
 @Repository
 public interface IrValueRepository extends JpaRepository<IrValue, String> {
 
-    List<IrValue> findAllByDeviceAndProtocol(String device, String protocol);
-
-    Optional<IrValue> findByDeviceAndProtocolAndFunction(String device, String protocol, String function);
+    IrValue findByDeviceAndProtocol(String device, String protocol);
 }
