@@ -3,6 +3,8 @@ package com.chika.server.controllers;
 import com.chika.server.models.product.Sensor;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.products.SensorResponseForAdmin;
+import com.chika.server.security.CurrentUser;
+import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.product.SensorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,7 +17,7 @@ import java.util.stream.Collectors;
  * To receive Sensor requests from client
  * @author Sy Nguyen
  * @version 1.0
- * @since 22-03-2020
+ * @since 28-05-2020
  */
 @RestController
 @RequestMapping("/sensor")
@@ -33,6 +35,11 @@ public class SensorController {
         return sensorService.getAll().stream()
                 .map(SensorResponseForAdmin::new)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping
+    public List<Sensor> getAllByUserId(@CurrentUser UserPrincipal currentUser) {
+        return sensorService.getAllByUserId(currentUser.getId());
     }
 
     @GetMapping("/{id}")
