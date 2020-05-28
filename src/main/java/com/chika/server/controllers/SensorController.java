@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * @since 28-05-2020
  */
 @RestController
-@RequestMapping("/sensor")
+@RequestMapping("sensor")
 public class SensorController {
 
     private final SensorService sensorService;
@@ -37,7 +37,7 @@ public class SensorController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping
+    @GetMapping("user")
     public List<Sensor> getAllByUserId(@CurrentUser UserPrincipal currentUser) {
         return sensorService.getAllByUserId(currentUser.getId());
     }
