@@ -33,7 +33,7 @@ public class ScheduleController {
     public void changeSchedule(@RequestBody Script script) {
         Script newScript = scriptRepository.save(new Script(script.getName(), script.getTime()));
         script.getDevices().forEach(scriptDevice ->
-                scriptDeviceRepository.save(new ScriptDevice(scriptDevice.getDeviceId(), scriptDevice.getValue(), newScript.getId())));
+                scriptDeviceRepository.save(new ScriptDevice(scriptDevice.getDeviceId(), newScript.getId())));
         scheduleService.initialize(script);
     }
 

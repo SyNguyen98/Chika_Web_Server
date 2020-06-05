@@ -4,6 +4,7 @@ import com.chika.server.models.histories.DeviceHistory;
 import com.chika.server.models.house.Device;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.payload.responses.house.DeviceResponse;
+import com.chika.server.payload.responses.house.DeviceResponseForScript;
 import com.chika.server.payload.responses.house.ListDeviceResponse;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
@@ -15,13 +16,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 14-05-2020
+ * @since 05-06-2020
  */
 @RestController
 @RequestMapping("device")
@@ -43,6 +45,19 @@ public class DeviceController {
     @GetMapping("topics")
     public List<String> getAllTopic() {
         return deviceService.getAllTopic();
+    }
+
+    @GetMapping("script")
+    public ResponseEntity<?> getAllDevicesWithRoom(@CurrentUser UserPrincipal currentUser) {
+        List<DeviceResponseForScript> response = new ArrayList<>();
+        roomService.getAllByUserId(currentUser.getId()).forEach(room -> {
+            System.out.println(room.getName());
+            DeviceResponseForScript deviceResponse = new DeviceResponseForScript(room.getName());
+            System.out.println(room.getId());
+            deviceService.getAllByRoomId(room.getId()).forEach(deviceResponse::addDevice);
+            response.add(deviceResponse);
+        });
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/room_id/{roomId}")

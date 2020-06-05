@@ -12,7 +12,7 @@ import javax.persistence.Id;
  * Connect to table Script Device in database
  * @author Sy Nguyen
  * @version 1.0
- * @since 20-12-2019
+ * @since 05-06-2020
  */
 @Entity
 @Data
@@ -25,13 +25,10 @@ public class ScriptDevice {
 
     private String deviceId;
 
-    private String value;
-
     private Long scriptId;
     
-    public ScriptDevice(String deviceId, String value, Long scriptId) {
+    public ScriptDevice(String deviceId, Long scriptId) {
         this.deviceId = deviceId;
-        this.value = value;
         this.scriptId = scriptId;
     }
 }
