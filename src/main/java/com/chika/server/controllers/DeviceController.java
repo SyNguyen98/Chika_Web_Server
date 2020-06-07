@@ -51,10 +51,10 @@ public class DeviceController {
     public ResponseEntity<?> getAllDevicesWithRoom(@CurrentUser UserPrincipal currentUser) {
         List<DeviceResponseForScript> response = new ArrayList<>();
         roomService.getAllByUserId(currentUser.getId()).forEach(room -> {
-            System.out.println(room.getName());
             DeviceResponseForScript deviceResponse = new DeviceResponseForScript(room.getName());
-            System.out.println(room.getId());
-            deviceService.getAllByRoomId(room.getId()).forEach(deviceResponse::addDevice);
+            deviceService.getAllByRoomId(room.getId()).stream()
+                    .filter(device -> !device.getType().contains("SS"))
+                    .forEach(deviceResponse::addDevice);
             response.add(deviceResponse);
         });
         return ResponseEntity.ok(response);
