@@ -53,7 +53,7 @@ public class DeviceController {
         roomService.getAllByUserId(currentUser.getId()).forEach(room -> {
             DeviceResponseForScript deviceResponse = new DeviceResponseForScript(room.getName());
             deviceService.getAllByRoomId(room.getId()).stream()
-                    .filter(device -> !device.getType().contains("SS"))
+                    .filter(device -> !device.getType().contains("SS") && !device.getType().contains("IR"))
                     .forEach(deviceResponse::addDevice);
             response.add(deviceResponse);
         });

@@ -1,6 +1,6 @@
 package com.chika.server.repositories.house;
 
-import com.chika.server.models.script.ScriptDevice;
+import com.chika.server.models.house.ScriptDevice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -29,12 +29,14 @@ public class DeviceResponseForScript {
         private final String name;
         private final String topic;
         private final String type;
+        private final int switchButton;
 
         public DeviceResponse(Device device) {
             this.id = device.getId();
             this.name = device.getName();
             this.topic = device.getTopic();
             this.type = device.getType();
+            this.switchButton = device.getSwitchButton();
         }
 
         public String getId() {
@@ -51,6 +53,10 @@ public class DeviceResponseForScript {
 
         public String getType() {
             return type;
+        }
+
+        public int getSwitchButton() {
+            return switchButton;
         }
     }
 }

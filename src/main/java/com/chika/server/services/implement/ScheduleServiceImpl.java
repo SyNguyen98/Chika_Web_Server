@@ -1,7 +1,7 @@
 package com.chika.server.services.implement;
 
 import com.chika.server.Formatter;
-import com.chika.server.models.script.Script;
+import com.chika.server.models.house.Script;
 import com.chika.server.services.MqttService;
 import com.chika.server.services.ScheduleService;
 import org.slf4j.Logger;
@@ -13,6 +13,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ScheduledFuture;
 
+/**
+ * @author Sy Nguyen
+ * @version 1.0
+ * @since 10-06-2020
+ */
 @Service
 public class ScheduleServiceImpl implements ScheduleService, Runnable {
 
@@ -30,7 +35,11 @@ public class ScheduleServiceImpl implements ScheduleService, Runnable {
         if (taskScheduler == null) {
             this.taskScheduler = new ConcurrentTaskScheduler();
         }
-        ScheduledFuture<?> scheduledFuture = this.taskScheduler.schedule(this, new CronTrigger(script.getTime()));
+        String time = script.getTime();
+        int index = time.indexOf(":");
+        String cron = String.format("0 %s %s ? * %s", time.substring(index + 1), time.substring(0, index), script.getDays());
+        System.out.println(cron);
+        ScheduledFuture<?> scheduledFuture = this.taskScheduler.schedule(this, new CronTrigger(cron));
         scheduledFutures.add(scheduledFuture);
     }
 
@@ -42,6 +51,17 @@ public class ScheduleServiceImpl implements ScheduleService, Runnable {
     @Override
     public void run() {
         logger.info("Schedule " + script.getName() + " is running at " + Formatter.formatTime(System.currentTimeMillis()));
-        script.getDevices().forEach(scriptDevice -> mqttService.publish(scriptDevice.getDeviceId(), "true"));
+
+        script.getDevices().forEach(scriptDevice -> {
+            String message;
+            if (scriptDevice.getType().contains("SW")) {
+                message = scriptDevice.getState() ? "true" : "false";
+            } else {
+                message = "{\"type\":\"SR\"" +
+                        ",\"button\":" + scriptDevice.getSwitchButton() +
+                        ",\"state\":" + scriptDevice.getState() + "}";
+            }
+            mqttService.publish(scriptDevice.getTopic(), message);
+        });
     }
 }
