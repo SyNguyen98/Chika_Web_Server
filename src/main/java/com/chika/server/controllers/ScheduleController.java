@@ -7,6 +7,7 @@ import com.chika.server.repositories.house.ScriptRepository;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
 import com.chika.server.services.ScheduleService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -32,7 +33,7 @@ public class ScheduleController {
     }
 
     @PostMapping
-    public void createSchedule(@CurrentUser UserPrincipal currentUser, @RequestBody Script script) {
+    public ResponseEntity<?> createSchedule(@CurrentUser UserPrincipal currentUser, @RequestBody Script script) {
         Script newScript = scriptRepository.save(new Script(
                 script.getLogo(), script.getName(), script.getTime(), script.getDays(), currentUser.getId()));
         script.getDevices().forEach(scriptDevice ->
@@ -41,6 +42,7 @@ public class ScheduleController {
                         scriptDevice.getTopic(), scriptDevice.getState(), scriptDevice.getSwitchButton(),
                         newScript.getId())));
         scheduleService.initialize(script);
+        return ResponseEntity.ok("OK");
     }
 
     @PutMapping("/cancel")

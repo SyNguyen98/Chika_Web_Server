@@ -16,7 +16,7 @@ import java.util.concurrent.ScheduledFuture;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 10-06-2020
+ * @since 11-06-2020
  */
 @Service
 public class ScheduleServiceImpl implements ScheduleService, Runnable {
@@ -37,7 +37,8 @@ public class ScheduleServiceImpl implements ScheduleService, Runnable {
         }
         String time = script.getTime();
         int index = time.indexOf(":");
-        String cron = String.format("0 %s %s ? * %s", time.substring(index + 1), time.substring(0, index), script.getDays());
+        int hour = Integer.parseInt(time.substring(0, index)) - 7;
+        String cron = String.format("0 %s %s ? * %s", time.substring(index + 1), hour, script.getDays());
         System.out.println(cron);
         ScheduledFuture<?> scheduledFuture = this.taskScheduler.schedule(this, new CronTrigger(cron));
         scheduledFutures.add(scheduledFuture);
