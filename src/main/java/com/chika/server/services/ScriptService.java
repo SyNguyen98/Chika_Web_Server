@@ -10,6 +10,8 @@ public interface ScriptService {
 
     List<Script> getAllByUserId(Long userId);
 
+    Script getById(String id);
+
     Script save(Script script);
 
     void deleteById(String id);

@@ -37,8 +37,9 @@ public class ScheduleServiceImpl implements ScheduleService, Runnable {
         }
         String time = script.getTime();
         int index = time.indexOf(":");
-        int hour = Integer.parseInt(time.substring(0, index)) - 7;
-        String cron = String.format("0 %s %s ? * %s", time.substring(index + 1), hour, script.getDays());
+        int hour = Integer.parseInt(time.substring(0, index));
+        String cron = String.format("0 %s %s ? * %s", time.substring(index + 1),
+                (hour < 7 ? 24 + hour : hour) - 7, script.getDays());
         logger.debug(cron);
         ScheduledFuture<?> scheduledFuture = this.taskScheduler.schedule(this, new CronTrigger(cron));
         scheduledFutures.add(scheduledFuture);

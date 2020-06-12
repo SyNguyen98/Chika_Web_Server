@@ -1,5 +1,6 @@
 package com.chika.server.services.implement;
 
+import com.chika.server.exception.ResourceNotFoundException;
 import com.chika.server.models.house.Script;
 import com.chika.server.models.house.ScriptDevice;
 import com.chika.server.repositories.house.ScriptDeviceRepository;
@@ -29,18 +30,28 @@ public class ScriptServiceImpl implements ScriptService {
     }
 
     @Override
+    public Script getById(String id) {
+        return scriptRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Script", "id", id));
+    }
+
+    @Override
     @Transactional
     public Script save(Script script) {
-        String scriptId = scriptRepository.save(script).getId();
-        script.setId(scriptId);
-        script.setDevices(script.getDevices().stream()
-                .peek(scriptDevice -> {
-                    scriptDevice.setScriptId(scriptId);
-                    scriptDeviceRepository.save(scriptDevice);
-                })
-                .collect(Collectors.toList())
-        );
-        return script;
+        Script newScript = scriptRepository.save(new Script(script.getLogo(), script.getName(),
+                script.getTime(), script.getDays(), script.getUserId()));
+        String scriptId = newScript.getId();
+        script.getDevices().forEach(device -> {
+            ScriptDevice scriptDevice = new ScriptDevice();
+            scriptDevice.setDeviceId(device.getId());
+            scriptDevice.setName(device.getName());
+            scriptDevice.setType(device.getType());
+            scriptDevice.setTopic(device.getTopic());
+            scriptDevice.setState(device.getState());
+            scriptDevice.setSwitchButton(device.getSwitchButton());
+            scriptDevice.setScriptId(scriptId);
+            scriptDeviceRepository.save(scriptDevice);
+        });
+        return getById(scriptId);
     }
 
     @Override

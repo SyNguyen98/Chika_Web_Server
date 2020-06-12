@@ -36,12 +36,9 @@ public class ScriptController {
 
     @PostMapping
     public ResponseEntity<?> addScript(@CurrentUser UserPrincipal currentUser, @RequestBody Script script) {
-        Script newScript = scriptService.save(new Script(
-                script.getLogo(), script.getName(),
-                script.getTime(), script.getDays(),
-                currentUser.getId()));
         scheduleService.initialize(script);
-        return ResponseEntity.ok(newScript);
+        script.setUserId(currentUser.getId());
+        return ResponseEntity.ok(scriptService.save(script));
     }
 
     @PutMapping("/cancel")
