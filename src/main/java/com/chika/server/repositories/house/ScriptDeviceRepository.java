@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ScriptDeviceRepository extends JpaRepository<ScriptDevice, Long> {
+public interface ScriptDeviceRepository extends JpaRepository<ScriptDevice, String> {
 
-    List<ScriptDevice> findAllByScriptId(Long scriptId);
+    List<ScriptDevice> findAllByScriptId(String scriptId);
+
+    void deleteAllByScriptId(String scriptId);
 }
