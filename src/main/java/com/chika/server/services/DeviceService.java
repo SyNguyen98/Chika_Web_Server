@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface DeviceService {
 
-    List<String> getAllTopic();
+    List<Object[]> getAllTopic();
 
     List<Device> getAllByRoomId(String roomId);
 

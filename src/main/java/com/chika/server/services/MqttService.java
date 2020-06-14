@@ -12,9 +12,8 @@ public class MqttService implements MqttCallback {
     private static final String PASSWORD = "2502";
     private static final String CLIENT_ID = MqttAsyncClient.generateClientId();
 
-    private Logger logger = LoggerFactory.getLogger(MqttService.class);
+    private final Logger logger = LoggerFactory.getLogger(MqttService.class);
     private static MqttClient client;
-    private int qos = 1;
     private static MqttService mqttService;
 
     public MqttService() {
@@ -42,20 +41,12 @@ public class MqttService implements MqttCallback {
 
     public void publish(String topic, String message) {
         MqttMessage mqttMessage = new MqttMessage(message.getBytes());
-        mqttMessage.setQos(qos);
+        mqttMessage.setQos(2);
         mqttMessage.setRetained(true);
 
         MqttTopic mqttTopic = client.getTopic(topic);
         try {
             mqttTopic.publish(mqttMessage);
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void subscribe(String topic) {
-        try {
-            client.subscribe(topic, qos);
         } catch (MqttException e) {
             e.printStackTrace();
         }

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * CRUD functions for Device
  * @author Sy Nguyen
  * @version 1.0
- * @since 14-05-2020
+ * @since 14-06-2020
  */
 @Service
 public class DeviceServiceImpl implements DeviceService {
@@ -29,10 +29,8 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public List<String> getAllTopic() {
-        return deviceRepository.getAllTopic().stream()
-                .map(objects -> objects[0].toString())
-                .collect(Collectors.toList());
+    public List<Object[]> getAllTopic() {
+        return deviceRepository.getAllTopic();
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author Sy Nguyen
  * @version 1.0
- * @since 14-05-2020
+ * @since 14-06-2020
  */
 @Repository
 public interface DeviceRepository extends JpaRepository<Device, String> {
@@ -19,6 +19,6 @@ public interface DeviceRepository extends JpaRepository<Device, String> {
 
     List<Device> findAllByTopicContains(String topic);
 
-    @Query(value = "select device.topic from Device device")
+    @Query(value = "select device.id, device.topic from Device device")
     List<Object[]> getAllTopic();
 }

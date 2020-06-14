@@ -17,7 +17,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -43,8 +45,15 @@ public class DeviceController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("topics")
-    public List<String> getAllTopic() {
-        return deviceService.getAllTopic();
+    public ResponseEntity<?> getAllTopic() {
+        List<Map<String, String>> mapList = new ArrayList<>();
+        deviceService.getAllTopic().forEach(objects -> {
+            Map<String, String> map = new HashMap<>();
+            map.put("deviceId", objects[0].toString());
+            map.put("topic", objects[1].toString());
+            mapList.add(map);
+        });
+        return ResponseEntity.ok(mapList);
     }
 
     @GetMapping("script")
