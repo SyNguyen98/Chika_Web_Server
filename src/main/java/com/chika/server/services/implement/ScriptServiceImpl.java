@@ -5,7 +5,9 @@ import com.chika.server.models.house.Script;
 import com.chika.server.models.house.ScriptDevice;
 import com.chika.server.repositories.house.ScriptDeviceRepository;
 import com.chika.server.repositories.house.ScriptRepository;
+import com.chika.server.services.ScheduleService;
 import com.chika.server.services.ScriptService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,9 +21,12 @@ public class ScriptServiceImpl implements ScriptService {
 
     private final ScriptDeviceRepository scriptDeviceRepository;
 
-    public ScriptServiceImpl(ScriptRepository scriptRepository, ScriptDeviceRepository scriptDeviceRepository) {
+    private final ScheduleService scheduleService;
+
+    public ScriptServiceImpl(ScriptRepository scriptRepository, ScriptDeviceRepository scriptDeviceRepository, ScheduleService scheduleService) {
         this.scriptRepository = scriptRepository;
         this.scriptDeviceRepository = scriptDeviceRepository;
+        this.scheduleService = scheduleService;
     }
 
     @Override
@@ -37,6 +42,8 @@ public class ScriptServiceImpl implements ScriptService {
     @Override
     @Transactional
     public Script save(Script script) {
+        scheduleService.initialize(script);
+
         Script newScript = scriptRepository.save(new Script(script.getLogo(), script.getName(),
                 script.getTime(), script.getDays(), script.getUserId()));
         String scriptId = newScript.getId();
@@ -55,7 +62,9 @@ public class ScriptServiceImpl implements ScriptService {
     }
 
     @Override
+    @Transactional
     public void deleteById(String id) {
+        scheduleService.cancel(id);
         scriptDeviceRepository.deleteAllByScriptId(id);
         scriptRepository.deleteById(id);
     }

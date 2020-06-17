@@ -11,6 +11,7 @@ import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
 /**
@@ -42,12 +43,19 @@ public class ScheduleServiceImpl implements ScheduleService, Runnable {
                 (hour < 7 ? 24 + hour : hour) - 7, script.getDays());
         logger.debug(cron);
         ScheduledFuture<?> scheduledFuture = this.taskScheduler.schedule(this, new CronTrigger(cron));
-        scheduledFutures.add(scheduledFuture);
+        scheduledFutures.put(script.getId(), scheduledFuture);
+    }
+
+    @Override
+    public void cancel(String scriptId) {
+        scheduledFutures.get(scriptId).cancel(true);
     }
 
     @Override
     public void cancelAll() {
-        scheduledFutures.forEach(scheduledFuture -> scheduledFuture.cancel(true));
+        for (Map.Entry<String, ScheduledFuture<?>> scheduledFuture : scheduledFutures.entrySet()) {
+            scheduledFuture.getValue().cancel(true);
+        }
     }
 
     @Override

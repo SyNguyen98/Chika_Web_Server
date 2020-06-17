@@ -22,11 +22,9 @@ import java.util.List;
 public class ScriptController {
 
     private final ScriptService scriptService;
-    private final ScheduleService scheduleService;
 
-    public ScriptController(ScriptService scriptService, ScheduleService scheduleService) {
+    public ScriptController(ScriptService scriptService) {
         this.scriptService = scriptService;
-        this.scheduleService = scheduleService;
     }
 
     @GetMapping
@@ -36,14 +34,8 @@ public class ScriptController {
 
     @PostMapping
     public ResponseEntity<?> addScript(@CurrentUser UserPrincipal currentUser, @RequestBody Script script) {
-        scheduleService.initialize(script);
         script.setUserId(currentUser.getId());
         return ResponseEntity.ok(scriptService.save(script));
-    }
-
-    @PutMapping("/cancel")
-    public void cancelSchedule() {
-        scheduleService.cancelAll();
     }
 
     @DeleteMapping("{id}")
