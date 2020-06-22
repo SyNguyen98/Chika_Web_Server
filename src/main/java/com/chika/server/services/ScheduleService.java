@@ -3,9 +3,7 @@ package com.chika.server.services;
 import com.chika.server.models.house.Script;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
@@ -17,6 +15,4 @@ public interface ScheduleService {
     void initialize(Script script);
 
     void cancel(String scriptId);
-
-    void cancelAll();
 }

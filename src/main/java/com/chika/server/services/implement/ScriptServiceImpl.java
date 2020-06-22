@@ -7,12 +7,10 @@ import com.chika.server.repositories.house.ScriptDeviceRepository;
 import com.chika.server.repositories.house.ScriptRepository;
 import com.chika.server.services.ScheduleService;
 import com.chika.server.services.ScriptService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ScriptServiceImpl implements ScriptService {

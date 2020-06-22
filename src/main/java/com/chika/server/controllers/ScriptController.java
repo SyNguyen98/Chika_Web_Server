@@ -4,7 +4,6 @@ import com.chika.server.models.house.Script;
 import com.chika.server.payload.responses.ApiResponse;
 import com.chika.server.security.CurrentUser;
 import com.chika.server.security.UserPrincipal;
-import com.chika.server.services.ScheduleService;
 import com.chika.server.services.ScriptService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
